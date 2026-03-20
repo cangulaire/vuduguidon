@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tour de France Randonneur 1983–1985 — Burguete & Puech</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Literata:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+:root {
+  --ink: #0F0D0B;
+  --paper: #F7F2E8;
+  --warm: #EDE5D5;
+  --cream: #FAF7F2;
+  --rule: rgba(15,13,11,0.1);
+  --rule-strong: rgba(15,13,11,0.2);
+  --muted: rgba(15,13,11,0.45);
+  --gold: #7A5C14;
+  --c83: #B83A18;
+  --c84: #1650A0;
+  --c85: #276828;
+  --nav-h: 58px;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Literata', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* GRAIN */
+body::after {
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;opacity:.5;
+}
+
+/* ── NAV ─────────────────────────────── */
+nav {
+  position:fixed;top:0;left:0;right:0;
+  height:var(--nav-h);
+  background:var(--ink);
+  display:flex;align-items:center;
+  padding:0 40px;
+  gap:32px;
+  z-index:500;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.nav-brand {
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px;font-weight:600;
+  color:#F7F2E8;
+  text-decoration:none;
+  letter-spacing:-0.01em;
+  margin-right:auto;
+}
+
+.nav-brand span {
+  font-weight:300;font-style:italic;
+  opacity:.6;
+}
+
+.nav-link {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;
+  color:rgba(247,242,232,0.5);
+  text-decoration:none;
+  transition:color .2s;
+  cursor:pointer;
+}
+.nav-link:hover,.nav-link.active{color:#F7F2E8;}
+
+.nav-period {
+  display:flex;align-items:center;gap:6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;letter-spacing:.08em;
+  text-transform:uppercase;
+  cursor:pointer;
+  padding:4px 10px;
+  border-radius:1px;
+  border:1px solid transparent;
+  color:rgba(247,242,232,0.5);
+  transition:all .2s;
+}
+.nav-period:hover{color:#F7F2E8;border-color:rgba(247,242,232,0.2);}
+.nav-period.active-p{color:#F7F2E8;border-color:rgba(247,242,232,0.3);}
+.nav-period .dot{width:7px;height:7px;border-radius:50%;}
+
+/* ── HERO ─────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 60px 80px;
+  background: var(--ink);
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-map-bg {
+  position:absolute;inset:0;
+  background: radial-gradient(ellipse at 60% 40%, rgba(22,80,160,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 70%, rgba(184,58,24,0.06) 0%, transparent 50%);
+}
+
+/* Decorative route lines in hero */
+.hero-svg {
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  pointer-events:none;
+  opacity:0.12;
+}
+
+.hero-content {
+  position:relative;z-index:2;
+  max-width:900px;
+}
+
+.hero-kicker {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:20px;
+}
+
+.hero-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(52px,8vw,96px);
+  font-weight:300;
+  line-height:.92;
+  letter-spacing:-.02em;
+  color:#F7F2E8;
+  margin-bottom:32px;
+}
+
+.hero-title em{font-style:italic;color:rgba(247,242,232,0.6);}
+
+.hero-meta {
+  display:flex;gap:40px;align-items:flex-end;
+  flex-wrap:wrap;
+}
+
+.hero-stat {
+  border-top:1px solid rgba(247,242,232,0.15);
+  padding-top:10px;
+}
+
+.hero-stat-val {
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;font-weight:300;
+  color:#F7F2E8;line-height:1;
+}
+
+.hero-stat-lbl {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:8px;letter-spacing:.1em;
+  text-transform:uppercase;
+  color:rgba(247,242,232,0.35);
+  margin-top:4px;
+}
+
+.hero-byline {
+  margin-left:auto;
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;font-style:italic;
+  color:rgba(247,242,232,0.4);
+  line-height:1.4;
+  text-align:right;
+}
+
+.hero-cta {
+  margin-top:48px;
+  display:flex;gap:12px;
+}
+
+.btn-primary {
+  display:inline-flex;align-items:center;gap:8px;
+  background:#F7F2E8;color:var(--ink);
+  padding:12px 24px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  border:none;cursor:pointer;
+  transition:opacity .2s;
+}
+.btn-primary:hover{opacity:.88;}
+
+.btn-outline {
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(247,242,232,0.3);
+  color:rgba(247,242,232,0.7);
+  padding:12px 24px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  background:transparent;cursor:pointer;
+  transition:all .2s;
+}
+.btn-outline:hover{border-color:rgba(247,242,232,0.6);color:#F7F2E8;}
+
+/* ── SECTIONS ──────────────────────────── */
+section{padding-top:var(--nav-h);}
+
+.container{max-width:900px;margin:0 auto;padding:0 40px;}
+.container-wide{max-width:1200px;margin:0 auto;padding:0 40px;}
+
+/* ── PERIOD INTRO ──────────────────────── */
+.period-intro {
+  padding:80px 0 0;
+}
+
+.period-banner {
+  border-top:3px solid currentColor;
+  padding:20px 0 16px;
+  margin-bottom:48px;
+  display:flex;align-items:baseline;gap:20px;
+}
+
+.period-banner-year {
+  font-family:'Cormorant Garamond',serif;
+  font-size:64px;font-weight:300;
+  line-height:1;letter-spacing:-.02em;
+}
+
+.period-banner-route {
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-style:italic;font-weight:300;
+  opacity:.5;
+}
+
+.period-banner-stats {
+  margin-left:auto;text-align:right;
+}
+
+.period-banner-km {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:.06em;
+  text-transform:uppercase;opacity:.45;
+  line-height:1.8;
+}
+
+/* ── JOURNAL ENTRY ─────────────────────── */
+.entry {
+  display:grid;
+  grid-template-columns:80px 1fr;
+  gap:0 32px;
+  margin-bottom:48px;
+  padding-bottom:48px;
+  border-bottom:1px solid var(--rule);
+}
+
+.entry:last-child{border-bottom:none;}
+
+.entry-gutter {
+  text-align:right;
+  padding-top:6px;
+}
+
+.entry-daynum {
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;font-weight:300;
+  line-height:1;
+  opacity:.15;
+}
+
+.entry-dateshort {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:8px;letter-spacing:.08em;
+  text-transform:uppercase;
+  opacity:.35;
+  margin-top:6px;
+  line-height:1.6;
+}
+
+.entry-body {}
+
+.entry-route {
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;font-weight:400;
+  line-height:1.1;
+  margin-bottom:16px;
+  letter-spacing:-.01em;
+}
+
+.entry-meta-row {
+  display:flex;gap:16px;flex-wrap:wrap;
+  margin-bottom:20px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--rule);
+}
+
+.entry-tag {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;letter-spacing:.07em;
+  text-transform:uppercase;
+  opacity:.45;
+  display:flex;align-items:center;gap:5px;
+}
+
+.entry-text {
+  font-size:16px;line-height:1.8;
+  color:rgba(15,13,11,0.82);
+}
+
+.entry-text p{margin-bottom:1em;}
+.entry-text p:last-child{margin-bottom:0;}
+
+.entry-text .highlight {
+  font-style:italic;
+  color:var(--ink);
+  opacity:.9;
+}
+
+.cols-list {
+  margin-top:16px;
+  padding:12px 16px;
+  background:var(--warm);
+  border-left:2px solid currentColor;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:.03em;
+  line-height:1.9;
+}
+
+.cols-list-title {
+  font-size:8px;letter-spacing:.1em;text-transform:uppercase;
+  opacity:.45;margin-bottom:6px;
+}
+
+/* ── AUDIO PLAYER ──────────────────────── */
+.audio-bar {
+  position:sticky;bottom:0;
+  background:var(--ink);
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding:10px 40px;
+  display:flex;align-items:center;gap:16px;
+  z-index:400;
+}
+
+.audio-info {
+  flex:1;
+}
+
+.audio-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:14px;color:#F7F2E8;
+  font-style:italic;
+}
+
+.audio-sub {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:8px;letter-spacing:.06em;
+  text-transform:uppercase;
+  color:rgba(247,242,232,0.4);
+  margin-top:2px;
+}
+
+.audio-controls {
+  display:flex;align-items:center;gap:10px;
+}
+
+.audio-btn {
+  background:none;border:none;cursor:pointer;
+  color:#F7F2E8;font-size:16px;
+  width:32px;height:32px;
+  display:flex;align-items:center;justify-content:center;
+  opacity:.7;transition:opacity .15s;
+}
+.audio-btn:hover{opacity:1;}
+.audio-btn.play-btn{
+  width:38px;height:38px;
+  background:rgba(247,242,232,0.1);
+  border-radius:50%;
+  font-size:14px;
+}
+
+.audio-progress {
+  flex:1;max-width:300px;
+  height:2px;background:rgba(247,242,232,0.15);
+  border-radius:1px;cursor:pointer;position:relative;
+}
+
+.audio-progress-fill {
+  height:100%;background:#F7F2E8;border-radius:1px;
+  transition:width .1s;
+}
+
+.audio-time {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;color:rgba(247,242,232,0.4);
+  letter-spacing:.04em;min-width:60px;text-align:right;
+}
+
+.audio-speed {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;
+  color:rgba(247,242,232,0.4);
+  background:none;border:1px solid rgba(247,242,232,0.15);
+  padding:3px 7px;cursor:pointer;letter-spacing:.04em;
+}
+.audio-speed:hover{color:#F7F2E8;border-color:rgba(247,242,232,0.3);}
+
+/* ── CHIFFRES CLES ──────────────────────── */
+#stats {
+  background:var(--ink);
+  padding:80px 0;
+}
+
+.stats-grid {
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:1px;
+  background:rgba(247,242,232,0.08);
+  border:1px solid rgba(247,242,232,0.08);
+}
+
+.stat-cell {
+  background:var(--ink);
+  padding:28px 20px;
+}
+
+.stat-cell-val {
+  font-family:'Cormorant Garamond',serif;
+  font-size:38px;font-weight:300;
+  color:#F7F2E8;line-height:1;
+  letter-spacing:-.02em;
+}
+
+.stat-cell-lbl {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:8px;letter-spacing:.1em;
+  text-transform:uppercase;
+  color:rgba(247,242,232,0.3);
+  margin-top:8px;
+  line-height:1.6;
+}
+
+/* ── HOMOLOGATION ──────────────────────── */
+#homologation {
+  padding:80px 0;
+  background:var(--cream);
+  border-top:1px solid var(--rule);
+}
+
+.hom-inner {
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;
+}
+
+.hom-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:40px;font-weight:300;
+  line-height:1;margin-bottom:24px;
+  letter-spacing:-.01em;
+}
+
+.hom-text {
+  font-size:15px;line-height:1.8;
+  color:var(--muted);
+}
+
+.hom-cert {
+  border:1px solid var(--rule-strong);
+  padding:32px;
+  background:var(--paper);
+}
+
+.cert-stamp {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:8px;letter-spacing:.12em;
+  text-transform:uppercase;
+  opacity:.4;border-bottom:1px solid var(--rule);
+  padding-bottom:12px;margin-bottom:20px;
+}
+
+.cert-body {
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;line-height:1.8;font-style:italic;
+}
+
+.cert-names {
+  font-size:22px;font-weight:600;
+  font-style:normal;display:block;
+  margin:8px 0;
+}
+
+.cert-bottom {
+  margin-top:20px;padding-top:16px;
+  border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;align-items:flex-end;
+}
+
+.cert-num {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;letter-spacing:.04em;
+}
+
+.cert-date {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;opacity:.4;
+  letter-spacing:.06em;text-align:right;
+}
+
+/* ── FOOTER ─────────────────────────────── */
+footer {
+  background:var(--ink);
+  padding:48px 40px;
+  text-align:center;
+}
+
+.footer-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-style:italic;font-weight:300;
+  color:rgba(247,242,232,0.4);
+  margin-bottom:8px;
+}
+
+.footer-sub {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:8px;letter-spacing:.1em;
+  text-transform:uppercase;
+  color:rgba(247,242,232,0.2);
+}
+
+/* PERIOD COLORS */
+.p83{color:var(--c83);}
+.p84{color:var(--c84);}
+.p85{color:var(--c85);}
+.bg83{background:var(--c83);}
+.bg84{background:var(--c84);}
+.bg85{background:var(--c85);}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* PERIOD TABS */
+.period-tabs {
+  display:flex;gap:0;
+  border-bottom:1px solid var(--rule);
+  margin-bottom:0;
+  position:sticky;top:var(--nav-h);
+  background:var(--paper);
+  z-index:300;
+  padding:0 40px;
+}
+
+.ptab {
+  padding:14px 20px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;letter-spacing:.08em;text-transform:uppercase;
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  color:var(--muted);
+  transition:all .2s;
+  display:flex;align-items:center;gap:6px;
+}
+
+.ptab:hover{color:var(--ink);}
+.ptab.active{color:var(--ink);border-bottom-color:currentColor;}
+.ptab .dot{width:7px;height:7px;border-radius:50%;}
+
+/* PERIOD SECTIONS */
+.period-section{display:none;}
+.period-section.active{display:block;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#hero">Tour de France <span>Randonneur</span></a>
+  <span class="nav-link active" onclick="scrollTo('journal')">Journal</span>
+  <span class="nav-link" onclick="scrollTo('stats')">Chiffres</span>
+  <span class="nav-link" onclick="scrollTo('homologation')">Homologation</span>
+  <div style="width:1px;height:20px;background:rgba(247,242,232,0.12);margin:0 4px;"></div>
+  <div class="nav-period active-p" onclick="showPeriod('1983',this)" style="color:#B83A18;border-color:rgba(184,58,24,0.4)">
+    <div class="dot" style="background:#B83A18"></div>1983
+  </div>
+  <div class="nav-period" onclick="showPeriod('1984',this)" style="">
+    <div class="dot" style="background:#1650A0"></div>1984
+  </div>
+  <div class="nav-period" onclick="showPeriod('1985',this)" style="">
+    <div class="dot" style="background:#276828"></div>1985
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-map-bg"></div>
+  <svg class="hero-svg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
+    <!-- Decorative route lines suggesting France outline / journey -->
+    <path d="M200,800 Q350,650 420,500 Q500,320 380,200 Q300,100 400,60" fill="none" stroke="#B83A18" stroke-width="1.5" opacity="0.6"/>
+    <path d="M420,500 Q550,420 700,380 Q820,350 950,420 Q1050,480 1100,600" fill="none" stroke="#1650A0" stroke-width="1.5" opacity="0.6"/>
+    <path d="M1100,600 Q1050,700 950,760 Q800,820 650,830 Q500,840 350,800 Q280,820 200,800" fill="none" stroke="#276828" stroke-width="1.5" opacity="0.6"/>
+    <!-- Dots at key cities -->
+    <circle cx="200" cy="800" r="5" fill="#B83A18" opacity="0.8"/>
+    <circle cx="380" cy="200" r="5" fill="#B83A18" opacity="0.8"/>
+    <circle cx="1100" cy="600" r="5" fill="#1650A0" opacity="0.8"/>
+    <circle cx="200" cy="800" r="8" fill="none" stroke="#276828" stroke-width="1" opacity="0.5"/>
+  </svg>
+  <div class="hero-content">
+    <div class="hero-kicker">Section Cyclotouriste de l'U.S. Métro · F.F.C.T. · L.I.F.</div>
+    <h1 class="hero-title">Tour de France<br><em>Randonneur</em></h1>
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <div class="hero-stat-val" style="color:#B83A18">1 896 km</div>
+        <div class="hero-stat-lbl">1983 · Sète → Saint-Malo</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val" style="color:#1650A0">2 056 km</div>
+        <div class="hero-stat-lbl">1984 · Saint-Malo → Albertville</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val" style="color:#276828">820 km</div>
+        <div class="hero-stat-lbl">1985 · Albertville → Sète</div>
+      </div>
+      <div class="hero-byline">
+        Bernard Burguete<br>André Puech<br>
+        <span style="font-size:14px;opacity:.5">Vélo Club d'Annecy</span>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="scrollTo('journal')">Lire le journal de bord</button>
+      <button class="btn-outline" onclick="startAudio()">▶ Écouter le récit</button>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="container-wide">
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <div class="stat-cell-val">4 772</div>
+        <div class="stat-cell-lbl">Kilomètres totaux</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-val">47</div>
+        <div class="stat-cell-lbl">Cols franchis</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-val">24</div>
+        <div class="stat-cell-lbl">Étapes</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-val">23</div>
+        <div class="stat-cell-lbl">Jours de selle</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-val">2 715 m</div>
+        <div class="stat-cell-lbl">Altitude max<br>Col de la Bonette</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-val">21 km/h</div>
+        <div class="stat-cell-lbl">Moyenne générale</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNAL -->
+<section id="journal">
+  <!-- Period Tabs -->
+  <div class="period-tabs">
+    <div class="ptab active" onclick="showPeriod('1983',this)" id="tab-1983">
+      <div class="dot" style="background:#B83A18"></div>
+      1983 · Sète → Saint-Malo
+    </div>
+    <div class="ptab" onclick="showPeriod('1984',this)" id="tab-1984">
+      <div class="dot" style="background:#1650A0"></div>
+      1984 · Saint-Malo → Albertville
+    </div>
+    <div class="ptab" onclick="showPeriod('1985',this)" id="tab-1985">
+      <div class="dot" style="background:#276828"></div>
+      1985 · Albertville → Sète
+    </div>
+  </div>
+
+  <!-- ── 1983 ── -->
+  <div class="period-section active" id="section-1983">
+    <div class="container">
+      <div class="period-intro">
+        <div class="period-banner p83" style="border-color:var(--c83)">
+          <div class="period-banner-year">1983</div>
+          <div class="period-banner-route">Sète → Saint-Malo</div>
+          <div class="period-banner-stats">
+            <div class="period-banner-km">18 – 27 Juin 1983<br>1 896 km · 10 étapes · 15 cols<br>Moyenne : 21 km/h</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-gutter">
+          <div class="entry-daynum">1</div>
+          <div class="entry-dateshort">18<br>Juin<br>1983</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-route">Sète → Olette</div>
+          <div class="entry-meta-row">
+            <span class="entry-tag p83">■ 193 km</span>
+            <span class="entry-tag">9h de selle</span>
+            <span class="entry-tag">20,15 km/h</span>
+            <span class="entry-tag">2 cols</span>
+          </div>
+          <div class="entry-text">
+            <p>Nous quittons Mazamet en voiture à 4h pour aller prendre le départ à Sète. Après la photo souvenir et les formalités de contrôle à 6h20 nous donnons notre premier coup de pédale.</p>
+            <p>La mer est un peu brumeuse mais le soleil levant dissipe les brumes et nous allons réussir une très belle journée sans avoir à souffrir de la canicule.</p>
+            <p>Nous traversons Béziers et à la sortie un restaurant au bord de la Nationale nous permettra de faire notre premier arrêt ravitaillement. Un vent très favorable nous aidera à rallier Perpignan vers midi. Après une halte d'une heure environ nous reprenons notre route en direction de Mont Louis.</p>
+            <p class="highlight">Nous dépasserons Villefranche de Conflent où nous avions prévu notre étape pour arriver à Olette, sympathique village où nous pourrons assister avant de nous coucher à une petite fête du folklore catalan.</p>
+          </div>
+          <div class="cols-list p83" style="border-color:var(--c83)">
+            <div class="cols-list-title">Cols franchis</div>
+            Col de Ternère (226 m) — Pyrénées Orientales<br>
+            Col de Saint-Pierre (270 m) — Pyrénées Orientales
+          </div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-gutter">
+          <div class="entry-daynum">2</div>
+          <div class="entry-dateshort">19<br>Juin<br>1983</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-route">Olette → Audressein</div>
+          <div class="entry-meta-row">
+            <span class="entry-tag p83">■ 193 km</span>
+            <span class="entry-tag">10h de selle</span>
+            <span class="entry-tag">19,3 km/h</span>
+            <span class="entry-tag">4 cols</span>
+          </div>
+          <div class="entry-text">
+            <p>Bien que la fenêtre de notre chambre se trouvait face à la place où se déroulait la fête folklorique nous n'avons pas entendu la musique des dernières danses.</p>
+            <p>Après une bonne nuit et un réveil matinal nous nous retrouvons en pleine forme pour commencer notre deuxième étape. Le ciel bleu, sans nuage, nous promet une belle journée. Nous montons vers Mont-Louis par une très belle route.</p>
+            <p>Nous avoisinons l'altitude de 1 800 m et nous sommes un peu surpris de trouver une gelée blanche. Ce qui nous vaudra une courte halte au Col d'Egat pour nous équiper chaudement pour la descente.</p>
+            <p class="highlight">Le premier grand col pyrénéen, le Puymorens, se passe sans difficulté, à une très bonne cadence. Notre étape se terminera à Audressein à "l'Auberge du Baroudeur" dans un charmant petit village ariégeois.</p>
+          </div>
+          <div class="cols-list p83" style="border-color:var(--c83)">
+            <div class="cols-list-title">Cols franchis</div>
+            Col Calvaire de Font Romeu (1 836 m) — Pyrénées Orientales<br>
+            Col d'Egat (1 615 m) — Pyrénées Orientales<br>
+            Col du Puymorens (1 915 m) — Pyrénées Orientales<br>
+            Col de Port (1 249 m) — Ariège
+          </div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-gutter">
+          <div class="entry-daynum">3</div>
+          <div class="entry-dateshort">20<br>Juin<br>1983</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-route">Audressein → Luz-Saint-Sauveur</div>
+          <div class="entry-meta-row">
+            <span class="entry-tag p83">■ 156 km</span>
+            <span class="entry-tag">11h de selle</span>
+            <span class="entry-tag">14,2 km/h</span>
+            <span class="entry-tag">6 cols · Tourmalet</span>
+          </div>
+          <div class="entry-text">
+            <p>Notre "Baroudeur" nous attendait à 6 heures à la cuisine pour nous servir un petit déjeuner à notre convenance et de bon matin dans la fraîcheur il a plu dans la nuit, nous repartons.</p>
+            <p>Rapidement le soleil émerge des montagnes, les deux premiers cols nous permettrons de redécouvrir de magnifiques paysages. L'ascension du Col d'Aspin, toujours aussi beau est franchie sans problème. Nous y rencontrons de très nombreux cyclistes.</p>
+            <p>Nous atteignons ensuite Sainte Marie de Campan où pendant une courte halte nous changerons une chambre à air défectueuse et puis ce sera le dernier col prévu de la journée en supplément à notre programme initial : <span class="highlight">le Tourmalet.</span></p>
+            <p>Mais c'est à Gripp que les choses commencent à se gâter. Jusqu'à la Mongie nous allons subir un orage d'une violence inouïe dont la montagne a ses secrets. Nous atteignons cette grande station pyrénéenne tout ruisselants d'eau et frigorifiés. Le Tourmalet sera franchi à 20h30 et notre journée bien remplie se termine à Luz Saint Sauveur.</p>
+          </div>
+          <div class="cols-list p83" style="border-color:var(--c83)">
+            <div class="cols-list-title">Cols franchis — La journée des géants</div>
+            Col de Portet d'Aspet (1 069 m) · Col de la Clin (1 246 m) · Col de Menté (1 349 m)<br>
+            Col du Peyresourde (1 563 m) · Col d'Aspin (1 489 m) · <strong>Col du Tourmalet (2 114 m)</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-gutter">
+          <div class="entry-daynum">6</div>
+          <div class="entry-dateshort">23<br>Juin<br>1983</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-route">Biganos → Champagne-les-Marais</div>
+          <div class="entry-meta-row">
+            <span class="entry-tag p83">■ 223 km</span>
+            <span class="entry-tag">8h50 de selle</span>
+            <span class="entry-tag">25,2 km/h</span>
+          </div>
+          <div class="entry-text">
+            <p>Il est un peu plus de 7h lorsque nous quittons Biganos pour reprendre les longues lignes droites en direction de l'estuaire de la Gironde. Nous devinons de temps à autre à travers les pins, l'océan.</p>
+            <p>La longue traversée plate du Médoc sera faite dans la matinée à un bon train. Nous roulons en nous relayant tous les kilomètres et nous atteignons une moyenne de 30 km/h. <span class="highlight">Les bornes kilométriques défilent à une cadence inférieure à 2 mn. Rien ne peut freiner notre progression, pas même une barrière abaissée pour le passage d'un train et qui se lève juste à notre arrivée.</span></p>
+            <p>Vers Midi nous atteignons Le Verdon où nous aurons tout notre temps pour prendre notre repas avant d'embarquer sur le "Côte d'Argent". Nous traversons l'estuaire en compagnie d'un autre cyclo en vacances à Royan.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-gutter">
+          <div class="entry-daynum">10</div>
+          <div class="entry-dateshort">27<br>Juin<br>1983</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-route">Lannion → Saint-Malo</div>
+          <div class="entry-meta-row">
+            <span class="entry-tag p83">■ 154 km</span>
+            <span class="entry-tag">7h de selle</span>
+            <span class="entry-tag">22 km/h</span>
+            <span class="entry-tag">Fin de la 1ère période</span>
+          </div>
+          <div class="entry-text">
+            <p>Au départ de Lannion nous passons sous la banderole "arrivée" ce qui vaut bien une photo pour notre dernière étape. Toute la matinée nous allons rouler, toujours avec le beau temps, sur des routes quelque peu accidentées mais très belles.</p>
+            <p>De temps à autre nous découvrons de magnifiques points de vue sur la mer, tel à Tréguier, Paimpol. Dans la matinée nous aurons l'occasion de compléter notre collection photos par de beaux clichés. Entre'autre nous pourrons photographier un très beau moulin qu'un hollandais est le plus beau qu'il connaisse.</p>
+            <p>À midi nous rentrons dans Yffiniac au pays de Bernard. Nous y prendrons notre repas dans une sympathique auberge familiale.</p>
+            <p class="highlight">Mais il reste encore 60 kms pour arriver à Saint Malo aussi nous reprenons notre route en début d'après midi et malgré quelques arrêts pour finir notre pellicule nous arrivons à Saint Malo vers 16h, terme de notre premier tiers de randonnée. Quel dommage d'arrêter là, nous étions tellement en forme !</p>
+            <p><em>FINI NOTRE TOUR 1983, SUITE EN 1984…</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 1984 ── -->
+  <div class="period-section" id="section-1984">
+    <div class="container">
+      <div class="period-intro">
+        <div class="period-banner p84" style="border-color:var(--c84)">
+          <div class="period-banner-year">1984</div>
+          <div class="period-banner-route">Saint-Malo → Albertville</div>
+          <div class="period-banner-stats">
+            <div class="period-banner-km">15 – 24 Juin 1984<br>2 056 km · 10 étapes · 24 cols<br>Moyenne : 21 km/h</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-gutter">
+          <div class="entry-daynum">1</div>
+          <div class="entry-dateshort">15<br>Juin<br>1984</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-route">Saint-Malo → Isigny-sur-Mer</div>
+          <div class="entry-meta-row">
+            <span class="entry-tag p84">■ 260 km</span>
+            <span class="entry-tag">11h20 de selle</span>
+            <span class="entry-tag">22,9 km/h</span>
+          </div>
+          <div class="entry-text">
+            <p>Alors que nos vélos se trouvent déjà à Saint-Malo depuis quelques jours, nous rejoignons Toulouse en voiture pour prendre le train. Sur notre trajet ferroviaire, le nom de quelques gares nous permettra d'évoquer des souvenirs déjà vieux d'un an.</p>
+            <p>Vers 5h50 nous sommes prêts pour le départ. À peine 500 mètres de parcourus et la chambre à air de la roue avant du vélo de Bernard éclate. Très rapidement nous la remplaçons et nous voilà à nouveau sur nos vélos.</p>
+            <p>Le temps est couvert mais sans pluie. Quelques photos à la sortie de Saint-Malo et nous quittons rapidement la Bretagne pour entrer en Normandie. À Pontorson un petit crochet par le Mont Saint Michel où une courte halte s'imposait.</p>
+            <p class="highlight">Dans l'après-midi quelques haltes boissons et ravitaillement s'imposent vu les kilomètres parcourus et la chaleur de plus en plus forte sur la route, nous rencontrons des troupes étrangères venues pour commémorer le 40e anniversaire du débarquement.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-gutter">
+          <div class="entry-daynum">7</div>
+          <div class="entry-dateshort">21<br>Juin<br>1984</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-route">Sarrebourg → Col de la Schlucht</div>
+          <div class="entry-meta-row">
+            <span class="entry-tag p84">■ 176 km</span>
+            <span class="entry-tag">9h30 de selle</span>
+            <span class="entry-tag">18,9 km/h</span>
+            <span class="entry-tag">7 cols · Alsace-Vosges</span>
+          </div>
+          <div class="entry-text">
+            <p>Surprise désagréable le matin à 6h30 lorsque nous récupérons nos vélos. Les affaires restées dans les sacoches du vélo d'André et le bidon de Bernard ont disparu. Quelques affaires de rechange mais surtout le collant long et les gants pour la traversée du Jura ont été volés.</p>
+            <p>Inutile d'attendre et de perdre du temps, nous quittons Sarrebourg. Le soleil se montre à nouveau, l'Alsace approche, les routes sont très belles avec beaucoup de forêts de sapins.</p>
+            <p>Nous traverserons très facilement Strasbourg en moins d'une heure malgré une demi-heure d'arrêt pour nous restaurer avec entre'autres deux œufs au plat.</p>
+            <p class="highlight">Nous prenons ensuite la route des Cols en commençant par les Bagenelles pour terminer par la Schlucht. Le temps bien qu'incertain s'est amélioré, ce qui nous permettra de passer tous les cols sans nous mouiller. Compte tenu des prix pratiqués par les hôteliers en ce lieu touristique et grâce à l'amabilité d'un gendarme, nous continuons en direction de Markstein.</p>
+          </div>
+          <div class="cols-list p84" style="border-color:var(--c84)">
+            <div class="cols-list-title">Cols franchis — Les Vosges</div>
+            Col de Valsberg (652 m) · Col des Bagenelles (903 m) · Col du Près des Raves (1 025 m)<br>
+            Col du Bonhomme (949 m) · Col de Luspach (977 m) · Col du Calvaire (1 144 m) · Col de la Schlucht (1 159 m)
+          </div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-gutter">
+          <div class="entry-daynum">8</div>
+          <div class="entry-dateshort">22<br>Juin<br>1984</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-route">Col de la Schlucht → Pontarlier</div>
+          <div class="entry-meta-row">
+            <span class="entry-tag p84">■ 205 km</span>
+            <span class="entry-tag">9h35 de selle</span>
+            <span class="entry-tag">21,4 km/h</span>
+            <span class="entry-tag">7 cols · Grand Ballon</span>
+          </div>
+          <div class="entry-text">
+            <p>Alors que dans le refuge tout le monde semble dormir nous quittons le dortoir vers 6h15. À l'extérieur le vent s'est calmé et la température s'est radoucie. Nous allons emprunter la route des crêtes pendant une vingtaine de kilomètres.</p>
+            <p>Par endroit le brouillard semble se dissiper. Cela nous permet de temps à autre d'avoir de beaux points de vue. <span class="highlight">Nous trouvons sur le bord de la route des congères de neige dont une de très impressionnante en ces lieux.</span></p>
+            <p>À cette heure matinale où très peu de voitures circulent à part quelques agriculteurs s'occupant de leurs troupeaux nous aurons la chance de voir détaler un magnifique lièvre à travers les champs de myrtilles.</p>
+            <p>Le Grand Ballon est magnifique tout recouvert de fleurs printanières. Après s'être un peu attardé à faire des photos et contrôles, nous partons vers Cernay. Nous longerons le Doubs dans un cadre extraordinaire, le beau temps achevant d'embellir cette vallée.</p>
+          </div>
+          <div class="cols-list p84" style="border-color:var(--c84)">
+            <div class="cols-list-title">Cols franchis — Haut-Rhin</div>
+            Col de Herrenberg (1 186 m) · Col de Halmenbrunnen (1 180 m) · Col de Morfeld (1 195 m)<br>
+            Col du Haag (1 210 m) · Col du Sadel (950 m) · Col Amic (850 m) · Col de Herrenfluh (855 m)
+          </div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-gutter">
+          <div class="entry-daynum">10</div>
+          <div class="entry-dateshort">24<br>Juin<br>1984</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-route">Thonon-les-Bains → Albertville</div>
+          <div class="entry-meta-row">
+            <span class="entry-tag p84">■ 119 km</span>
+            <span class="entry-tag">5h20 de selle</span>
+            <span class="entry-tag">22,3 km/h</span>
+            <span class="entry-tag">Fin de la 2ème période</span>
+          </div>
+          <div class="entry-text">
+            <p>Plus que 119 kms pour atteindre Albertville, aussi ce matin nous prenons notre temps. La veille nous avons eu notre petit déjeuner servi à la chambre avec le café au lait dans un thermo.</p>
+            <p>Nous remontons la vallée de la Dranse, ça roule assez fort. Dans la traversée de Thonon nous rencontrons de nombreux cyclos suisses. Nous nous incorporons à un petit groupe et nous apprenons qu'ils font le tour du Mont Blanc.</p>
+            <p>Nous franchissons le col des Gets sous une pluie diluvienne et il en sera ainsi pendant tout la descente sur Taninnes où nous arriverons tout trempés et engourdis par le froid.</p>
+            <p>Il est 15h lorsque nous arrivons à Albertville. Une photo devant le panneau à l'entrée. Nous visitons Conflans et à 15h30 nous nous retrouvons chez Mr et Mme Chevassus pour préparer notre retour en train à Mazamet. <span class="highlight">L'amitié Cyclo n'est pas un vain mot, l'accueil qui nous est réservé restera pour nous un des moments inoubliables de notre épopée. 1984 est terminé, déjà nous faisons des projets pour 1985.</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 1985 ── -->
+  <div class="period-section" id="section-1985">
+    <div class="container">
+      <div class="period-intro">
+        <div class="period-banner p85" style="border-color:var(--c85)">
+          <div class="period-banner-year">1985</div>
+          <div class="period-banner-route">Albertville → Sète</div>
+          <div class="period-banner-stats">
+            <div class="period-banner-km">25 – 28 Juin 1985<br>820 km · 4 étapes · 11 cols<br>Moyenne : 20,58 km/h</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-gutter">
+          <div class="entry-daynum">1</div>
+          <div class="entry-dateshort">25<br>Juin<br>1985</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-route">Albertville → Col de l'Izoard</div>
+          <div class="entry-meta-row">
+            <span class="entry-tag p85">■ 180 km</span>
+            <span class="entry-tag">11h50 de selle</span>
+            <span class="entry-tag">15,2 km/h</span>
+            <span class="entry-tag">5 cols · Galibier 2642m</span>
+          </div>
+          <div class="entry-text">
+            <p>Après une bonne nuit un peu courte puisque nous nous levons à 4h45, c'est les préparatifs pour rallier Albertville en voiture. Colette et Henri nous ont gâté avec un excellent petit déjeuner. Notre ami Chevassus nous conduira à Albertville pour le départ à 6h.</p>
+            <p>L'horaire est respecté et nous quitterons l'Avenue des Chasseurs Alpins à 6h précises. La longue ascension du col de la Madeleine se passe très bien, avec de temps à autre un arrêt photos. Les premiers kilomètres sont durs mais la forme aidant nous les passons bien.</p>
+            <p>À la sortie de Celliers un âne se laisse gentiment photographier. À mesure que nous prenons de l'altitude le paysage devient magnifique. Les sommets enneigés nous entourent, nous trouvons les premières grosses congères de neige, nous rencontrons les premiers troupeaux de moutons et de vaches en alpages.</p>
+            <p class="highlight">Tout en grimpant nous admirons sans nous lasser toutes les montagnes environnantes. L'ascension du Télégraphe est menée bon train. Plus loin dans la montée du Galibier nous apercevons un cyclo montant à pied et nous pensons que c'était lui. À la sortie de Valloire deux jeunes cyclistes nous accompagnent un petit moment. Ils nous confirment qu'encore samedi dernier les chaînes étaient obligatoires pour les voitures passant le col.</p>
+          </div>
+          <div class="cols-list p85" style="border-color:var(--c85)">
+            <div class="cols-list-title">Cols franchis — Les géants des Alpes</div>
+            Col de la Madeleine (1 993 m) · Col du Télégraphe (1 566 m) · Plan Nicolas (2 406 m)<br>
+            <strong>Col du Galibier (2 642 m)</strong> · Col du Lautaret (2 057 m) → refuge Napoléon — Col de l'Izoard (2 360 m)
+          </div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-gutter">
+          <div class="entry-daynum">2</div>
+          <div class="entry-dateshort">26<br>Juin<br>1985</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-route">Col de l'Izoard → Vence</div>
+          <div class="entry-meta-row">
+            <span class="entry-tag p85">■ 211 km</span>
+            <span class="entry-tag">11h15 de selle</span>
+            <span class="entry-tag">18,75 km/h</span>
+            <span class="entry-tag">4 cols · Bonette 2715m</span>
+          </div>
+          <div class="entry-text">
+            <p>Magnifique la montagne lorsque vers 5h45 nous ouvrons les volets de notre dortoir. Dans le ciel d'un bleu limpide les sommets se détachent tout illuminés par le soleil levant. La journée s'annonce aussi belle que celle d'hier.</p>
+            <p>Nous commençons ensuite la descente par la traversée de la Casse Déserte où nous ferons également des photos sans oublier la stèle à la mémoire de deux grands champions Fausto Coppi et Louison Bobet.</p>
+            <p>À 13 heures nous repartons pour la Bonnette. Par précautions nous remplissons nos bidons. De suite c'est les premières pentes du col. C'est le côté le plus désagréable fait que l'on ne sait jamais où la route va passer. <span class="highlight">25 kilomètres de côtes, au départ il fait très chaud, mais lacet après lacet sur une petite route étroite, en mauvais état par endroits, nous grimpons ce grand col. Et un peu avant 16h après avoir traversé d'imposantes congères de neige nous voilà au sommet.</span></p>
+            <p>C'est fait les Alpes c'est fini ou presque fini, maintenant c'est une longue descente qui nous attend. Peu après avoir quitté le col nous surprenons une marmotte qui traverse la route devant nos roues pour se cacher sous une congère.</p>
+          </div>
+          <div class="cols-list p85" style="border-color:var(--c85)">
+            <div class="cols-list-title">Cols franchis — Le toit de la randonnée</div>
+            Col de Vars (2 108 m) · <strong>Col de la Bonette (2 715 m)</strong> · Col des Granges Communes (2 513 m)
+          </div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-gutter">
+          <div class="entry-daynum">4</div>
+          <div class="entry-dateshort">28<br>Juin<br>1985</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-route">Cassis → Sète</div>
+          <div class="entry-meta-row">
+            <span class="entry-tag p85">■ 209 km</span>
+            <span class="entry-tag">10h05 de selle</span>
+            <span class="entry-tag">20,72 km/h</span>
+            <span class="entry-tag">Fin du Tour · Homologation n°793-794</span>
+          </div>
+          <div class="entry-text">
+            <p>Comme promis par la gérante de l'hôtel à 6h30 précises une jeune fille nous sert le petit déjeuner et à 7h nous quittons l'hôtel. La traversée de Marseille se passe très bien malgré la circulation et quelques conducteurs énervés.</p>
+            <p>Arles, un contrôle, un petit tour de ville pour prendre la bonne route et nous voilà en pleine Camargue. Le vent nous pousse l'allure est rapide, ce qui ne nous empêche pas de voir des étangs avec des canards sauvages et aussi beaucoup de chevaux.</p>
+            <p>Nous sommes tout près du but. Sur la D116 nous longeons un moment la voie ferrée ce qui nous vaudra le plaisir de faire siffler trois trains, les cheminots nous encouragent. Frontignan et puis Sète, tout près de l'entrée de la ville une voiture nous attend.</p>
+            <p class="highlight">Geneviève, Anne et Catherine sont là. Une photo au panneau de Sète et voilà à 19h30 le 28 Juin nous arrivons dans la ville où trois ans plus tôt nous étions partis. Nous venons de terminer notre plus belle randonnée cyclotouriste. Que de souvenirs, que de rencontres, que de belles choses nous venons de vivre.</p>
+            <p><em>4 800 kilomètres homologués en 23 jours. Ce tour a donné aux deux cyclos une grande satisfaction. Autonomes, ce qui implique le transport d'un minimum de bagages. A Puech et B Burguete ont partout reçu un accueil sympathique et ils ramènent de leur aventure 400 diapositives.</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOMOLOGATION -->
+<section id="homologation">
+  <div class="container">
+    <div class="hom-inner">
+      <div>
+        <div class="hom-title">Homologation officielle</div>
+        <div class="hom-text">
+          <p style="margin-bottom:16px">Le Tour de France Randonneur devait être accompli en un temps maximum de 30 jours (720 heures), le sens de rotation laissé au choix du participant. Chaque participant était muni d'un carnet de route comportant des cases prévues pour les contrôles.</p>
+          <p style="margin-bottom:16px">Bernard Burguete et André Puech ont réalisé leur épopée en <strong>3 périodes sur 3 années consécutives</strong>, une option prévue par le règlement pour ceux ne pouvant disposer d'un mois de congé.</p>
+          <p>L'homologation finale leur a été accordée par l'U.S. Métro de Paris le <strong>23 septembre 1985</strong>, avec les numéros <strong>793 et 794</strong>.</p>
+        </div>
+      </div>
+      <div class="hom-cert">
+        <div class="cert-stamp">L'U.S. Métro de Paris — Section Cyclotouriste — Tour de France Randonneur</div>
+        <div class="cert-body">
+          Les personnes soussignées certifient que M.
+          <span class="cert-names">Puech André<br>Burguete Bernard</span>
+          a accompli et réussi du 18 juin 1983 au 28 juin 1985 le Tour de France Randonneur.<br><br>
+          L'itinéraire comportait <strong>69 contrôles</strong> et empruntait les routes longeant les frontières de la France.
+        </div>
+        <div class="cert-bottom">
+          <div class="cert-num">N° 793 — N° 794</div>
+          <div class="cert-date">Paris, le 23 Septembre 1985<br>Le Président de la Section Cyclo<br>de l'U.S. Métro</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIO PLAYER -->
+<div class="audio-bar" id="audioBar">
+  <div class="audio-info">
+    <div class="audio-title" id="audioTitle">Journal de bord — 18 juin 1983</div>
+    <div class="audio-sub">Lecture du récit · Tour de France Randonneur</div>
+  </div>
+  <div class="audio-controls">
+    <button class="audio-btn" onclick="skipAudio(-10)" title="-10s">⟨10</button>
+    <button class="audio-btn play-btn" id="playBtn" onclick="togglePlay()">▶</button>
+    <button class="audio-btn" onclick="skipAudio(10)" title="+10s">10⟩</button>
+    <div class="audio-progress" id="progressBar" onclick="seekAudio(event)">
+      <div class="audio-progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <span class="audio-time" id="audioTime">0:00 / 0:00</span>
+    <button class="audio-speed" id="speedBtn" onclick="cycleSpeed()">1×</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-title">« Quel dommage d'arrêter là, nous étions tellement en forme ! »</div>
+  <div class="footer-sub" style="margin-top:8px">Bernard Burguete · 27 juin 1983 · Saint-Malo</div>
+  <div class="footer-sub" style="margin-top:24px">Tour de France Randonneur 1983–1985 · 4 772 km · 47 cols · 23 jours</div>
+  <div class="footer-sub" style="margin-top:4px">Homologation n° 793-794 · U.S. Métro de Paris</div>
+</footer>
+
+<script>
+// ── PERIOD SWITCHING ──────────────────────────────────────────────────────
+let activePeriod = '1983';
+
+function showPeriod(p, el) {
+  activePeriod = p;
+
+  // Sections
+  document.querySelectorAll('.period-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('section-' + p).classList.add('active');
+
+  // Tabs
+  document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + p).classList.add('active');
+
+  // Nav periods
+  document.querySelectorAll('.nav-period').forEach(n => n.classList.remove('active-p'));
+
+  // Update audio title
+  const titles = {'1983':'Journal 1983 — Sète → Saint-Malo','1984':'Journal 1984 — Saint-Malo → Albertville','1985':'Journal 1985 — Albertville → Sète'};
+  document.getElementById('audioTitle').textContent = titles[p];
+
+  // Scroll to journal
+  document.getElementById('journal').scrollIntoView({behavior:'smooth'});
+
+  // Re-trigger reveals
+  setTimeout(triggerReveals, 100);
+}
+
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+// ── SCROLL REVEALS ────────────────────────────────────────────────────────
+function triggerReveals() {
+  const els = document.querySelectorAll('#section-' + activePeriod + ' .reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.1});
+  els.forEach(el => obs.observe(el));
+}
+
+triggerReveals();
+
+// ── AUDIO (Web Speech API) ────────────────────────────────────────────────
+const TEXTS = {
+  '1983': `Journal de bord. Tour de France Randonneur, première période : de Sète à Saint-Malo. Dix-huit juin mil neuf cent quatre-vingt-trois. Nous quittons Mazamet en voiture à quatre heures du matin pour aller prendre le départ à Sète. Après la photo souvenir et les formalités de contrôle à six heures vingt, nous donnons notre premier coup de pédale. La mer est un peu brumeuse mais le soleil levant dissipe les brumes. Un vent très favorable nous aidera à rallier Perpignan vers midi. Nous dépasserons Villefranche de Conflent pour arriver à Olette, sympathique village où nous pourrons assister à une petite fête du folklore catalan. Dix-neuf juin. Le ciel bleu, sans nuage, nous promet une belle journée. Nous montons vers Mont-Louis par une très belle route. Nous avoisinons l'altitude de mil huit cents mètres et nous sommes un peu surpris de trouver une gelée blanche. Le premier grand col pyrénéen, le Puymorens, se passe sans difficulté à une très bonne cadence. Vingtième juin. La journée des géants. Col du Tourmalet, deux mille cent quatorze mètres. Mais c'est à Gripp que les choses commencent à se gâter. Jusqu'à la Mongie nous allons subir un orage d'une violence inouïe dont la montagne a ses secrets. Nous atteignons cette grande station pyrénéenne tout ruisselants d'eau et frigorifiés. Vingt-sept juin, arrivée à Saint-Malo. Quel dommage d'arrêter là, nous étions tellement en forme ! Fin de notre Tour mille neuf cent quatre-vingt-trois. Suite en mille neuf cent quatre-vingt-quatre.`,
+  '1984': `Journal de bord. Tour de France Randonneur, deuxième période : de Saint-Malo à Albertville. Quinze juin mil neuf cent quatre-vingt-quatre. Vers cinq heures cinquante nous sommes prêts pour le départ. À peine cinq cents mètres de parcourus et la chambre à air de la roue avant du vélo de Bernard éclate. Très rapidement nous la remplaçons et nous voilà à nouveau sur nos vélos. Dans l'après-midi nous rencontrons des troupes étrangères venues pour commémorer le quarantième anniversaire du débarquement. Vingt-et-un juin, les Vosges. Nous prenons la route des cols en commençant par les Bagenelles pour terminer par la Schlucht. Le temps s'est amélioré, ce qui nous permettra de passer tous les cols sans nous mouiller. Vingt-deux juin. Nous trouvons sur le bord de la route des congères de neige dont une de très impressionnante en ces lieux. Le Grand Ballon est magnifique tout recouvert de fleurs printanières. Vingt-quatre juin, Albertville. L'amitié Cyclo n'est pas un vain mot, l'accueil qui nous est réservé restera pour nous un des moments inoubliables de notre épopée. Mille neuf cent quatre-vingt-quatre est terminé, déjà nous faisons des projets pour mille neuf cent quatre-vingt-cinq.`,
+  '1985': `Journal de bord. Tour de France Randonneur, troisième et dernière période : d'Albertville à Sète. Vingt-cinq juin mil neuf cent quatre-vingt-cinq. Nous quittons l'Avenue des Chasseurs Alpins à six heures précises. La longue ascension du col de la Madeleine se passe très bien. Les sommets enneigés nous entourent, nous trouvons les premières grosses congères de neige, nous rencontrons les premiers troupeaux de moutons et de vaches en alpages. Le col du Galibier, deux mille six cent quarante-deux mètres. Vingt-six juin. La Bonette, deux mille sept cent quinze mètres. Le point culminant de toute la randonnée. Vingt-cinq kilomètres de côtes, lacet après lacet sur une petite route étroite. Et un peu avant seize heures, après avoir traversé d'imposantes congères de neige, nous voilà au sommet. Vingt-huit juin, arrivée à Sète. Geneviève, Anne et Catherine sont là. Une photo au panneau de Sète et voilà, à dix-neuf heures trente le vingt-huit juin nous arrivons dans la ville où trois ans plus tôt nous étions partis. Que de souvenirs, que de rencontres, que de belles choses nous venons de vivre. Quatre mille huit cents kilomètres homologués en vingt-trois jours.`
+};
+
+let synth = window.speechSynthesis;
+let utterance = null;
+let isPlaying = false;
+let playbackRate = 1;
+let charIndex = 0;
+let totalLen = 0;
+
+function startAudio() {
+  showPeriod(activePeriod, null);
+  setTimeout(() => { playText(activePeriod); }, 300);
+}
+
+function playText(period) {
+  if (utterance) { synth.cancel(); }
+  const text = TEXTS[period];
+  totalLen = text.length;
+  utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'fr-FR';
+  utterance.rate = playbackRate;
+  utterance.pitch = 0.95;
+
+  // Try to pick a French voice
+  const voices = synth.getVoices();
+  const frVoice = voices.find(v => v.lang.startsWith('fr') && v.localService) ||
+                  voices.find(v => v.lang.startsWith('fr'));
+  if (frVoice) utterance.voice = frVoice;
+
+  utterance.onboundary = (e) => {
+    charIndex = e.charIndex;
+    updateProgress(charIndex / totalLen);
+    updateTime(charIndex, totalLen);
+  };
+
+  utterance.onend = () => {
+    isPlaying = false;
+    document.getElementById('playBtn').textContent = '▶';
+    updateProgress(1);
+  };
+
+  synth.speak(utterance);
+  isPlaying = true;
+  document.getElementById('playBtn').textContent = '⏸';
+  document.getElementById('audioTitle').textContent = TEXTS[activePeriod].substring(0,40) + '…';
+}
+
+function togglePlay() {
+  if (!utterance && !isPlaying) { playText(activePeriod); return; }
+  if (synth.paused) { synth.resume(); isPlaying = true; document.getElementById('playBtn').textContent = '⏸'; }
+  else if (synth.speaking) { synth.pause(); isPlaying = false; document.getElementById('playBtn').textContent = '▶'; }
+  else { playText(activePeriod); }
+}
+
+function skipAudio(sec) { /* speech API doesn't support seeking, restart */ }
+
+function seekAudio(e) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  // Restart from approximate position in text
+  if (utterance) {
+    synth.cancel();
+    const text = TEXTS[activePeriod];
+    const startIdx = Math.floor(pct * text.length);
+    const partial = text.substring(startIdx);
+    utterance = new SpeechSynthesisUtterance(partial);
+    utterance.lang = 'fr-FR';
+    utterance.rate = playbackRate;
+    utterance.pitch = 0.95;
+    const voices = synth.getVoices();
+    const frVoice = voices.find(v => v.lang.startsWith('fr'));
+    if (frVoice) utterance.voice = frVoice;
+    utterance.onend = () => { isPlaying = false; document.getElementById('playBtn').textContent = '▶'; updateProgress(1); };
+    synth.speak(utterance);
+    isPlaying = true;
+    document.getElementById('playBtn').textContent = '⏸';
+    updateProgress(pct);
+  }
+}
+
+function updateProgress(pct) {
+  document.getElementById('progressFill').style.width = (pct * 100).toFixed(1) + '%';
+}
+
+function updateTime(idx, total) {
+  const wpm = 130 * playbackRate;
+  const words = total / 5;
+  const totalSec = Math.round((words / wpm) * 60);
+  const elapsed = Math.round((idx / total) * totalSec);
+  document.getElementById('audioTime').textContent = fmt(elapsed) + ' / ' + fmt(totalSec);
+}
+
+function fmt(s) {
+  const m = Math.floor(s/60), sec = s%60;
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
+const speeds = [0.8, 1, 1.2, 1.5];
+let speedIdx = 1;
+
+function cycleSpeed() {
+  speedIdx = (speedIdx + 1) % speeds.length;
+  playbackRate = speeds[speedIdx];
+  document.getElementById('speedBtn').textContent = playbackRate + '×';
+  if (isPlaying) { const pos = charIndex; synth.cancel(); setTimeout(() => playText(activePeriod), 100); }
+}
+
+// Load voices async
+if (speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = () => {};
+}
+</script>
+</body>
+</html>
