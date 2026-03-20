@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tour de France Randonneur 1983–1985</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --p83: #C8401A;
+    --p84: #1A5FAD;
+    --p85: #2E7D32;
+    --p83-light: rgba(200,64,26,0.15);
+    --p84-light: rgba(26,95,173,0.15);
+    --p85-light: rgba(46,125,50,0.15);
+    --cream: #F5F0E8;
+    --ink: #1A1714;
+    --muted: #6B6560;
+    --paper: #FDFAF4;
+    --rule: rgba(26,23,20,0.1);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(245,240,232,0.1);
+    z-index: 1000;
+  }
+
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  .header-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.5);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  .header-stats {
+    display: flex;
+    gap: 20px;
+    margin-left: auto;
+  }
+
+  .hstat {
+    text-align: right;
+  }
+
+  .hstat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1;
+  }
+
+  .hstat-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.4);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .period-toggles {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .ptoggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .ptoggle[data-period="1983"] { border-color: var(--p83); color: var(--p83); }
+  .ptoggle[data-period="1984"] { border-color: var(--p84); color: var(--p84); }
+  .ptoggle[data-period="1985"] { border-color: var(--p85); color: var(--p85); }
+
+  .ptoggle.active[data-period="1983"] { background: var(--p83); color: white; }
+  .ptoggle.active[data-period="1984"] { background: var(--p84); color: white; }
+  .ptoggle.active[data-period="1985"] { background: var(--p85); color: white; }
+
+  .ptoggle .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+  /* MAIN LAYOUT */
+  .main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* MAP */
+  #map {
+    flex: 1;
+    background: #2a2520;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 320px;
+    background: var(--paper);
+    border-left: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .sidebar-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--rule);
+    flex-shrink: 0;
+  }
+
+  .sidebar-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .sidebar-hint {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-top: 2px;
+  }
+
+  .etapes-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+  }
+
+  .etapes-list::-webkit-scrollbar { width: 3px; }
+  .etapes-list::-webkit-scrollbar-track { background: transparent; }
+  .etapes-list::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 2px; }
+
+  .etape-item {
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--rule);
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .etape-item:hover { background: rgba(26,23,20,0.04); }
+  .etape-item.active { background: rgba(26,23,20,0.06); }
+
+  .etape-period-bar {
+    width: 3px;
+    height: 36px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .etape-info { flex: 1; }
+
+  .etape-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .etape-route {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+
+  .etape-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  /* DETAIL PANEL */
+  .detail-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 320px;
+    background: var(--paper);
+    border-top: 1px solid var(--rule);
+    padding: 16px 24px;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 500;
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .detail-panel.open { transform: translateY(0); }
+
+  .detail-close {
+    position: absolute;
+    top: 12px; right: 16px;
+    background: none; border: none;
+    font-size: 18px; cursor: pointer;
+    color: var(--muted); line-height: 1;
+  }
+
+  .detail-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .detail-route {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 4px;
+  }
+
+  .detail-excerpt {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-top: 8px;
+    max-width: 500px;
+    font-style: italic;
+  }
+
+  .detail-stats {
+    display: flex;
+    gap: 20px;
+    margin-left: auto;
+    flex-shrink: 0;
+    padding-top: 4px;
+  }
+
+  .dstat { text-align: center; }
+
+  .dstat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .dstat-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* Leaflet overrides */
+  .leaflet-control-zoom {
+    border: 1px solid rgba(245,240,232,0.15) !important;
+    border-radius: 2px !important;
+  }
+  .leaflet-control-zoom a {
+    background: rgba(26,23,20,0.8) !important;
+    color: var(--cream) !important;
+    border-bottom: 1px solid rgba(245,240,232,0.15) !important;
+  }
+  .leaflet-control-zoom a:hover { background: rgba(26,23,20,1) !important; }
+  .leaflet-control-attribution { display: none; }
+
+  .custom-popup .leaflet-popup-content-wrapper {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 2px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    padding: 0;
+  }
+  .custom-popup .leaflet-popup-content { margin: 0; }
+  .custom-popup .leaflet-popup-tip { background: var(--ink); }
+  .custom-popup .leaflet-popup-close-button { color: rgba(245,240,232,0.5) !important; }
+
+  .popup-inner {
+    padding: 12px 14px;
+    min-width: 180px;
+  }
+
+  .popup-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(245,240,232,0.5);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .popup-city {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-top: 2px;
+  }
+
+  .popup-detail {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(245,240,232,0.6);
+    margin-top: 4px;
+  }
+
+  .popup-accent { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; }
+
+  .period-label {
+    position: absolute;
+    bottom: 80px;
+    left: 12px;
+    z-index: 400;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .plabel {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.85;
+  }
+
+  .plabel-dot { width: 8px; height: 8px; border-radius: 50%; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="header-title">Tour de France Randonneur</div>
+    <div class="header-sub">Burguete & Puech · 1983–1985</div>
+  </div>
+  <div class="period-toggles">
+    <div class="ptoggle active" data-period="1983" onclick="togglePeriod('1983', this)">
+      <div class="dot"></div>1983 · Sète→St-Malo
+    </div>
+    <div class="ptoggle active" data-period="1984" onclick="togglePeriod('1984', this)">
+      <div class="dot"></div>1984 · St-Malo→Albertville
+    </div>
+    <div class="ptoggle active" data-period="1985" onclick="togglePeriod('1985', this)">
+      <div class="dot"></div>1985 · Albertville→Sète
+    </div>
+  </div>
+  <div class="header-stats">
+    <div class="hstat"><div class="hstat-val">4 772</div><div class="hstat-lbl">km totaux</div></div>
+    <div class="hstat"><div class="hstat-val">24</div><div class="hstat-lbl">étapes</div></div>
+    <div class="hstat"><div class="hstat-val">47</div><div class="hstat-lbl">cols</div></div>
+  </div>
+</header>
+
+<div class="main">
+  <div id="map"></div>
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">Étapes</div>
+      <div class="sidebar-hint">Cliquez pour centrer sur la carte</div>
+    </div>
+    <div class="etapes-list" id="etapesList"></div>
+  </div>
+</div>
+
+<!-- Detail panel -->
+<div class="detail-panel" id="detailPanel">
+  <button class="detail-close" onclick="closeDetail()">✕</button>
+  <div>
+    <div class="detail-date" id="detailDate"></div>
+    <div class="detail-route" id="detailRoute"></div>
+    <div class="detail-excerpt" id="detailExcerpt"></div>
+  </div>
+  <div class="detail-stats" id="detailStats"></div>
+</div>
+
+<!-- Legend -->
+<div class="period-label">
+  <div class="plabel"><div class="plabel-dot" style="background:#C8401A"></div>1983 · 1 896 km</div>
+  <div class="plabel"><div class="plabel-dot" style="background:#1A5FAD"></div>1984 · 2 056 km</div>
+  <div class="plabel"><div class="plabel-dot" style="background:#2E7D32"></div>1985 · 820 km</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+
+const ETAPES = [
+  // 1983 : Sète → Saint-Malo
+  { id:1, period:'1983', date:'18 juin 1983', from:'Sète', to:'Olette', km:193, cumul:193,
+    cols:['Col de Ternère (226m)', 'Col de Saint-Pierre (270m)'], depart:[43.405,3.683], arrivee:[42.571,2.213],
+    excerpt:'Nous quittons Mazamet en voiture à 4h pour prendre le départ à Sète. La mer est un peu brumeuse mais le soleil levant dissipe les brumes. Un vent très favorable nous aidera à rallier Perpignan vers midi.',
+    vitesse:20.15 },
+  { id:2, period:'1983', date:'19 juin 1983', from:'Olette', to:'Audressein', km:193, cumul:386,
+    cols:['Col Calvaire de Font Romeu (1836m)','Col d\'Egat (1615m)','Col du Puymorens (1915m)','Col de Port (1249m)'], depart:[42.571,2.213], arrivee:[42.904,0.988],
+    excerpt:'Le ciel bleu, sans nuage, nous promet une belle journée. Nous montons vers Mont-Louis par une très belle route. Nous avoisinons l\'altitude de 1 800m et nous sommes un peu surpris de trouver une gelée blanche.',
+    vitesse:19.3 },
+  { id:3, period:'1983', date:'20 juin 1983', from:'Audressein', to:'Luz-Saint-Sauveur', km:156, cumul:542,
+    cols:['Col de Portet d\'Aspet (1069m)','Col de la Clin (1246m)','Col de Mente (1349m)','Col du Peyresourde (1563m)','Col d\'Aspin (1489m)','Col du Tourmalet (2114m)'], depart:[42.904,0.988], arrivee:[42.871,-0.001],
+    excerpt:'Le Tourmalet franchi à 20h30 et notre journée bien remplie se termine à Luz Saint Sauveur. Les cinq premiers kilomètres se passeront très bien. Mais c\'est à Gripp que les choses commencent à se gâter.',
+    vitesse:14.2 },
+  { id:4, period:'1983', date:'21 juin 1983', from:'Luz-Saint-Sauveur', to:'Saint-Jean-le-Vieux', km:212, cumul:754,
+    cols:['Col du Soulor (1485m)','Col d\'Aubisque (1708m)','Col d\'Osquich (500m)'], depart:[42.871,-0.001], arrivee:[43.124,-1.237],
+    excerpt:'Nous tiendrons notre pari aussi avons nous passé la matinée un peu en décontractés. Réparations sur une chaîne, arrêts casse-croûte, arrêts photos. C\'est au pied du Soulor que nous avons pris au sérieux notre étape.',
+    vitesse:24.2 },
+  { id:5, period:'1983', date:'22 juin 1983', from:'Saint-Jean-le-Vieux', to:'Biganos', km:212, cumul:966,
+    cols:['Col d\'Osquich (500m)'], depart:[43.124,-1.237], arrivee:[44.658,-0.976],
+    excerpt:'Nous quittons Saint Jean le Vieu encore tout endormi. Une petite brume s\'étale dans les vallées. Après Bayonne nous changeons de cap et commençons la longue traversée des Landes.',
+    vitesse:22.3 },
+  { id:6, period:'1983', date:'23 juin 1983', from:'Biganos', to:'Champagne-les-Marais', km:223, cumul:1189,
+    cols:[], depart:[44.658,-0.976], arrivee:[46.454,-1.053],
+    excerpt:'Nous roulons en nous relayant tous les kilomètres et nous atteignons une moyenne de 30 km/h. Les bornes kilométriques défilent à une cadence inférieure à 2 mn. Rien ne peut freiner notre progression.',
+    vitesse:25.2 },
+  { id:7, period:'1983', date:'24 juin 1983', from:'Champagne-les-Marais', to:'La Roche-Bernard', km:214, cumul:1403,
+    cols:[], depart:[46.454,-1.053], arrivee:[47.519,-2.301],
+    excerpt:'Nous traversons la campagne encore endormie sous la brume matinale. Les routes deviennent plus accidentées que celles parcourues ces derniers jours. Nous traversons une très belle région, surtout dans les alentours de Saint Jean de Mont.',
+    vitesse:23.8 },
+  { id:8, period:'1983', date:'25 juin 1983', from:'La Roche-Bernard', to:'Plonéour-Lanvern', km:190, cumul:1593,
+    cols:[], depart:[47.519,-2.301], arrivee:[47.872,-4.284],
+    excerpt:'À Vannes nous ferons une petite halte pour le contrôle et pour un petit ravitaillement, puis Sainte-Anne d\'Auray. À Quimperlé nous apprenons qu\'un groupe de six cyclos réalisant le Tour de France randonneur sont passés depuis 48 heures.',
+    vitesse:22.3 },
+  { id:9, period:'1983', date:'26 juin 1983', from:'Plonéour-Lanvern', to:'Lannion', km:197, cumul:1790,
+    cols:[], depart:[47.872,-4.284], arrivee:[48.732,-3.460],
+    excerpt:'Il est toujours difficile de se faire servir le petit déjeuner un dimanche matin. À Douarnenez nous rencontrons des collègues du Club Cyclo Douarneniste. Nous visitons le magnifique village breton de Locronan.',
+    vitesse:21.9 },
+  { id:10, period:'1983', date:'27 juin 1983', from:'Lannion', to:'Saint-Malo', km:154, cumul:1944,
+    cols:[], depart:[48.732,-3.460], arrivee:[48.649,-2.025],
+    excerpt:'Au départ de Lannion nous passons sous la banderole "arrivée" ce qui vaut bien une photo pour notre dernière étape. À Saint Brieuc nous avons quelques difficultés pour trouver notre route. Quel dommage d\'arrêter là, nous étions tellement en forme !',
+    vitesse:22.0 },
+
+  // 1984 : Saint-Malo → Albertville
+  { id:11, period:'1984', date:'15 juin 1984', from:'Saint-Malo', to:'Isigny-sur-Mer', km:260, cumul:260,
+    cols:[], depart:[48.649,-2.025], arrivee:[49.322,-1.100],
+    excerpt:'Vers 5h50 nous sommes prêts pour le départ. À peine 500 mètres de parcourus et la chambre à air de la roue avant du vélo de Bernard éclate. Le temps est couvert mais sans pluie.',
+    vitesse:22.9 },
+  { id:12, period:'1984', date:'16 juin 1984', from:'Isigny-sur-Mer', to:'Vernon', km:238, cumul:498,
+    cols:[], depart:[49.322,-1.100], arrivee:[49.094,1.484],
+    excerpt:'Nous longeons une très belle côte jusqu\'à Deauville, Trouville. Une courte halte à Honfleur pour le contrôle et une petite réparation au garde-boue. Nous rencontrons dans un bar un "Tour de France" n°986 parti le matin de Paris.',
+    vitesse:21.6 },
+  { id:13, period:'1984', date:'17 juin 1984', from:'Vernon', to:'Berck', km:230, cumul:728,
+    cols:[], depart:[49.094,1.484], arrivee:[50.404,1.563],
+    excerpt:'Vernon un dimanche matin à 6h, les rues sont vides. Nous n\'oublierons pas le mauvais accueil à la gendarmerie de Pontoise. Nous rencontrons deux cyclotes canadiennes qui se rendent à Abbeville.',
+    vitesse:19.4 },
+  { id:14, period:'1984', date:'18 juin 1984', from:'Berck', to:'Cysoing', km:210, cumul:938,
+    cols:[], depart:[50.404,1.563], arrivee:[50.571,3.225],
+    excerpt:'Réveil à 6 heures. Nous repartons ensuite par une route très facile bordée de dunes de sable. Mais à l\'approche de Boulogne tout va changer. Calais est traversé sans difficultés, un petit arrêt photo à la sortie et nous rentrons dans le pays plat des Flandres.',
+    vitesse:20.7 },
+  { id:15, period:'1984', date:'19 juin 1984', from:'Cysoing', to:'Carignan', km:203, cumul:1141,
+    cols:[], depart:[50.571,3.225], arrivee:[49.627,5.167],
+    excerpt:'À Trélons, à la sortie un "courraillon" tente de nous lâcher dans la côte. Bernard le rejoint, puis le questionne. La forêt de Mormal est magnifique, sous de magnifiques futaies de chênes et de hêtres. Nous arrivons à midi à Trélons pour manger.',
+    vitesse:21.0 },
+  { id:16, period:'1984', date:'20 juin 1984', from:'Carignan', to:'Sarrebourg', km:212, cumul:1353,
+    cols:[], depart:[49.627,5.167], arrivee:[48.734,7.053],
+    excerpt:'Selon notre habitude vers 6h du matin nous sommes prêts pour le départ. Nous passons près de cimetières militaires témoignant que de violents combats ont dû se dérouler dans cette région. À Morhange en passant devant la caserne Bernard se fait siffler.',
+    vitesse:20.5 },
+  { id:17, period:'1984', date:'21 juin 1984', from:'Sarrebourg', to:'Col de la Schlucht', km:176, cumul:1529,
+    cols:['Col de Valsberg (652m)','Col des Bagenelles (903m)','Col du Près des Raves (1025m)','Col du Bonhomme (949m)','Col de Luspach (977m)','Col du Calvaire (1144m)','Col de la Schlucht (1159m)'], depart:[48.734,7.053], arrivee:[48.063,7.024],
+    excerpt:'Surprise désagréable le matin à 6h30 : le bidon de Bernard et des affaires ont été volés. Inutile d\'attendre et de perdre du temps, nous quittons Sarrebourg. À Dabo nous prenons notre petit déjeuner.',
+    vitesse:18.9 },
+  { id:18, period:'1984', date:'22 juin 1984', from:'Col de la Schlucht', to:'Pontarlier', km:205, cumul:1734,
+    cols:['Col de Herrenberg (1186m)','Col de Halmenbrunnen (1180m)','Col de Morfeld (1195m)','Col du Haag (1210m)','Col du Sadel (950m)','Col Amic (850m)','Col de Herrenfluh (855m)'], depart:[48.063,7.024], arrivee:[46.904,6.355],
+    excerpt:'Alors que dans le refuge tout le monde semble dormir nous quittons le dortoir vers 6h15. Nous allons emprunter la route des crêtes pendant une vingtaine de kilomètres. Nous trouvons sur le bord de la route des congères de neige dont une de très impressionnante.',
+    vitesse:21.4 },
+  { id:19, period:'1984', date:'23 juin 1984', from:'Pontarlier', to:'Thonon-les-Bains', km:199, cumul:1933,
+    cols:['Col Savarine (995m)','Col de la Faucille (1320m)'], depart:[46.904,6.355], arrivee:[46.371,6.478],
+    excerpt:'Lorsque nous quittons Pontarlier à 6h15 le temps est maussade. Une pluie fine se met à tomber. Le Col de Savarine est monté à un bon train. Enfin la pluie cesse et nous quittons nos ponchos. À 18h05 nous sommes dans Thonon.',
+    vitesse:23.0 },
+  { id:20, period:'1984', date:'24 juin 1984', from:'Thonon-les-Bains', to:'Albertville', km:119, cumul:2052,
+    cols:['Col des Gets (1163m)','Col de Châtillon (738m)'], depart:[46.371,6.478], arrivee:[45.675,6.393],
+    excerpt:'Il est 15h lorsque nous arrivons à Albertville. Une photo devant le panneau à l\'entrée. Nous visitons Conflans et à 15h30 nous nous retrouvons chez M. et Mme Chevassus. 1984 est terminé, déjà nous faisons des projets pour 1985.',
+    vitesse:22.3 },
+
+  // 1985 : Albertville → Sète
+  { id:21, period:'1985', date:'25 juin 1985', from:'Albertville', to:'Col de l\'Izoard', km:180, cumul:180,
+    cols:['Col de la Madeleine (1993m)','Col du Télégraphe (1566m)','Col du Galibier (2642m)','Col du Lautaret (2057m)','Col de l\'Izoard (2360m)'], depart:[45.675,6.393], arrivee:[44.821,6.733],
+    excerpt:'Nous quittons l\'Avenue des Chasseurs Alpins à 6h précises. La longue ascension du col de la Madeleine se passe très bien, avec de temps à autre un arrêt photos. Les premiers kilomètres sont durs mais la forme aidant nous les passons bien.',
+    vitesse:15.2 },
+  { id:22, period:'1985', date:'26 juin 1985', from:'Col de l\'Izoard', to:'Vence', km:211, cumul:391,
+    cols:['Col de Vars (2108m)','Col de la Bonette (2715m)','Col des Granges Communes (2513m)'], depart:[44.821,6.733], arrivee:[43.722,7.112],
+    excerpt:'Magnifique la montagne lorsque vers 5h45 nous ouvrons les volets de notre dortoir. Dans le ciel d\'un bleu limpide les sommets se détachent tout illuminés par le soleil levant. Peu après avoir quitté le col nous surprenons une marmotte qui traverse la route.',
+    vitesse:18.75 },
+  { id:23, period:'1985', date:'27 juin 1985', from:'Vence', to:'Cassis', km:220, cumul:611,
+    cols:['Col de l\'Esquilon (83m)','Col de Gratteloup (200m)','Pas de Courtin (90m)','Pas de Bellefille (195m)'], depart:[43.722,7.112], arrivee:[43.214,5.537],
+    excerpt:'Nous quittons l\'hôtel à 6h du matin après avoir récupéré nos vélos enfermés dans la buanderie. Nous longeons les plages de St Raphaël et Fréjus déjà très fréquentées. Nous traversons ensuite Hyères et Toulon facilement malgré la circulation.',
+    vitesse:20.0 },
+  { id:24, period:'1985', date:'28 juin 1985', from:'Cassis', to:'Sète', km:209, cumul:820,
+    cols:['Col de la Gineste (328m)'], depart:[43.214,5.537], arrivee:[43.405,3.683],
+    excerpt:'La traversée de Marseille se passe très bien malgré la circulation. Arles, un contrôle, un petit tour de ville et nous voilà en pleine Camargue. Le vent nous pousse, l\'allure est rapide. À 19h30 le 28 Juin nous arrivons dans la ville où trois ans plus tôt nous étions partis.',
+    vitesse:20.72 },
+];
+
+const COLORS = { '1983': '#C8401A', '1984': '#1A5FAD', '1985': '#2E7D32' };
+
+// ─── MAP INIT ────────────────────────────────────────────────────────────────
+
+const map = L.map('map', {
+  center: [46.5, 2.5],
+  zoom: 6,
+  zoomControl: true,
+  attributionControl: false
+});
+
+// Dark basemap
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+  maxZoom: 18
+}).addTo(map);
+
+// Subtle label overlay
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
+  maxZoom: 18, opacity: 0.5
+}).addTo(map);
+
+// ─── LAYERS ──────────────────────────────────────────────────────────────────
+
+const layers = { '1983': L.layerGroup(), '1984': L.layerGroup(), '1985': L.layerGroup() };
+Object.values(layers).forEach(l => l.addTo(map));
+
+const markersMap = {};
+
+function createMarker(coords, city, period, isStart, isEnd, etape) {
+  const color = COLORS[period];
+  const size = (isStart || isEnd) ? 14 : 10;
+  const border = (isStart || isEnd) ? 3 : 2;
+
+  const icon = L.divIcon({
+    className: '',
+    html: `<div style="
+      width:${size}px;height:${size}px;
+      border-radius:50%;
+      background:${color};
+      border:${border}px solid rgba(245,240,232,0.9);
+      box-shadow:0 2px 8px rgba(0,0,0,0.5);
+      cursor:pointer;
+    "></div>`,
+    iconSize: [size, size],
+    iconAnchor: [size/2, size/2]
+  });
+
+  const marker = L.marker(coords, { icon })
+    .bindPopup(`
+      <div class="popup-inner">
+        <div class="popup-label"><span class="popup-accent" style="background:${color};display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px;"></span>${period}</div>
+        <div class="popup-city">${city}</div>
+        <div class="popup-detail">${etape.date}</div>
+        <div class="popup-detail" style="margin-top:4px">${etape.from} → ${etape.to}</div>
+        <div class="popup-detail">${etape.km} km · ${etape.vitesse.toFixed(1)} km/h moy.</div>
+      </div>`, { className: 'custom-popup', closeButton: false })
+    .on('click', () => showDetail(etape));
+
+  return marker;
+}
+
+function buildRoutePoints(etape) {
+  // Interpolate a few intermediate points along a rough curve
+  const [lat1, lon1] = etape.depart;
+  const [lat2, lon2] = etape.arrivee;
+  const pts = [];
+  const steps = 8;
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    // slight arc
+    const arc = Math.sin(Math.PI * t) * 0.3;
+    pts.push([lat1 + (lat2-lat1)*t + arc*(Math.random()-0.5)*0.3,
+              lon1 + (lon2-lon1)*t + arc*(Math.random()-0.5)*0.3]);
+  }
+  pts[0] = etape.depart;
+  pts[steps] = etape.arrivee;
+  return pts;
+}
+
+function renderEtapes() {
+  Object.values(layers).forEach(l => l.clearLayers());
+
+  ETAPES.forEach(etape => {
+    const layer = layers[etape.period];
+    const color = COLORS[etape.period];
+
+    // Route line
+    const pts = buildRoutePoints(etape);
+    L.polyline(pts, {
+      color: color,
+      weight: 2.5,
+      opacity: 0.75,
+      dashArray: null
+    }).addTo(layer).on('click', () => showDetail(etape));
+
+    // Depart marker
+    const mDepart = createMarker(etape.depart, etape.from, etape.period, true, false, etape);
+    mDepart.addTo(layer);
+
+    // Arrivee marker
+    const mArrivee = createMarker(etape.arrivee, etape.to, etape.period, false, true, etape);
+    mArrivee.addTo(layer);
+
+    if (!markersMap[etape.id]) markersMap[etape.id] = { depart: mDepart, arrivee: mArrivee };
+  });
+}
+
+renderEtapes();
+
+// ─── SIDEBAR ─────────────────────────────────────────────────────────────────
+
+function buildSidebar() {
+  const list = document.getElementById('etapesList');
+  list.innerHTML = '';
+
+  const visible = ETAPES.filter(e => document.querySelector(`.ptoggle[data-period="${e.period}"]`).classList.contains('active'));
+
+  let currentPeriod = null;
+  visible.forEach(etape => {
+    if (etape.period !== currentPeriod) {
+      currentPeriod = etape.period;
+      const sep = document.createElement('div');
+      sep.style.cssText = `padding:8px 20px 4px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:${COLORS[etape.period]};font-weight:400;`;
+      sep.textContent = `${etape.period} · ${etape.period === '1983' ? 'Sète → Saint-Malo' : etape.period === '1984' ? 'Saint-Malo → Albertville' : 'Albertville → Sète'}`;
+      list.appendChild(sep);
+    }
+
+    const item = document.createElement('div');
+    item.className = 'etape-item';
+    item.id = `etape-item-${etape.id}`;
+    item.innerHTML = `
+      <div class="etape-period-bar" style="background:${COLORS[etape.period]}"></div>
+      <div class="etape-info">
+        <div class="etape-date">${etape.date}</div>
+        <div class="etape-route">${etape.from} → ${etape.to}</div>
+        <div class="etape-meta">${etape.km} km${etape.cols.length ? ' · ' + etape.cols.length + ' col' + (etape.cols.length > 1 ? 's' : '') : ''}</div>
+      </div>`;
+    item.addEventListener('click', () => {
+      map.flyTo([(etape.depart[0]+etape.arrivee[0])/2, (etape.depart[1]+etape.arrivee[1])/2], 8, { duration: 1.2 });
+      showDetail(etape);
+    });
+    list.appendChild(item);
+  });
+}
+
+buildSidebar();
+
+// ─── DETAIL PANEL ────────────────────────────────────────────────────────────
+
+let activeEtape = null;
+
+function showDetail(etape) {
+  activeEtape = etape;
+  document.querySelectorAll('.etape-item').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById(`etape-item-${etape.id}`);
+  if (el) { el.classList.add('active'); el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+
+  document.getElementById('detailDate').textContent = etape.date;
+  document.getElementById('detailDate').style.color = COLORS[etape.period];
+  document.getElementById('detailRoute').textContent = `${etape.from} → ${etape.to}`;
+  document.getElementById('detailExcerpt').textContent = `« ${etape.excerpt} »`;
+
+  const colsHtml = etape.cols.length
+    ? `<div class="dstat"><div class="dstat-val" style="color:${COLORS[etape.period]};font-size:16px">${etape.cols.length}</div><div class="dstat-lbl">cols</div></div>`
+    : '';
+
+  document.getElementById('detailStats').innerHTML = `
+    <div class="dstat"><div class="dstat-val" style="color:${COLORS[etape.period]}">${etape.km}</div><div class="dstat-lbl">km</div></div>
+    <div class="dstat"><div class="dstat-val" style="color:${COLORS[etape.period]}">${etape.vitesse.toFixed(1)}</div><div class="dstat-lbl">km/h moy.</div></div>
+    ${colsHtml}
+    <div class="dstat"><div class="dstat-val" style="color:${COLORS[etape.period]};font-size:16px">${etape.cumul}</div><div class="dstat-lbl">km cumulés</div></div>
+  `;
+
+  document.getElementById('detailPanel').classList.add('open');
+}
+
+function closeDetail() {
+  document.getElementById('detailPanel').classList.remove('open');
+  document.querySelectorAll('.etape-item').forEach(el => el.classList.remove('active'));
+  activeEtape = null;
+}
+
+// ─── PERIOD TOGGLES ──────────────────────────────────────────────────────────
+
+function togglePeriod(period, btn) {
+  btn.classList.toggle('active');
+  if (btn.classList.contains('active')) {
+    layers[period].addTo(map);
+  } else {
+    map.removeLayer(layers[period]);
+  }
+  buildSidebar();
+}
+
+// ─── KEYBOARD ────────────────────────────────────────────────────────────────
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeDetail();
+  if (!activeEtape) return;
+  const idx = ETAPES.findIndex(et => et.id === activeEtape.id);
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    const next = ETAPES[idx + 1];
+    if (next) { map.flyTo([(next.depart[0]+next.arrivee[0])/2,(next.depart[1]+next.arrivee[1])/2], 8, {duration:1}); showDetail(next); }
+  }
+  if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    const prev = ETAPES[idx - 1];
+    if (prev) { map.flyTo([(prev.depart[0]+prev.arrivee[0])/2,(prev.depart[1]+prev.arrivee[1])/2], 8, {duration:1}); showDetail(prev); }
+  }
+});
+</script>
+</body>
+</html>
