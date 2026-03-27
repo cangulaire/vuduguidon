@@ -322,7 +322,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
   width:9px;height:9px;border-radius:50%;flex-shrink:0;
   border:1.5px solid rgba(255,255,255,.8);
   box-shadow:0 1px 3px rgba(0,0,0,.2);
-}
+
 .mp-info{flex:1;min-width:0}
 .mp-name{
   font-family:'Bebas Neue',sans-serif;font-size:14px;font-weight:400;
@@ -611,7 +611,29 @@ footer strong{color:rgba(255,255,255,.7)}
      ① PAGE ACCUEIL
 ═══════════════════════════════════════════ -->
  <div class="page active" id="page-accueil">
+### Styles `.hstat` — Agrandissement au survol et texte descriptif
 
+**Agrandissement du chiffre au survol**
+> Seul l'élément `strong` réagit au `:hover` — le reste du bloc reste fixe.
+```css
+.hstat strong:hover {
+    font-size: 60px; /* Taille finale au survol */
+    cursor: pointer; /* Indique que c'est interactif */
+}
+```
+
+---
+
+**Style du texte descriptif**
+> Le `span` reste toujours à 12px, indépendamment de l'état du parent.
+```css
+.hstat span {
+    font-size: 12px;
+    color: #666;
+    display: block;
+    margin-top: 2px; /* Petit espace sous le chiffre */
+}
+```
   <section class="hero">
     <div class="hblob1"></div><div class="hblob2"></div>
     <div style="position:relative;z-index:3">
