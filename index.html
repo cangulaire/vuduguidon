@@ -257,9 +257,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 .map-wrap{display:flex;flex-direction:column;height:calc(100svh - 52px);position:relative}
 #map{flex:1;width:100%;z-index:1}
 @media(max-width:640px){
-  /* Reserve space at bottom for collapsed panel (52px) + bottom tabs (~56px) */
-  #map{margin-bottom:calc(52px + max(56px, calc(56px + var(--sab))))}
-  .map-legend{display:none} /* replaced by panel on mobile */
+  .map-legend{display:none}
 }
 .map-legend{
   background:var(--white);border-top:1px solid rgba(99,39,27,.08);
@@ -348,22 +346,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 /* ── Mobile : panneau collapsible en bas ── */
 @media(max-width:640px){
   .map-panel{
-    top:auto;right:0;left:0;bottom:0;
-    width:100%;max-height:52px;
-    border-radius:var(--rl) var(--rl) 0 0;
-    border-bottom:none;
+    top:50%;left:12px;right:12px;
+    width:auto;
+    transform:translateY(-50%);
+    max-height:44px;
+    border-radius:var(--rl);
     transition:max-height .35s cubic-bezier(.25,.46,.45,.94);
   }
-  .map-panel.panel-open{max-height:52vh}
+  .map-panel.panel-open{max-height:58vh}
   .map-panel-header{
     display:flex;align-items:center;justify-content:space-between;
     padding:10px 16px;cursor:pointer;
     -webkit-tap-highlight-color:transparent;
-    position:relative;
-  }
-  .map-panel-header::before{
-    content:'';position:absolute;top:7px;left:50%;transform:translateX(-50%);
-    width:36px;height:3px;border-radius:3px;background:rgba(99,39,27,.2);
   }
   .map-panel-title{font-size:14px;margin-bottom:0}
   .map-panel-sub{display:none}
