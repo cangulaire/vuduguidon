@@ -11,7 +11,7 @@
 <meta name="author" content="Claire, petite-fille d'André Puech">
 <meta name="robots" content="index, follow">
 <meta name="language" content="fr">
-<meta name="theme-color" content="#2d4a35">
+<meta name="theme-color" content="#2B573A">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Le Tour de France Randonneur 1983–1985 — Vu du Guidon">
@@ -26,15 +26,33 @@
 <link rel="canonical" href="https://vuduguidon.fr/">
 <!-- ════════════════════════════════════════════════════════ -->
 
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Bebas+Neue&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 /* ══ RESET & TOKENS ══════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --gd:#2d4a35;--gm:#3d6b47;--gl:#5a8c62;--gp:#e4ede5;--cw:#d4c9a8;
-  --white:#fff;--ink:#1c2b1e;--muted:#7a9b7e;--bg:#e8ece8;
+  /* ══ Palette Brief ══════════════════════ */
+  --color-primary:    #72AC43;   /* Light green — KPI, série 1 */
+  --color-secondary:  #EC6426;   /* Orange — série 2, contraste */
+  --color-tertiary:   #F8A91F;   /* Yellow — série 3, objectifs */
+  --color-quaternary: #E4A5CA;   /* Pink — données secondaires */
+  --color-dark:       #2B573A;   /* Green — fond dark */
+  --color-bg:         #FDE3CF;   /* Cream — fond carte */
+  --color-text:       #63271B;   /* Brown — texte, labels */
+  --color-grid:       #D5C4B0;   /* Grille, séparateurs */
+
+  /* ══ Aliases legacy → palette ══════════ */
+  --gd: #2B573A;   /* vert foncé */
+  --gm: #72AC43;   /* vert clair (primary) */
+  --gl: #EC6426;   /* orange (secondary) */
+  --gp: #FDE3CF;   /* cream (bg) */
+  --cw: #F8A91F;   /* yellow (tertiary) */
+  --white: #fff;
+  --ink:  #63271B;   /* brown */
+  --muted:#8a5a3a;
+  --bg:   #FDF4EC;   /* fond global, crème très clair */
   --r:18px;--rl:26px;
   --sab:env(safe-area-inset-bottom,0px);
 }
@@ -44,7 +62,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 /* ══ NAV BAR ═════════════════════════════ */
 .topnav{
   position:fixed;top:0;left:0;right:0;z-index:200;
-  background:rgba(45,74,53,0.97);
+  background:rgba(43,87,58,0.97);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(255,255,255,.08);
   padding:0 20px;
@@ -56,18 +74,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
   height:52px;
 }
 .site-name{
-  font-family:'Syne',sans-serif;font-size:14px;font-weight:800;
+  font-family:'Bebas Neue',sans-serif;font-size:18px;font-weight:400;
   color:var(--cw);white-space:nowrap;letter-spacing:-.01em;
 }
-.site-name span{color:rgba(255,255,255,.5);font-weight:600}
+.site-name span{color:rgba(255,255,255,.85);font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.02em}
 
 /* Desktop tabs in nav */
 .nav-tabs{display:none;gap:2px}
 .nav-tab{
   background:transparent;border:none;cursor:pointer;
-  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;
+  font-family:'Bebas Neue',sans-serif;font-size:16px;font-weight:400;
   color:rgba(255,255,255,.45);padding:6px 14px;border-radius:100px;
-  transition:all .2s;letter-spacing:.02em;white-space:nowrap;
+  transition:all .2s;letter-spacing:.06em;white-space:nowrap;
 }
 .nav-tab:hover{color:rgba(255,255,255,.8);background:rgba(255,255,255,.08)}
 .nav-tab.active{color:#fff;background:rgba(255,255,255,.12)}
@@ -96,7 +114,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 .drawer-links{display:flex;flex-direction:column;gap:2px;flex:1}
 .drawer-btn{
   background:none;border:none;cursor:pointer;text-align:left;
-  font-family:'Syne',sans-serif;font-size:26px;font-weight:800;
+  font-family:'Bebas Neue',sans-serif;font-size:26px;font-weight:400;
   color:rgba(255,255,255,.3);letter-spacing:-.02em;
   padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);
   transition:color .2s;display:flex;align-items:center;justify-content:space-between;
@@ -108,9 +126,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 /* ══ BOTTOM TAB BAR (mobile) ══════════════ */
 .bottom-tabs{
   position:fixed;bottom:0;left:0;right:0;z-index:180;
-  background:rgba(232,236,232,.96);
+  background:rgba(253,228,207,.97);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border-top:1px solid rgba(0,0,0,.08);
+  border-top:1px solid rgba(99,39,27,.1);
   display:flex;
   padding-bottom:max(8px,var(--sab));
 }
@@ -132,45 +150,45 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 
 /* ══ ① ACCUEIL ════════════════════════════ */
 .hero{
-  background:var(--gd);min-height:100svh;
-  display:flex;flex-direction:column;justify-content:space-between;
+  background:var(--gd);min-height:500px;max-height:500px;
+  display:flex;flex-direction:column;justify-content:center;
   position:relative;overflow:hidden;
-  padding:calc(52px + 32px) 24px 48px;
+  padding:calc(52px + 28px) 24px 36px;
 }
-.hblob1{position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#4a7a54,#2d4a35 65%);opacity:.5;pointer-events:none}
-.hblob2{position:absolute;bottom:40px;left:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,#3d6b47,transparent 65%);opacity:.35;pointer-events:none}
-.hero-ey{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--cw);opacity:.7;margin-bottom:14px;animation:fu .7s .2s both}
-.hero-h{font-family:'Syne',sans-serif;font-size:clamp(42px,11vw,96px);font-weight:800;color:#fff;line-height:.92;letter-spacing:-.03em;margin-bottom:14px;animation:fu .8s .35s both}
-.hero-h em{color:var(--cw);font-style:italic;font-weight:600}
-.hero-p{font-size:14px;font-weight:300;color:rgba(255,255,255,.42);max-width:340px;margin-bottom:28px;animation:fu .8s .5s both;line-height:1.65}
-.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;animation:fu .8s .6s both}
-.hstat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.11);border-radius:var(--r);padding:14px 16px}
-.hstat strong{font-family:'Literata',Georgia,serif;font-weight:600;color:var(--cw);font-size:28px;display:block;line-height:1;margin-bottom:2px;letter-spacing:-.01em}
-.hstat span{font-size:11px;color:rgba(255,255,255,.38);font-weight:500}
+.hblob1{position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#4a8a50,#2B573A 65%);opacity:.5;pointer-events:none}
+.hblob2{position:absolute;bottom:40px;left:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,#72AC43,transparent 65%);opacity:.35;pointer-events:none}
+.hero-ey{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--cw);opacity:.7;margin-bottom:10px;animation:fu .7s .2s both}
+.hero-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,9vw,76px);font-weight:400;color:#fff;line-height:.95;letter-spacing:.02em;margin-bottom:10px;animation:fu .8s .35s both}
+.hero-h em{color:var(--cw);font-style:normal}
+.hero-p{font-size:13px;font-weight:300;color:rgba(255,255,255,.5);max-width:400px;margin-bottom:16px;animation:fu .8s .5s both;line-height:1.6}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;animation:fu .8s .6s both}
+.hstat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.11);border-radius:var(--r);padding:12px 14px}
+.hstat strong{font-family:'Literata',Georgia,serif;font-weight:600;color:var(--cw);font-size:24px;display:block;line-height:1;margin-bottom:2px;letter-spacing:-.01em}
+.hstat span{font-size:10px;color:rgba(255,255,255,.4);font-weight:500}
 .hero-claire{
-  display:flex;align-items:flex-start;gap:12px;
+  display:flex;align-items:center;gap:12px;
   background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
-  border-radius:var(--r);padding:16px;margin-top:20px;
+  border-radius:var(--r);padding:12px 16px;margin-top:14px;
   animation:fu .8s .75s both;
 }
-.claire-av{width:36px;height:36px;border-radius:50%;background:var(--cw);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.claire-text{font-size:13px;color:rgba(255,255,255,.55);font-weight:300;line-height:1.6;font-style:italic}
+.claire-av{width:32px;height:32px;border-radius:50%;background:var(--cw);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.claire-text{font-size:12px;color:rgba(255,255,255,.55);font-weight:300;line-height:1.5;font-style:italic}
 .claire-text strong{color:var(--cw);font-style:normal;font-weight:600}
 
 /* Sections accueil */
 .home-section{max-width:1120px;margin:0 auto;padding:40px 16px}
 .home-block{background:var(--white);border-radius:var(--rl);padding:28px 22px;margin-bottom:16px}
-.home-block-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--ink);letter-spacing:-.01em;margin-bottom:16px}
-.home-block-text{font-size:14px;color:#5a6e5d;line-height:1.75;font-weight:300}
+.home-block-title{font-family:'Bebas Neue',sans-serif;font-size:22px;font-weight:400;color:var(--ink);letter-spacing:.05em;margin-bottom:16px}
+.home-block-text{font-size:14px;color:#8a5a3a;line-height:1.75;font-weight:300}
 .home-block-text p+p{margin-top:10px}
 
 .timeline-mini{display:flex;flex-direction:column;gap:0}
 .tmi{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--gp)}
 .tmi:last-child{border-bottom:none}
-.tmi-dot{width:32px;height:32px;border-radius:50%;background:var(--gd);display:flex;align-items:center;justify-content:center;color:var(--cw);font-family:'Syne',sans-serif;font-size:12px;font-weight:800;flex-shrink:0;margin-top:2px}
-.tmi-year{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--ink);letter-spacing:-.01em;margin-bottom:2px}
+.tmi-dot{width:32px;height:32px;border-radius:50%;background:var(--gd);display:flex;align-items:center;justify-content:center;color:var(--cw);font-family:'Bebas Neue',sans-serif;font-size:12px;font-weight:400;flex-shrink:0;margin-top:2px}
+.tmi-year{font-family:'Bebas Neue',sans-serif;font-size:22px;font-weight:400;color:var(--ink);letter-spacing:.04em;margin-bottom:2px;font-style:normal}
 .tmi-desc{font-size:13px;color:var(--muted);font-weight:400}
-.tmi-km{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--gl);margin-top:2px}
+.tmi-km{font-family:'Bebas Neue',sans-serif;font-size:17px;font-weight:400;color:var(--gl);margin-top:2px}
 
 .quick-nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
 .qnav{
@@ -180,19 +198,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 }
 .qnav:active{opacity:.8}
 .qnav-icon{font-size:22px;margin-bottom:8px;display:block}
-.qnav-label{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff;letter-spacing:-.01em;display:block;margin-bottom:2px}
+.qnav-label{font-family:'Bebas Neue',sans-serif;font-size:18px;font-weight:400;color:#fff;letter-spacing:.04em;display:block;margin-bottom:2px}
 .qnav-sub{font-size:11px;color:rgba(255,255,255,.4);display:block}
 
 .riders-mini{display:flex;flex-direction:column;gap:10px}
 .rider-mini{background:var(--gp);border-radius:var(--r);padding:16px 16px;display:flex;align-items:center;gap:14px}
 .rider-mini-num{font-family:'Literata',Georgia,serif;font-size:28px;font-weight:600;color:var(--gd);line-height:1;letter-spacing:-.01em;width:44px;flex-shrink:0}
-.rider-mini-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--ink);letter-spacing:-.01em;margin-bottom:2px}
+.rider-mini-name{font-family:'Bebas Neue',sans-serif;font-size:20px;font-weight:400;color:var(--ink);letter-spacing:.03em;margin-bottom:2px}
 .rider-mini-info{font-size:12px;color:var(--muted)}
 
 /* ══ ② JOURNAL ════════════════════════════ */
 .journal-wrap{max-width:1120px;margin:0 auto;padding:28px 16px calc(80px + var(--sab))}
 .sh-tag{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gl);margin-bottom:5px}
-.sh-h{font-family:'Syne',sans-serif;font-size:clamp(22px,5.5vw,38px);font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1.1;margin-bottom:22px}
+.sh-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,6vw,46px);font-weight:400;color:var(--ink);letter-spacing:.05em;line-height:1.1;margin-bottom:22px}
 
 .pc-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:24px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .pc-row::-webkit-scrollbar{display:none}
@@ -200,11 +218,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 .pc.active{background:var(--gd);border-color:var(--gm)}
 .pc-tag{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;transition:color .2s}
 .pc.active .pc-tag{color:rgba(255,255,255,.38)}
-.pc-yr{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--ink);line-height:1;letter-spacing:-.02em;margin-bottom:4px;transition:color .2s}
+.pc-yr{font-family:'Bebas Neue',sans-serif;font-size:22px;font-weight:400;color:var(--ink);line-height:1;letter-spacing:-.02em;margin-bottom:4px;transition:color .2s}
 .pc.active .pc-yr{color:#fff}
 .pc-rt{font-size:11px;font-weight:500;color:var(--muted);margin-bottom:6px;transition:color .2s}
 .pc.active .pc-rt{color:rgba(255,255,255,.5)}
-.pc-km{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--gl);transition:color .2s}
+.pc-km{font-family:'Bebas Neue',sans-serif;font-size:21px;font-weight:400;color:var(--gl);transition:color .2s}
 .pc.active .pc-km{color:var(--cw)}
 
 .pp{display:none}.pp.active{display:block}
@@ -214,16 +232,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 .tl-d{font-family:'Literata',Georgia,serif;font-size:20px;font-weight:600;color:var(--ink);line-height:1;letter-spacing:-.01em}
 .tl-m{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-top:2px}
 .tl-sp{display:flex;flex-direction:column;align-items:center}
-.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--gm);margin-top:23px;flex-shrink:0;box-shadow:0 0 0 3px rgba(61,107,71,.15)}
-.tl-ln{width:2px;flex:1;background:#c8d8c9;margin-top:4px}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--gm);margin-top:23px;flex-shrink:0;box-shadow:0 0 0 3px rgba(114,172,67,.2)}
+.tl-ln{width:2px;flex:1;background:#E8D5C0;margin-top:4px}
 .tli:last-child .tl-ln{display:none}
 .tl-card{background:var(--white);border-radius:var(--r);padding:14px 16px;margin:10px 0;position:relative;overflow:hidden;transition:box-shadow .2s}
 .tl-card:active{box-shadow:0 6px 18px rgba(45,74,53,.1)}
-.tl-bar{position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--gm);border-radius:var(--r) 0 0 var(--r)}
+.tl-bar{position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--color-primary);border-radius:var(--r) 0 0 var(--r)}
 .tl-head{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .tl-st{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
-.tl-f,.tl-t{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
-.tl-ar{color:var(--muted);font-size:11px}
+.tl-f,.tl-t{font-family:'Bebas Neue',sans-serif;font-size:22px;font-weight:400;color:var(--ink);letter-spacing:.04em}
+.tl-ar{color:var(--muted);font-size:16px}
 .tl-kp{background:var(--gp);color:var(--gd);font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px}
 .tl-tog{margin-left:auto;width:20px;height:20px;border-radius:50%;background:var(--gp);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s}
 .tl-tog svg{width:9px;height:9px;stroke:var(--gd);stroke-width:2.5;fill:none;transition:transform .25s}
@@ -231,15 +249,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 .tl-card.open .tl-tog svg{stroke:#fff;transform:rotate(180deg)}
 .tl-body{overflow:hidden;max-height:0;transition:max-height .35s cubic-bezier(.25,.46,.45,.94)}
 .tl-card.open .tl-body{max-height:700px}
-.tl-tx{font-size:13.5px;color:#5a6e5d;line-height:1.72;font-weight:300;padding-top:10px}
+.tl-tx{font-size:13.5px;color:#8a5a3a;line-height:1.72;font-weight:300;padding-top:10px}
 .tl-ch-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
-.ch{background:var(--gp);border-radius:100px;padding:3px 9px;font-size:10px;color:var(--gd);font-weight:500;border:1px solid rgba(61,107,71,.1)}
+.ch{background:var(--gp);border-radius:100px;padding:3px 9px;font-size:10px;color:var(--gd);font-weight:500;border:1px solid rgba(114,172,67,.15)}
 
 /* ══ ③ CARTE ══════════════════════════════ */
 .map-wrap{display:flex;flex-direction:column;height:calc(100svh - 52px)}
 #map{flex:1;width:100%;z-index:1}
 .map-legend{
-  background:var(--white);border-top:1px solid rgba(0,0,0,.07);
+  background:var(--white);border-top:1px solid rgba(99,39,27,.08);
   padding:10px 16px;display:flex;gap:14px;overflow-x:auto;
   -webkit-overflow-scrolling:touch;scrollbar-width:none;flex-shrink:0;
   padding-bottom:calc(10px + max(0px,var(--sab)));
@@ -248,16 +266,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 .leg-item{display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0}
 .leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .leg-label{font-size:11px;font-weight:500;color:var(--muted)}
-.map-popup-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--ink);margin-bottom:4px;letter-spacing:-.01em}
+.map-popup-title{font-family:'Bebas Neue',sans-serif;font-size:18px;font-weight:400;color:var(--ink);margin-bottom:4px;letter-spacing:.04em}
 .map-popup-km{font-size:12px;font-weight:600;color:var(--gl);margin-bottom:4px}
-.map-popup-text{font-size:12px;color:#5a6e5d;line-height:1.5;font-weight:300;max-width:220px}
+.map-popup-text{font-size:12px;color:#8a5a3a;line-height:1.5;font-weight:300;max-width:220px}
 .leaflet-popup-content-wrapper{border-radius:14px!important;box-shadow:0 8px 24px rgba(0,0,0,.12)!important}
 .leaflet-popup-content{margin:14px 16px!important}
 
 /* ══ ④ INFOGRAPHIE ════════════════════════ */
 .infog-wrap{max-width:1120px;margin:0 auto;padding:28px 16px calc(80px + var(--sab))}
 .infog-card{background:var(--white);border-radius:var(--rl);padding:24px 20px;margin-bottom:16px}
-.infog-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--ink);letter-spacing:-.01em;margin-bottom:18px}
+.infog-title{font-family:'Bebas Neue',sans-serif;font-size:20px;font-weight:400;color:var(--ink);letter-spacing:.05em;margin-bottom:18px}
 
 /* Big stats */
 .big-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
@@ -269,29 +287,73 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 .bar-chart{display:flex;flex-direction:column;gap:6px}
 .bar-row{display:flex;align-items:center;gap:8px}
 .bar-label{font-size:10px;color:var(--muted);width:36px;text-align:right;flex-shrink:0;line-height:1.2}
-.bar-track{flex:1;height:20px;background:var(--gp);border-radius:100px;overflow:hidden;position:relative}
+.bar-track{flex:1;height:20px;background:#F3E8DC;border-radius:100px;overflow:hidden;position:relative}
 .bar-fill{height:100%;border-radius:100px;background:var(--gm);transition:width 1s ease;display:flex;align-items:center;justify-content:flex-end;padding-right:6px;min-width:28px}
-.bar-fill.p1{background:var(--gm)}
-.bar-fill.p2{background:var(--gd)}
-.bar-fill.p3{background:var(--gl)}
+.bar-fill.p1{background:#72AC43}
+.bar-fill.p2{background:#2B573A}
+.bar-fill.p3{background:#EC6426}
 .bar-val{font-size:9px;font-weight:700;color:#fff;white-space:nowrap}
 
 /* Col altitude chart */
-.col-chart{display:flex;align-items:flex-end;gap:3px;height:140px;overflow-x:auto;padding-bottom:24px;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:relative}
+.col-chart{
+  display:flex;align-items:flex-end;
+  gap:2px;
+  width:100%;
+  height:clamp(220px,35vw,340px);
+  padding-top:60px;padding-bottom:44px;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;position:relative;
+  box-sizing:border-box;
+}
 .col-chart::-webkit-scrollbar{display:none}
-.col-bar-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0;width:32px}
-.col-bar{width:20px;border-radius:4px 4px 0 0;background:var(--gm);position:relative;transition:opacity .2s;cursor:default}
-.col-bar.p1{background:#5a8c62}
-.col-bar.p2{background:#3d6b47}
-.col-bar.p3{background:#2d4a35}
-.col-bar-name{font-size:7px;color:var(--muted);text-align:center;transform:rotate(-55deg);transform-origin:top center;white-space:nowrap;margin-top:6px;line-height:1;width:48px}
+.col-bar-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  flex:1 1 0;min-width:18px;max-width:36px;
+  cursor:pointer;position:relative;
+}
+.col-bar{
+  width:60%;min-width:8px;max-width:22px;
+  border-radius:4px 4px 0 0;background:var(--gm);
+  position:relative;
+  transition:width .2s ease, min-width .2s, opacity .2s, filter .2s;
+  transform-origin:bottom center;
+}
+.col-bar.p1{background:#72AC43}
+.col-bar.p2{background:#F8A91F}
+.col-bar.p3{background:#2B573A}
+.col-bar-wrap:hover .col-bar{
+  width:85%;min-width:14px;
+  filter:brightness(1.2);
+  opacity:1 !important;
+}
+.col-chart:hover .col-bar-wrap:not(:hover) .col-bar{
+  opacity:.35;
+}
+.col-bar-tooltip{
+  display:none;
+  position:absolute;
+  bottom:calc(100% + 6px);
+  left:50%;transform:translateX(-50%);
+  background:var(--ink);color:#fff;
+  font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.04em;
+  padding:5px 10px;border-radius:8px;
+  white-space:nowrap;pointer-events:none;z-index:10;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+}
+.col-bar-tooltip::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:var(--ink);
+}
+.col-bar-wrap:hover .col-bar-tooltip{display:block}
+.col-bar-name{font-size:9px;color:var(--muted);text-align:center;transform:rotate(-55deg);transform-origin:top center;white-space:nowrap;margin-top:8px;line-height:1;width:56px;transition:color .2s}
+.col-bar-wrap:hover .col-bar-name{color:var(--ink);font-weight:600}
 
 /* Dept map */
 .dept-list{display:flex;flex-wrap:wrap;gap:5px}
-.dept-chip{background:var(--gp);border-radius:100px;padding:4px 10px;font-size:11px;color:var(--gd);font-weight:500;border:1px solid rgba(61,107,71,.1)}
-.dept-chip.p1{background:#e4f0e5;border-color:rgba(90,140,98,.2)}
-.dept-chip.p2{background:#d8e8da;border-color:rgba(61,107,71,.25)}
-.dept-chip.p3{background:#cce0cf;border-color:rgba(45,74,53,.3)}
+.dept-chip{background:var(--gp);border-radius:100px;padding:4px 10px;font-size:11px;color:var(--gd);font-weight:500;border:1px solid rgba(114,172,67,.15)}
+.dept-chip.p1{background:#eef6e4;border-color:rgba(114,172,67,.25)}
+.dept-chip.p2{background:#fff3e0;border-color:rgba(248,169,31,.3)}
+.dept-chip.p3{background:#fde3cf;border-color:rgba(236,100,38,.25)}
 
 /* Legend infog */
 .infog-legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
@@ -303,16 +365,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 .pcard{background:var(--white);border-radius:var(--rl);padding:22px 20px;margin-bottom:12px}
 .ps{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gl);margin-bottom:2px}
 .pd{font-size:10px;color:var(--muted);margin-bottom:10px}
-.pt{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--ink);letter-spacing:-.01em;margin-bottom:8px;line-height:1.25}
-.pb{font-size:13.5px;color:#5a6e5d;line-height:1.72;font-weight:300}
+.pt{font-family:'Bebas Neue',sans-serif;font-size:20px;font-weight:400;color:var(--ink);letter-spacing:.04em;margin-bottom:8px;line-height:1.2}
+.pb{font-size:13.5px;color:#8a5a3a;line-height:1.72;font-weight:300}
 
 /* ══ FOOTER ═══════════════════════════════ */
 footer{background:var(--gd);color:rgba(255,255,255,.35);text-align:center;padding:28px 20px calc(28px + max(0px,var(--sab)));font-size:11px;line-height:1.8}
-.ft{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:rgba(255,255,255,.6);margin-bottom:5px}
+.ft{font-family:'Bebas Neue',sans-serif;font-size:20px;font-weight:400;color:rgba(255,255,255,.6);margin-bottom:5px}
 footer strong{color:rgba(255,255,255,.7)}
 
 /* ══ PHOTO GRID ═══════════════════════════ */
 .photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:12px}
+.photo-placeholder-simple{
+  grid-column:1/-1;
+  padding:14px 16px;
+  font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.08em;
+  color:var(--muted);background:var(--gp);
+  border-radius:10px;text-align:center;
+  border:2px dashed rgba(114,172,67,.25);
+}
 .photo-item{
   aspect-ratio:1;border-radius:8px;overflow:hidden;
   background:var(--gp);cursor:pointer;position:relative;
@@ -324,13 +394,13 @@ footer strong{color:rgba(255,255,255,.7)}
 .photo-placeholder{
   width:100%;height:100%;display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:6px;
-  border:2px dashed rgba(61,107,71,.2);border-radius:8px;
+  border:2px dashed rgba(114,172,67,.25);border-radius:8px;
 }
 .photo-placeholder-icon{font-size:22px;opacity:.4}
 .photo-placeholder-text{font-size:9px;color:var(--muted);text-align:center;line-height:1.4;max-width:60px}
 .photo-add-btn{
   aspect-ratio:1;border-radius:8px;
-  background:none;border:2px dashed rgba(61,107,71,.25);
+  background:none;border:2px dashed rgba(114,172,67,.3);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:5px;cursor:pointer;transition:all .2s;
   -webkit-tap-highlight-color:transparent;
@@ -366,7 +436,7 @@ footer strong{color:rgba(255,255,255,.7)}
   .bottom-tabs{display:none}
   .burger{display:none}
   .nav-tabs{display:flex}
-  .hero{padding:calc(52px + 48px) 40px 52px}
+  .hero{padding:calc(52px + 28px) 40px 36px}
   .hero-stats{grid-template-columns:repeat(4,1fr)}
   .home-section{padding:40px 32px}
   .journal-wrap{padding:28px 32px calc(40px)}
@@ -390,7 +460,7 @@ footer strong{color:rgba(255,255,255,.7)}
   .journal-wrap{padding:32px 40px 60px}
   .tli{grid-template-columns:72px 2px 1fr;gap:0 22px}
   .tl-d{font-size:22px}
-  .tl-f,.tl-t{font-size:13px}
+  .tl-f,.tl-t{font-size:24px}
   .tl-tx{font-size:14px}
   .pc-row{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible}
   .infog-wrap{padding:32px 40px 60px}
@@ -584,81 +654,61 @@ footer strong{color:rgba(255,255,255,.7)}
     <div class="tli"><div class="tl-dc"><div class="tl-d">18</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Sète</span><span class="tl-ar">→</span><span class="tl-t">Olette</span><span class="tl-kp">193 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Départ à 4h de Mazamet en voiture. Photo souvenir et premier coup de pédale à 6h20 sous un soleil levant. Traversée de Béziers, Narbonne, Perpignan avec un vent très favorable. Arrêt imprévu à Sigean pour une vis de fixation. Arrivée à Olette, village catalan avec fête folklorique.</p><div class="tl-ch-row"><span class="ch">Col de Ternère 226 m</span><span class="ch">Col de Saint-Pierre 270 m</span></div>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="18juin83">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏖️</span><span class="photo-placeholder-text">Départ à Sète</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🚴</span><span class="photo-placeholder-text">Sur la route</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏔️</span><span class="photo-placeholder-text">Premiers cols</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">19</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Olette</span><span class="tl-ar">→</span><span class="tl-t">Audressein</span><span class="tl-kp">193 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Réveil en pleine forme. Mont-Louis, Font-Romeu, gelée blanche à 1 800 m au col d'Egat. Puymorens franchi à bonne cadence. Col de Port sous un ciel orageux. Arrivée à l'Auberge du Baroudeur, charmant village ariégeois.</p><div class="tl-ch-row"><span class="ch">Col du Calvaire 1 836 m</span><span class="ch">Col d'Egat 1 615 m</span><span class="ch">Col du Puymorens 1 915 m</span><span class="ch">Col de Port 1 249 m</span></div>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="19juin83">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">⛰️</span><span class="photo-placeholder-text">Pyrénées Orientales</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">❄️</span><span class="photo-placeholder-text">Gelée au col d'Egat</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏠</span><span class="photo-placeholder-text">Auberge du Baroudeur</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">20</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Audressein</span><span class="tl-ar">→</span><span class="tl-t">Luz-St-Sauveur</span><span class="tl-kp">156 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Portet d'Aspet, la Clin, Menté sous un soleil de plomb. Peyresourde puis Aspin — nombreux cyclistes. Orage violent entre Gripp et La Mongie : trempés, frigorifiés. Une habitante nous offre spontanément son appartement. Le Tourmalet franchi à 20h30 sous le beau temps revenu.</p><div class="tl-ch-row"><span class="ch">Portet d'Aspet 1 069 m</span><span class="ch">Col de la Clin 1 246 m</span><span class="ch">Col de Menté 1 349 m</span><span class="ch">Peyresourde 1 563 m</span><span class="ch">Col d'Aspin 1 489 m</span><span class="ch">Tourmalet 2 114 m</span></div>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="20juin83">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">⛈️</span><span class="photo-placeholder-text">Orage au Tourmalet</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🚵</span><span class="photo-placeholder-text">Montée du col</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌄</span><span class="photo-placeholder-text">Sommet</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">21</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Luz</span><span class="tl-ar">→</span><span class="tl-t">St-Jean-le-Vieux</span><span class="tl-kp">164 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Journée de récupération — départ tardif. Soulor puis Aubisque à midi. Descente en Béarn sous chaleur suffocante. Montée du col d'Osquich, goudron fondant. Les enfants d'école nous traitent de "fainéants" — aucun ne nous accompagne.</p><div class="tl-ch-row"><span class="ch">Col du Soulor 1 485 m</span><span class="ch">Col d'Aubisque 1 708 m</span><span class="ch">Col d'Osquich 500 m</span></div>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="21juin83">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🚴</span><span class="photo-placeholder-text">Col d'Aubisque</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏔️</span><span class="photo-placeholder-text">Béarn</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌞</span><span class="photo-placeholder-text">Chaleur</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">22</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">St-Jean-le-Vieux</span><span class="tl-ar">→</span><span class="tl-t">Biganos</span><span class="tl-kp">212 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Brume dans les vallées. À Louhossoa, patron sportif en compagnie d'un perroquet très bavard. Traversée de Bayonne, colis poste restante à Labenne. Longue traversée des Landes à 30 km/h, les bornes kilométriques défilent à moins de 2 min.</p>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="22juin83">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌲</span><span class="photo-placeholder-text">Forêt des Landes</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🦜</span><span class="photo-placeholder-text">Louhossoa</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🛣️</span><span class="photo-placeholder-text">Lignes droites</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">23</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Biganos</span><span class="tl-ar">→</span><span class="tl-t">Champagne-les-Marais</span><span class="tl-kp">223 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Traversée en bac "Côte d'Argent" vers Royan. Pays du Pineau — stands fermés. La voie express de La Rochelle, cauchemar pour cyclistes. Marais poitevins, longues lignes de canaux jusqu'au village vendéen.</p>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="23juin83">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">⛴️</span><span class="photo-placeholder-text">Bac Gironde</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌾</span><span class="photo-placeholder-text">Marais poitevin</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🚲</span><span class="photo-placeholder-text">Route vendéenne</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">24</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Champagne-les-Marais</span><span class="tl-ar">→</span><span class="tl-t">La Roche Bernard</span><span class="tl-kp">214 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Brume matinale. Chaumières aux toits de chaumes près de Saint-Jean-de-Mont. Grand pont sur la Loire à Saint-Nazaire. Dérailleur défaillant vite réparé. Deux couples du 3e âge disputaient des parties de belote sous notre fenêtre.</p>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="24juin83">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌉</span><span class="photo-placeholder-text">Pont sur la Loire</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏡</span><span class="photo-placeholder-text">Chaumières vendéennes</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🚴</span><span class="photo-placeholder-text">Étape du jour</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">25</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">La Roche Bernard</span><span class="tl-ar">→</span><span class="tl-t">Plonéour-Lanvern</span><span class="tl-kp">190 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Pluie dès le départ, dérailleur changé. Vannes, Sainte-Anne d'Auray. Pont Aven, Concarneau — sandwich fromage et cidre en Forêt Fouesnant. Bénodet par le grand pont sur l'Odet. Arrivée à Plonéour, petite ville typiquement bretonne aux coiffes.</p>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="25juin83">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌧️</span><span class="photo-placeholder-text">Bretagne sous la pluie</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">⛪</span><span class="photo-placeholder-text">Sainte-Anne d'Auray</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🦞</span><span class="photo-placeholder-text">Concarneau</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">26</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Plonéour-Lanvern</span><span class="tl-ar">→</span><span class="tl-t">Lannion</span><span class="tl-kp">197 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Dimanche sans restaurant. Douarnenez, le Club Cyclo local nous mène à Locronan. Magnifique village breton, déjeuner copieux, gâteaux bretons achetés. Châteaulin, Brest sous le soleil. Saint-Thégonnec, Landivisiau, Morlaix. Excellente assiette de fruits de mer en gîte.</p>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="26juin83">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏘️</span><span class="photo-placeholder-text">Locronan</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌊</span><span class="photo-placeholder-text">Brest</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🦀</span><span class="photo-placeholder-text">Fruits de mer</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">27</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Lannion</span><span class="tl-ar">→</span><span class="tl-t">Saint-Malo 🏁</span><span class="tl-kp">154 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Tréguier, Paimpol, rencontre de deux cyclos de Bellegarde faisant le Tour en sens inverse. Saint-Brieuc, Yffiniac — pays de Bernard. Saint-Malo atteint à 16h. Terme du premier tiers. <em>"Quel dommage d'arrêter là, nous étions tellement en forme !"</em></p>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="27juin83">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏰</span><span class="photo-placeholder-text">Saint-Malo</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🎉</span><span class="photo-placeholder-text">Arrivée période 1</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🚩</span><span class="photo-placeholder-text">1 896 km !</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
   </div>
 
@@ -667,65 +717,49 @@ footer strong{color:rgba(255,255,255,.7)}
     <div class="tli"><div class="tl-dc"><div class="tl-d">15</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Saint-Malo</span><span class="tl-ar">→</span><span class="tl-t">Isigny-sur-Mer</span><span class="tl-kp">260 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Départ 5h50. 500 mètres parcourus, chambre à air de Bernard éclate — réparée vite. Mont Saint-Michel. 40e anniversaire du Débarquement : échange de poignées de mains avec un soldat américain à Sainte-Mère-l'Église.</p>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="15juin84">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏰</span><span class="photo-placeholder-text">Mont Saint-Michel</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🇺🇸</span><span class="photo-placeholder-text">Plages Débarquement</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🚴</span><span class="photo-placeholder-text">Normandie</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">16</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Isigny</span><span class="tl-ar">→</span><span class="tl-t">Vernon</span><span class="tl-kp">238 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Plages du débarquement, Arromanches. Deauville, Trouville, corniche. Honfleur, réparation garde-boue d'André. Rencontre du TDF n°986 parti le matin même de Paris. Vernon : nos vélos passent la nuit dans le couloir de la chambre.</p>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="16juin84">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌅</span><span class="photo-placeholder-text">Honfleur</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏖️</span><span class="photo-placeholder-text">Arromanches</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🚴</span><span class="photo-placeholder-text">Corniche normande</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">17–18</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Vernon</span><span class="tl-ar">→</span><span class="tl-t">Cysoing</span><span class="tl-kp">440 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Pontoise, Beauvais, deux cyclos canadiennes vers Abbeville. Rue : hôtels mauvais, 20 km de plus jusqu'à Berk-Plage. Le lendemain, Boulogne, Calais, Flandres plates. Déjeuner avec deux cyclos bretons. Traversée de Lille grâce à un plan local. Cysoing, très bien reçus.</p>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="1718juin84">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏛️</span><span class="photo-placeholder-text">Beauvais</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌊</span><span class="photo-placeholder-text">Boulogne</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏙️</span><span class="photo-placeholder-text">Lille</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">19–20</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Cysoing</span><span class="tl-ar">→</span><span class="tl-t">Sarrebourg</span><span class="tl-kp">415 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Quelques passages pavés, forêt de Mormal. À Trélon, un "courraillon" tente de nous lâcher — Bernard le rejoint facilement. Vallée de la Meuse, Sedan, Carignan. Le lendemain, Metz : accueil de Bernard Migaud avec plan de la ville. Orage violent avant Sarrebourg.</p>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="1920juin84">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌳</span><span class="photo-placeholder-text">Forêt de Mormal</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏰</span><span class="photo-placeholder-text">Vallée de la Meuse</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">⛈️</span><span class="photo-placeholder-text">Orage en Lorraine</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">21</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Sarrebourg</span><span class="tl-ar">→</span><span class="tl-t">Col de la Schlucht</span><span class="tl-kp">176 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Affaires volées dans les sacoches d'André ! Col de Valsberg, premier col TDF 1984. Orages à Sélestat — séchage chez un coiffeur ! Cols des Vosges enchaînés. Nuit au refuge CAF près du Markstein.</p><div class="tl-ch-row"><span class="ch">Col de Valsberg 652 m</span><span class="ch">Col des Bagenelles 903 m</span><span class="ch">Col du Bonhomme 949 m</span><span class="ch">Col de la Schlucht 1 159 m</span></div>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="21juin84">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">⛪</span><span class="photo-placeholder-text">Alsace</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌲</span><span class="photo-placeholder-text">Forêt vosgienne</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏔️</span><span class="photo-placeholder-text">Col de la Schlucht</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">22</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Schlucht</span><span class="tl-ar">→</span><span class="tl-t">Pontarlier</span><span class="tl-kp">205 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Route des crêtes au petit matin, brouillard se dissipant. Grand Ballon couvert de fleurs printanières. Cernay, cigognes alsaciennes. Crochet devant la fabrique Peugeot à Mandeure. Magnifique descente vers Morteau, puis Pontarlier — 31 km d'avance.</p><div class="tl-ch-row"><span class="ch">Grand Ballon 1 424 m</span><span class="ch">Col Amic 850 m</span></div>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="22juin84">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌸</span><span class="photo-placeholder-text">Grand Ballon</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🦢</span><span class="photo-placeholder-text">Cigognes alsaciennes</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏭</span><span class="photo-placeholder-text">Usine Peugeot</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">23</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Pontarlier</span><span class="tl-ar">→</span><span class="tl-t">Thonon-les-Bains</span><span class="tl-kp">199 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Pluie fine, lac de Saint-Point. Col de la Faucille : déjeuner au sommet, belle vue sur le Léman. Descente ensoleillée, avions à Genève. Thonon, accueil exceptionnel au siège des cyclos locaux.</p><div class="tl-ch-row"><span class="ch">Col Savarine 995 m</span><span class="ch">Col de la Faucille 1 320 m</span></div>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="23juin84">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">💧</span><span class="photo-placeholder-text">Lac de Saint-Point</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏔️</span><span class="photo-placeholder-text">Col de la Faucille</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌊</span><span class="photo-placeholder-text">Lac Léman</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">24</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Thonon</span><span class="tl-ar">→</span><span class="tl-t">Albertville 🏁</span><span class="tl-kp">119 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Pluie diluvienne au col des Gets, glissements de terrain. Deux jeunes cyclos nous accompagnent. Vent de dos sur Sallanches. Déjeuner à Megève vue sur les sommets. Albertville à 15h. <em>"L'amitié Cyclo n'est pas un vain mot."</em></p><div class="tl-ch-row"><span class="ch">Col des Gets 1 163 m</span><span class="ch">Col de Châtillon 738 m</span></div>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="24juin84">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">⛷️</span><span class="photo-placeholder-text">Megève</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏁</span><span class="photo-placeholder-text">Albertville</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🎉</span><span class="photo-placeholder-text">Fin période 2 !</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
   </div>
 
@@ -734,49 +768,37 @@ footer strong{color:rgba(255,255,255,.7)}
     <div class="tli"><div class="tl-dc"><div class="tl-d">22–24</div><div class="tl-m">juin 85</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Mazamet → Annecy</span><span class="tl-kp">Avant-Tour</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Les vélos ne voyagent pas en train cette année : Mazamet–Annecy en vélo pour l'entraînement final. Route via Bédarieux, Clermont-l'Hérault, Bagnols-sur-Cèze, Chambéry, tour du lac d'Annecy, col de la Forclaz de Montmin. Soirée chez Colette et Henri Dusseau.</p><div class="tl-ch-row"><span class="ch">Col de Fénille 480 m</span><span class="ch">Col du Couz 624 m</span><span class="ch">Forclaz de Montmin 1 150 m</span></div>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="avantour85">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏞️</span><span class="photo-placeholder-text">Lac d'Annecy</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🚴</span><span class="photo-placeholder-text">Mazamet–Annecy</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏔️</span><span class="photo-placeholder-text">Forclaz de Montmin</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">25</div><div class="tl-m">juin 85</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Albertville</span><span class="tl-ar">→</span><span class="tl-t">Refuge Napoléon</span><span class="tl-kp">180 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Départ 6h précises. Madeleine — premières congères, troupeaux en alpage. Télégraphe, Valloire, rencontre du TDF n°1083 parti de Rouen. Galibier : hélicoptère, marmottes, neige fondante. Lautaret, Briançon. Forêt de sapins vers l'Izoard. Nuit au refuge Napoléon à 2 300 m.</p><div class="tl-ch-row"><span class="ch">Col de la Madeleine 1 993 m</span><span class="ch">Col du Télégraphe 1 566 m</span><span class="ch">Plan Nicolas 2 406 m</span><span class="ch">Col du Galibier 2 642 m</span><span class="ch">Col du Lautaret 2 057 m</span><span class="ch">Col de l'Izoard 2 360 m</span></div>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="25juin85">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">❄️</span><span class="photo-placeholder-text">Galibier</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏔️</span><span class="photo-placeholder-text">Col de l'Izoard</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏕️</span><span class="photo-placeholder-text">Refuge Napoléon</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">26</div><div class="tl-m">juin 85</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Col de l'Izoard</span><span class="tl-ar">→</span><span class="tl-t">Vence</span><span class="tl-kp">211 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Casse Déserte, stèle de Coppi et Bobet. Col de Vars. La Bonnette — 25 km de côtes étroites et torrides. Un couple hollandais nous photographie dans la neige. Transhumance de moutons sur la route. Nice, puis Vence. <em>"C'est ce que nous faisons depuis ce matin !"</em></p><div class="tl-ch-row"><span class="ch">Col de Vars 2 108 m</span><span class="ch">Col de la Bonnette 2 715 m</span><span class="ch">Col des Granges Communes 2 513 m</span></div>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="26juin85">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">⛰️</span><span class="photo-placeholder-text">Casse Déserte</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🐑</span><span class="photo-placeholder-text">Transhumance</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌅</span><span class="photo-placeholder-text">Côte d'Azur</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">27</div><div class="tl-m">juin 85</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Vence</span><span class="tl-ar">→</span><span class="tl-t">Cassis</span><span class="tl-kp">220 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Grasse, intégration dans un peloton. Mandelieu, la Grande Bleue enfin visible. Saint-Raphaël, massif des Maures en forêt de chênes-liège. Cogolin, restaurant à l'ombre. Hyères, Toulon. Cassis le soir, hébergés près du port de plaisance.</p><div class="tl-ch-row"><span class="ch">Col de l'Esquilon 83 m</span><span class="ch">Col de Gratteloup 200 m</span><span class="ch">Pas de Bellefille 195 m</span></div>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="27juin85">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌊</span><span class="photo-placeholder-text">Grande Bleue</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌲</span><span class="photo-placeholder-text">Massif des Maures</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">⚓</span><span class="photo-placeholder-text">Port de Cassis</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">28</div><div class="tl-m">juin 85</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Cassis</span><span class="tl-ar">→</span><span class="tl-t">Sète 🏁</span><span class="tl-kp">209 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Marseille traversée sans encombre. Traversée de la Crau sous le mistral. Arles, Camargue, vent en poupe. Aigues-Mortes. La voie ferrée : trois trains sifflent pour nous encourager. À 19h30, Sète. <em>"Nous arrivons dans la ville où trois ans plus tôt nous étions partis."</em> Geneviève, Anne et Catherine nous attendaient.</p><div class="tl-ch-row"><span class="ch">Col de la Gineste 328 m</span></div>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="28juin85">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🦩</span><span class="photo-placeholder-text">Camargue</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🌊</span><span class="photo-placeholder-text">Arrivée à Sète</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🎉</span><span class="photo-placeholder-text">4 772 km !</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">29</div><div class="tl-m">juin 85</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Sète</span><span class="tl-ar">→</span><span class="tl-t">Mazamet — Fête 🎉</span><span class="tl-kp">131 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Dernière carte contrôle postée. Col de Rodomouls — à 500 mètres du sommet, le comité d'accueil en place : banderoles, fanions, appareils photos. Caravane de retour vers Mazamet. Rue Nungesser et Coli : discours, coupes, gâteaux et champagne. <em>"Une vraie petite fête cyclo clôture cette journée inoubliable."</em></p><div class="tl-ch-row"><span class="ch">Col de Fontjun 230 m</span><span class="ch">Col de Rodomouls 562 m</span><span class="ch">Col de Fénille 480 m</span></div>
 <div class="photo-section-label">Photos</div>
 <div class="photo-grid" data-stage="29juin85">
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🏆</span><span class="photo-placeholder-text">Accueil Rodomouls</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🥂</span><span class="photo-placeholder-text">Fête à Mazamet</span></div>
-  <div class="photo-placeholder"><span class="photo-placeholder-icon">🎊</span><span class="photo-placeholder-text">Fin du Tour !</span></div>
+  <div class="photo-placeholder-simple">Photo</div>
 </div></div></div></div>
   </div>
 
@@ -790,10 +812,10 @@ footer strong{color:rgba(255,255,255,.7)}
   <div class="map-wrap">
     <div id="map"></div>
     <div class="map-legend">
-      <div class="leg-item"><div class="leg-dot" style="background:#5a8c62"></div><span class="leg-label">1983 — Sète → Saint-Malo</span></div>
-      <div class="leg-item"><div class="leg-dot" style="background:#3d6b47"></div><span class="leg-label">1984 — Saint-Malo → Albertville</span></div>
-      <div class="leg-item"><div class="leg-dot" style="background:#2d4a35"></div><span class="leg-label">1985 — Albertville → Sète</span></div>
-      <div class="leg-item"><div class="leg-dot" style="background:#c8472a"></div><span class="leg-label">Villes étapes</span></div>
+      <div class="leg-item"><div class="leg-dot" style="background:#72AC43"></div><span class="leg-label">1983 — Sète → Saint-Malo</span></div>
+      <div class="leg-item"><div class="leg-dot" style="background:#F8A91F"></div><span class="leg-label">1984 — Saint-Malo → Albertville</span></div>
+      <div class="leg-item"><div class="leg-dot" style="background:#2B573A"></div><span class="leg-label">1985 — Albertville → Sète</span></div>
+      <div class="leg-item"><div class="leg-dot" style="background:#EC6426"></div><span class="leg-label">Villes étapes</span></div>
     </div>
   </div>
 </div>
@@ -821,9 +843,9 @@ footer strong{color:rgba(255,255,255,.7)}
   <div class="infog-card">
     <div class="infog-title">Kilomètres par étape</div>
     <div class="infog-legend">
-      <div class="il-item"><div class="il-dot" style="background:#5a8c62"></div>1983</div>
-      <div class="il-item"><div class="il-dot" style="background:#3d6b47"></div>1984</div>
-      <div class="il-item"><div class="il-dot" style="background:#2d4a35"></div>1985</div>
+      <div class="il-item"><div class="il-dot" style="background:#72AC43"></div>1983</div>
+      <div class="il-item"><div class="il-dot" style="background:#F8A91F"></div>1984</div>
+      <div class="il-item"><div class="il-dot" style="background:#2B573A"></div>1985</div>
     </div>
     <div class="bar-chart" id="barChart"></div>
   </div>
@@ -832,23 +854,14 @@ footer strong{color:rgba(255,255,255,.7)}
   <div class="infog-card">
     <div class="infog-title">Les 20 plus grands cols</div>
     <div class="infog-legend">
-      <div class="il-item"><div class="il-dot" style="background:#5a8c62"></div>1983</div>
-      <div class="il-item"><div class="il-dot" style="background:#3d6b47"></div>1984</div>
-      <div class="il-item"><div class="il-dot" style="background:#2d4a35"></div>1985</div>
+      <div class="il-item"><div class="il-dot" style="background:#72AC43"></div>1983</div>
+      <div class="il-item"><div class="il-dot" style="background:#F8A91F"></div>1984</div>
+      <div class="il-item"><div class="il-dot" style="background:#2B573A"></div>1985</div>
     </div>
     <div class="col-chart" id="colChart"></div>
   </div>
 
-  <!-- Départements traversés -->
-  <div class="infog-card">
-    <div class="infog-title">Départements traversés</div>
-    <div class="infog-legend" style="margin-bottom:12px">
-      <div class="il-item"><div class="il-dot" style="background:#7bc98a"></div>1983</div>
-      <div class="il-item"><div class="il-dot" style="background:#4da863"></div>1984</div>
-      <div class="il-item"><div class="il-dot" style="background:#1f7a3a"></div>1985</div>
-    </div>
-    <div class="dept-list" id="deptList"></div>
-  </div>
+
 
 </div>
 </div><!-- /page-infographie -->
@@ -899,6 +912,7 @@ function goPage(id){
     setTimeout(()=>document.querySelectorAll('#p0 .tli').forEach((el,i)=>setTimeout(()=>el.classList.add('vis'),i*60+200)),100);
   }
 }
+
 
 /* ══ DRAWER ═══════════════════════════════ */
 function toggleDrawer(){
@@ -1004,10 +1018,137 @@ function initMap(){
     attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom:18
   }).addTo(map);
-  const C1='#5a8c62',C2='#3d6b47',C3='#2d4a35',CA='#c8472a';
-  const p1=[[43.40,3.69],[43.32,3.22],[43.35,2.75],[42.97,2.35],[42.70,2.88],[42.72,1.84],[42.85,1.60],[43.00,0.95],[42.87,0.37],[42.95,-0.37],[43.29,-1.32],[43.49,-1.47],[43.49,-1.56],[44.67,-1.24],[44.96,-1.06],[45.64,-1.02],[45.94,-1.00],[46.16,-1.15],[47.15,-2.20],[47.28,-2.55],[47.42,-2.76],[47.89,-4.00],[48.11,-4.22],[48.40,-4.49],[48.45,-4.57],[48.58,-3.83],[48.67,-3.38],[48.52,-2.75],[48.65,-2.00]];
-  const p2=[[48.65,-2.00],[48.63,-1.51],[49.20,-1.25],[49.18,-0.35],[49.36,1.09],[49.44,1.10],[49.22,1.73],[49.07,2.08],[49.45,2.83],[50.52,3.03],[50.63,3.07],[51.03,2.38],[50.96,2.56],[50.73,3.17],[50.44,4.88],[49.77,4.71],[49.50,5.14],[49.32,5.35],[49.13,6.17],[48.67,7.27],[48.54,7.74],[47.75,7.34],[47.52,7.61],[47.64,6.85],[47.49,6.84],[47.49,6.52],[46.99,6.12],[46.90,5.54],[46.35,6.19],[46.19,6.23],[46.05,6.39],[45.97,6.93],[45.68,6.40],[45.67,6.37]];
-  const p3=[[45.67,6.37],[45.44,6.71],[45.18,6.69],[44.92,6.64],[44.66,6.65],[44.42,6.84],[44.25,7.06],[44.10,7.28],[43.87,7.13],[43.73,7.10],[43.73,7.00],[43.70,6.79],[43.55,6.64],[43.42,6.49],[43.30,6.40],[43.20,6.03],[43.12,5.97],[43.30,5.37],[43.52,5.20],[43.70,5.08],[43.68,4.63],[43.85,4.36],[43.61,3.88],[43.55,3.77],[43.40,3.69]];
+  const C1='#72AC43',C2='#F8A91F',C3='#2B573A',CA='#EC6426';
+  // ── Période 1 : Sète → Saint-Malo (18-27 juin 1983) ──────────────────
+  const p1=[
+    [43.40,3.69],  // Sète
+    [43.32,3.22],[43.20,3.00], // vers Béziers
+    [43.19,2.35],  // Narbonne
+    [42.70,2.88],  // Perpignan
+    [42.60,2.36],  // Prades
+    [42.60,2.11],  // Villefranche-de-Conflent
+    [42.59,2.05],  // Olette
+    [42.72,2.11],  // Mont-Louis
+    [42.68,1.83],  // Font-Romeu
+    [42.57,1.83],  // Col de Puymorens
+    [42.72,1.61],  // Ax-les-Thermes
+    [42.84,1.61],  // Tarascon-sur-Ariège
+    [43.00,1.22],  // Massat
+    [43.00,0.97],  // Saint-Girons
+    [42.97,0.73],  // Audressein
+    [43.03,0.62],  // Col de Portet d'Aspet
+    [42.91,0.48],  // Col de Mente
+    [42.92,0.40],  // Col de Peyresourde
+    [42.97,0.29],  // Arreau / Col d'Aspin
+    [42.97,0.17],  // Sainte-Marie-de-Campan
+    [42.87,0.00],  // Col du Tourmalet
+    [42.87,0.00],  // Luz-Saint-Sauveur
+    [42.87,-0.20], // Argelès-Gazost
+    [43.00,-0.37], // Col du Soulor / Aubisque
+    [43.02,-0.57], // Laruns
+    [43.23,-0.88], // Oloron
+    [43.23,-1.00], // Col d'Osquich
+    [43.30,-1.13], // Mauléon
+    [43.38,-1.32], // Saint-Jean-Pied-de-Port
+    [43.45,-1.56], // Cambo-les-Bains
+    [43.49,-1.47], // Bayonne
+    [43.56,-1.56], // Hossegor
+    [43.69,-1.60], // Léon
+    [44.20,-1.08], // Mimizan
+    [44.67,-1.15], // Biganos
+    [44.84,-0.70], // Andernos-les-Bains
+    [45.10,-1.07], // La Pointe de Graves / Bac
+    [45.64,-1.02], // Royan
+    [45.94,-1.00], // Saint-Jean-d'Angle
+    [46.16,-1.15], // La Rochelle
+    [46.22,-1.07], // Châtelaillon
+    [46.36,-1.17], // Luçon
+    [46.67,-1.80], // Talmont / Saint-Hilaire
+    [46.83,-2.00], // Sables-d'Olonne
+    [47.15,-2.20], // La Roche-Bernard
+    [47.28,-2.55], // Vannes
+    [47.51,-2.76], // Quimperlé
+    [47.89,-4.00], // Quimper
+    [48.07,-4.24], // Pont-l'Abbé
+    [48.22,-4.33], // Plonéour-Lanver
+    [48.40,-4.49], // Douarnenez / Châteaulin
+    [48.40,-4.49], // Brest
+    [48.60,-3.83], // Landivisiau
+    [48.58,-3.83], // Saint-Thégonnec
+    [48.67,-3.38], // Morlaix
+    [48.70,-3.00], // Lannion
+    [48.67,-2.75], // Tréguier
+    [48.63,-2.50], // Paimpol
+    [48.52,-2.75], // Saint-Brieuc
+    [48.43,-2.00], // Yffiniac / Ploubalay
+    [48.65,-2.00]  // Saint-Malo 🏁
+  ];
+
+  // ── Période 2 : Saint-Malo → Albertville (15-24 juin 1984) ───────────
+  const p2=[
+    [48.65,-2.00], // Saint-Malo
+    [48.63,-1.51], // Pontorson / Mont-Saint-Michel
+    [48.73,-1.42], // Avranches
+    [49.08,-1.30], // Isigny-sur-Mer
+    [49.25,-1.08], // Carentan
+    [49.22,-0.55], // Caen (Lessay)
+    [49.42,-0.30], // Cherbourg
+    [49.52,-0.28], // Sainte-Mère-l'Église
+    [49.36,1.09],  // Vernon
+    [49.30,1.49],  // Évreux
+    [49.33,2.07],  // Pontoise
+    [49.07,2.08],  // Berck (via côte)
+    [50.40,1.56],  // Berck-sur-Mer
+    [50.52,3.03],  // Arras / Douai
+    [50.63,3.07],  // Cysoing (près Lille)
+    [50.40,2.82],  // Lens
+    [50.02,3.37],  // Carignan / Maubeuge
+    [49.80,4.75],  // Charleville-Mézières
+    [49.80,4.75],  // Ardennes
+    [49.50,5.14],  // Carignan
+    [49.32,5.35],  // Longuyon
+    [49.08,6.11],  // Metz (Sarrebourg)
+    [48.73,7.28],  // Strasbourg
+    [48.54,7.74],  // Colmar / Mulhouse
+    [47.75,7.34],  // Grand Ballon / Cernay
+    [47.68,6.85],  // Belfort
+    [47.49,6.52],  // Montbéliard
+    [46.99,6.12],  // Pontarlier
+    [46.90,5.54],  // Champagnole
+    [46.35,6.19],  // Thonon-les-Bains
+    [46.19,6.23],  // Annecy / Saint-Jorioz
+    [45.91,6.51],  // Albertville 🏁
+  ];
+
+  // ── Période 3 : Albertville → Sète (25-28 juin 1985) ─────────────────
+  const p3=[
+    [45.91,6.51],  // Albertville (départ TDF Randonneur)
+    [45.67,6.37],  // Albertville → Col de la Madeleine
+    [45.44,6.71],  // Col du Télégraphe / Valloire
+    [45.18,6.69],  // Col du Galibier / Plan Nicolas
+    [44.92,6.64],  // Col du Lautaret
+    [44.85,6.64],  // Briançon
+    [44.66,6.65],  // Col de l'Izoard
+    [44.55,6.84],  // Col de Vars
+    [44.42,6.84],  // Col de la Bonnette
+    [44.25,7.06],  // Vence (via Côte d'Azur)
+    [44.10,7.28],  // Nice
+    [43.87,7.13],  // Antibes / Cannes
+    [43.73,7.00],  // Vence
+    [43.73,6.79],  // Grasse
+    [43.55,6.64],  // Draguignan
+    [43.42,6.49],  // Le Muy
+    [43.30,6.40],  // Fréjus / Hyères
+    [43.20,6.03],  // Cassis
+    [43.12,5.97],  // Marseille
+    [43.30,5.37],  // Montpellier
+    [43.52,5.20],  // Nîmes / Arles
+    [43.68,4.63],  // Aigues-Mortes
+    [43.55,4.43],  // Le Grau-du-Roi
+    [43.55,3.88],  // Palavas
+    [43.40,3.69]   // Sète 🏁🎉
+  ];
+
   L.polyline(p1,{color:C1,weight:3.5,opacity:.85}).addTo(map);
   L.polyline(p2,{color:C2,weight:3.5,opacity:.85}).addTo(map);
   L.polyline(p3,{color:C3,weight:3.5,opacity:.85}).addTo(map);
@@ -1067,30 +1208,21 @@ function initCharts(){
   ].sort((a,b)=>b.alt-a.alt);
   const maxAlt=cols[0].alt;
   const cc=document.getElementById('colChart');
+  // Calcul responsive : utilise la hauteur réelle du container moins les paddings
+  function drawCols(){
+    const totalH = cc.clientHeight; // inclut padding
+    const availH = totalH - 60 - 44; // moins padding-top et padding-bottom
+    cc.querySelectorAll('.col-bar').forEach(bar=>{
+      const pct = parseFloat(bar.dataset.pct);
+      bar.style.height = Math.round(pct/100*availH)+'px';
+    });
+  }
   cols.forEach(c=>{
-    const h=Math.round(c.alt/maxAlt*120);
-    cc.innerHTML+=`<div class="col-bar-wrap"><div class="col-bar ${c.p}" style="height:${h}px" title="${c.n} ${c.alt}m"></div><div class="col-bar-name">${c.n}<br>${c.alt}m</div></div>`;
+    const pct=Math.round(c.alt/maxAlt*100);
+    cc.innerHTML+=`<div class="col-bar-wrap"><div class="col-bar-tooltip">${c.n} — ${c.alt}m</div><div class="col-bar ${c.p}" data-pct="${pct}"></div><div class="col-bar-name">${c.n}<br>${c.alt}m</div></div>`;
   });
-  const depts=[
-    {n:'Hérault (34)',p:'p1'},{n:'Aude (11)',p:'p1'},{n:'Pyr.-Orientales (66)',p:'p1'},
-    {n:'Ariège (09)',p:'p1'},{n:'Haute-Garonne (31)',p:'p1'},{n:'Hautes-Pyrénées (65)',p:'p1'},
-    {n:'Pyrénées-Atlantiques (64)',p:'p1'},{n:'Landes (40)',p:'p1'},{n:'Gironde (33)',p:'p1'},
-    {n:'Charentes-Maritimes (17)',p:'p1'},{n:'Vendée (85)',p:'p1'},{n:'Loire-Atlantique (44)',p:'p1'},
-    {n:'Morbihan (56)',p:'p1'},{n:'Finistère (29)',p:'p1'},{n:"Côtes-d'Armor (22)",p:'p1'},
-    {n:'Ille-et-Vilaine (35)',p:'p1'},
-    {n:'Manche (50)',p:'p2'},{n:'Calvados (14)',p:'p2'},{n:'Eure (27)',p:'p2'},
-    {n:"Val-d'Oise (95)",p:'p2'},{n:'Oise (60)',p:'p2'},{n:'Somme (80)',p:'p2'},
-    {n:'Pas-de-Calais (62)',p:'p2'},{n:'Nord (59)',p:'p2'},{n:'Aisne (02)',p:'p2'},
-    {n:'Ardennes (08)',p:'p2'},{n:'Meuse (55)',p:'p2'},{n:'Moselle (57)',p:'p2'},
-    {n:'Bas-Rhin (67)',p:'p2'},{n:'Haut-Rhin (68)',p:'p2'},{n:'Vosges (88)',p:'p2'},
-    {n:'Terr. de Belfort (90)',p:'p2'},{n:'Doubs (25)',p:'p2'},{n:'Jura (39)',p:'p2'},
-    {n:'Ain (01)',p:'p2'},{n:'Haute-Savoie (74)',p:'p2'},{n:'Savoie (73)',p:'p2'},
-    {n:'Hautes-Alpes (05)',p:'p3'},{n:'Alpes-de-Hte-Provence (04)',p:'p3'},
-    {n:'Alpes-Maritimes (06)',p:'p3'},{n:'Var (83)',p:'p3'},
-    {n:'Bouches-du-Rhône (13)',p:'p3'},{n:'Gard (30)',p:'p3'}
-  ];
-  const dl=document.getElementById('deptList');
-  depts.forEach(d=>{dl.innerHTML+=`<div class="dept-chip ${d.p}">${d.n}</div>`});
+  drawCols();
+  window.addEventListener('resize', drawCols);
 }
 </script>
 </body>
