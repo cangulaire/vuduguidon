@@ -272,6 +272,91 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 .leaflet-popup-content-wrapper{border-radius:14px!important;box-shadow:0 8px 24px rgba(0,0,0,.12)!important}
 .leaflet-popup-content{margin:14px 16px!important}
 
+/* ══ MAP FLOATING PANEL ═══════════════════ */
+.map-panel{
+  position:absolute;top:16px;right:16px;z-index:10;
+  width:240px;max-height:calc(100% - 100px);
+  background:rgba(253,244,236,.96);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-radius:var(--rl);
+  border:1px solid rgba(99,39,27,.1);
+  box-shadow:0 8px 32px rgba(43,87,58,.18);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  transition:transform .3s cubic-bezier(.25,.46,.45,.94);
+}
+.map-panel-header{
+  padding:14px 16px 10px;
+  border-bottom:1px solid rgba(99,39,27,.08);
+  flex-shrink:0;
+}
+.map-panel-title{
+  font-family:'Bebas Neue',sans-serif;font-size:16px;font-weight:400;
+  color:var(--gd);letter-spacing:.06em;margin-bottom:4px;
+}
+.map-panel-sub{font-size:10px;color:var(--muted);font-weight:500}
+.map-panel-body{overflow-y:auto;flex:1;padding:8px 0;scrollbar-width:thin;scrollbar-color:rgba(114,172,67,.3) transparent}
+.map-panel-body::-webkit-scrollbar{width:3px}
+.map-panel-body::-webkit-scrollbar-thumb{background:rgba(114,172,67,.4);border-radius:3px}
+
+.mp-period{
+  padding:6px 14px 4px;
+  font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;
+}
+.mp-stop{
+  display:flex;align-items:center;gap:9px;
+  padding:7px 14px;cursor:pointer;
+  transition:background .15s;
+  border-left:3px solid transparent;
+}
+.mp-stop:hover{background:rgba(114,172,67,.08)}
+.mp-stop.active{
+  background:rgba(114,172,67,.13);
+  border-left-color:var(--gm);
+}
+.mp-dot{
+  width:9px;height:9px;border-radius:50%;flex-shrink:0;
+  border:1.5px solid rgba(255,255,255,.8);
+  box-shadow:0 1px 3px rgba(0,0,0,.2);
+}
+.mp-info{flex:1;min-width:0}
+.mp-name{
+  font-family:'Bebas Neue',sans-serif;font-size:14px;font-weight:400;
+  color:var(--ink);letter-spacing:.03em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  line-height:1.1;
+}
+.mp-km{font-size:10px;color:var(--muted);font-weight:400;margin-top:1px}
+
+/* Highlight pulsé sur le marqueur sélectionné */
+.marker-highlight{
+  animation:pulseMarker 1.2s ease-out;
+}
+@keyframes pulseMarker{
+  0%{transform:scale(1)}
+  30%{transform:scale(2.2)}
+  60%{transform:scale(1.4)}
+  100%{transform:scale(1)}
+}
+
+/* Toggle button for mobile */
+.map-panel-toggle{
+  position:absolute;top:16px;right:16px;z-index:11;
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(43,87,58,.95);border:none;cursor:pointer;
+  display:none;align-items:center;justify-content:center;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+  font-size:16px;color:#fff;
+  transition:background .2s;
+}
+@media(max-width:600px){
+  .map-panel{
+    width:200px;top:12px;right:12px;max-height:calc(100% - 80px);
+  }
+  .mp-name{font-size:12px}
+}
+
 /* ══ ④ INFOGRAPHIE ════════════════════════ */
 .infog-wrap{max-width:1120px;margin:0 auto;padding:28px 16px calc(80px + var(--sab))}
 .infog-card{background:var(--white);border-radius:var(--rl);padding:24px 20px;margin-bottom:16px}
@@ -809,8 +894,20 @@ footer strong{color:rgba(255,255,255,.7)}
      ③ PAGE CARTE
 ═══════════════════════════════════════════ -->
 <div class="page" id="page-carte">
-  <div class="map-wrap">
+  <div class="map-wrap" style="position:relative">
     <div id="map"></div>
+
+    <!-- ── Panneau flottant liste du voyage ── -->
+    <div class="map-panel" id="mapPanel">
+      <div class="map-panel-header">
+        <div class="map-panel-title">🚴 Étapes du voyage</div>
+        <div class="map-panel-sub">16 points · 4 772 km · 1983–1985</div>
+      </div>
+      <div class="map-panel-body" id="mapPanelBody">
+        <!-- généré par JS -->
+      </div>
+    </div>
+
     <div class="map-legend">
       <div class="leg-item"><div class="leg-dot" style="background:#72AC43"></div><span class="leg-label">1983 — Sète → Saint-Malo</span></div>
       <div class="leg-item"><div class="leg-dot" style="background:#F8A91F"></div><span class="leg-label">1984 — Saint-Malo → Albertville</span></div>
@@ -1170,9 +1267,125 @@ function initMap(){
     {ll:[43.20,6.03],name:'Cassis',km:'4 563 km',text:'Hébergés près du port de plaisance.',c:C3},
     {ll:[43.40,3.69],name:'Sète 🏁🎉',km:'4 772 km — ARRIVÉE !',text:'À 19h30 le 28 juin 1985. Geneviève, Anne et Catherine nous attendaient.',c:CA},
   ];
-  const mkIcon=c=>L.divIcon({html:`<div style="width:12px;height:12px;border-radius:50%;background:${c};border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3)"></div>`,iconSize:[12,12],iconAnchor:[6,6],className:''});
-  stops.forEach(s=>{
-    L.marker(s.ll,{icon:mkIcon(s.c)}).addTo(map).bindPopup(`<div class="map-popup-title">${s.name}</div><div class="map-popup-km">${s.km}</div><div class="map-popup-text">${s.text}</div>`);
+  // ── Marqueurs avec highlight ──────────────────────────────────────────
+  const markerElements = [];
+  let activeStopIdx = null;
+
+  const mkIconEl = (c, idx) => {
+    const el = document.createElement('div');
+    el.style.cssText = `width:12px;height:12px;border-radius:50%;background:${c};border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);transition:transform .2s,box-shadow .2s;cursor:pointer`;
+    el.dataset.idx = idx;
+    return el;
+  };
+
+  const mkIcon = (c, idx) => L.divIcon({
+    html: mkIconEl(c, idx).outerHTML.replace('></div>', ` data-idx="${idx}"></div>`),
+    iconSize: [12, 12], iconAnchor: [6, 6], className: ''
+  });
+
+  const highlightStop = (idx) => {
+    // Reset previous
+    if (activeStopIdx !== null) {
+      const prevEl = markerElements[activeStopIdx];
+      if (prevEl) {
+        prevEl.style.transform = 'scale(1)';
+        prevEl.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+        prevEl.style.zIndex = '';
+        prevEl.style.width = '12px';
+        prevEl.style.height = '12px';
+        prevEl.style.marginLeft = '0';
+        prevEl.style.marginTop = '0';
+      }
+      document.querySelectorAll('.mp-stop').forEach(el => el.classList.remove('active'));
+    }
+    activeStopIdx = idx;
+    // Highlight marker
+    const el = markerElements[idx];
+    if (el) {
+      el.style.transform = 'scale(2)';
+      el.style.boxShadow = `0 0 0 4px rgba(255,255,255,.7), 0 4px 14px rgba(0,0,0,.4)`;
+      el.style.zIndex = '999';
+    }
+    // Highlight panel item
+    const panelItem = document.getElementById(`mp-stop-${idx}`);
+    if (panelItem) {
+      panelItem.classList.add('active');
+      panelItem.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }
+  };
+
+  stops.forEach((s, i) => {
+    const marker = L.marker(s.ll, {icon: mkIcon(s.c, i)}).addTo(map);
+    marker.bindPopup(`<div class="map-popup-title">${s.name}</div><div class="map-popup-km">${s.km}</div><div class="map-popup-text">${s.text}</div>`);
+    marker.on('click', () => {
+      highlightStop(i);
+    });
+    marker.on('popupclose', () => {
+      // keep highlight after popup closes
+    });
+    // Store reference to actual DOM element after map renders
+    marker.on('add', () => {
+      setTimeout(() => {
+        const iconEl = marker.getElement();
+        if (iconEl) markerElements[i] = iconEl.querySelector('div');
+      }, 50);
+    });
+    markerElements[i] = null; // placeholder
+    // Store marker ref for later DOM lookup
+    marker._stopIdx = i;
+    marker.on('popupopen', () => highlightStop(i));
+  });
+
+  // After all markers added, grab DOM refs
+  setTimeout(() => {
+    map.eachLayer(layer => {
+      if (layer._stopIdx !== undefined) {
+        const el = layer.getElement();
+        if (el) markerElements[layer._stopIdx] = el.querySelector('div');
+      }
+    });
+  }, 300);
+
+  // ── Construire le panneau latéral ─────────────────────────────────────
+  const periods = [
+    {label:'1983 · Sète → Saint-Malo', color:'#72AC43', ids:[0,1,2,3,4,5,6]},
+    {label:'1984 · Saint-Malo → Albertville', color:'#F8A91F', ids:[7,8,9,10,11]},
+    {label:'1985 · Albertville → Sète', color:'#2B573A', ids:[12,13,14,15]},
+  ];
+  const panel = document.getElementById('mapPanelBody');
+  periods.forEach(period => {
+    const ptitle = document.createElement('div');
+    ptitle.className = 'mp-period';
+    ptitle.textContent = period.label;
+    panel.appendChild(ptitle);
+    period.ids.forEach(idx => {
+      const s = stops[idx];
+      if (!s) return;
+      const item = document.createElement('div');
+      item.className = 'mp-stop';
+      item.id = `mp-stop-${idx}`;
+      item.innerHTML = `
+        <div class="mp-dot" style="background:${s.c}"></div>
+        <div class="mp-info">
+          <div class="mp-name">${s.name}</div>
+          <div class="mp-km">${s.km}</div>
+        </div>`;
+      item.addEventListener('click', () => {
+        // fly to marker and open popup
+        const target = s.ll;
+        map.flyTo(target, 9, {duration: 1.1});
+        setTimeout(() => {
+          map.eachLayer(layer => {
+            if (layer._stopIdx === idx) {
+              layer.openPopup();
+              highlightStop(idx);
+            }
+          });
+        }, 1000);
+        highlightStop(idx);
+      });
+      panel.appendChild(item);
+    });
   });
 }
 
