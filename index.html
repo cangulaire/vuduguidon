@@ -673,69 +673,7 @@ footer strong{color:rgba(255,255,255,.7)}
       </div>
     </div>
 
-  /* Conteneur des stats */
-  .hero-stats {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    margin: 3rem 0;
-    flex-wrap: wrap;
-  }
-
-  /* Bloc individuel de stat */
-  .hstat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    cursor: default;
-    /* Transition fluide pour l'agrandissement */
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    will-change: transform;
-  }
-
-  /* --- L'EFFET D'AGRANDISSEMENT AU SURVOL --- */
-  .hstat:hover {
-    transform: scale(1.25); /* Agrandit de 25% */
-  }
-
-  /* Style des chiffres */
-  .hstat strong {
-    font-size: 3.2rem;
-    font-weight: 800;
-    line-height: 1;
-    color: #2B573A; /* Ton vert thématique */
-    display: block;
-    margin-bottom: 0.5rem;
-    transition: color 0.3s ease;
-  }
-
-  /* Style des étiquettes */
-  .hstat span {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: #555;
-    font-weight: 500;
-  }
-
-  /* Optionnel : changer la couleur du chiffre quand on survole */
-  .hstat:hover strong {
-    color: #1a3624; /* Un vert plus foncé au survol */
-  }
-
-  /* Adaptation pour les téléphones */
-  @media (max-width: 768px) {
-    .hero-stats {
-      gap: 1.5rem;
-    }
-    .hstat strong {
-      font-size: 2.2rem;
-    }
-    .hstat:hover {
-      transform: scale(1.1); /* Moins d'agrandissement sur mobile */
-    }
-  }
+  
 </style>
     <!-- Les randonneurs -->
     <style>
