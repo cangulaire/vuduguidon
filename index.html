@@ -254,8 +254,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 .ch{background:var(--gp);border-radius:100px;padding:3px 9px;font-size:10px;color:var(--gd);font-weight:500;border:1px solid rgba(114,172,67,.15)}
 
 /* ══ ③ CARTE ══════════════════════════════ */
-.map-wrap{display:flex;flex-direction:column;height:calc(100svh - 52px)}
+.map-wrap{display:flex;flex-direction:column;height:calc(100svh - 52px);position:relative}
 #map{flex:1;width:100%;z-index:1}
+@media(max-width:640px){
+  /* Reserve space at bottom for collapsed panel (52px) + bottom tabs (~56px) */
+  #map{margin-bottom:calc(52px + max(56px, calc(56px + var(--sab))))}
+  .map-legend{display:none} /* replaced by panel on mobile */
+}
 .map-legend{
   background:var(--white);border-top:1px solid rgba(99,39,27,.08);
   padding:10px 16px;display:flex;gap:14px;overflow-x:auto;
@@ -340,21 +345,35 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
   100%{transform:scale(1)}
 }
 
-/* Toggle button for mobile */
-.map-panel-toggle{
-  position:absolute;top:16px;right:16px;z-index:11;
-  width:38px;height:38px;border-radius:50%;
-  background:rgba(43,87,58,.95);border:none;cursor:pointer;
-  display:none;align-items:center;justify-content:center;
-  box-shadow:0 4px 12px rgba(0,0,0,.2);
-  font-size:16px;color:#fff;
-  transition:background .2s;
-}
-@media(max-width:600px){
+/* ── Mobile : panneau collapsible en bas ── */
+@media(max-width:640px){
   .map-panel{
-    width:200px;top:12px;right:12px;max-height:calc(100% - 80px);
+    top:auto;right:0;left:0;bottom:0;
+    width:100%;max-height:52px;
+    border-radius:var(--rl) var(--rl) 0 0;
+    border-bottom:none;
+    transition:max-height .35s cubic-bezier(.25,.46,.45,.94);
   }
-  .mp-name{font-size:12px}
+  .map-panel.panel-open{max-height:52vh}
+  .map-panel-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 16px;cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    position:relative;
+  }
+  .map-panel-header::before{
+    content:'';position:absolute;top:7px;left:50%;transform:translateX(-50%);
+    width:36px;height:3px;border-radius:3px;background:rgba(99,39,27,.2);
+  }
+  .map-panel-title{font-size:14px;margin-bottom:0}
+  .map-panel-sub{display:none}
+  .map-panel-chevron{
+    font-size:16px;color:var(--gd);
+    transition:transform .3s;line-height:1;flex-shrink:0;
+  }
+  .map-panel.panel-open .map-panel-chevron{transform:rotate(180deg)}
+  .mp-stop{padding:8px 14px}
+  .mp-name{font-size:13px}
 }
 
 /* ══ ④ INFOGRAPHIE ════════════════════════ */
@@ -899,9 +918,12 @@ footer strong{color:rgba(255,255,255,.7)}
 
     <!-- ── Panneau flottant liste du voyage ── -->
     <div class="map-panel" id="mapPanel">
-      <div class="map-panel-header">
-        <div class="map-panel-title">🚴 Étapes du voyage</div>
-        <div class="map-panel-sub">16 points · 4 772 km · 1983–1985</div>
+      <div class="map-panel-header" id="mapPanelHeader">
+        <div>
+          <div class="map-panel-title">🚴 Étapes du voyage</div>
+          <div class="map-panel-sub">16 points · 4 772 km · 1983–1985</div>
+        </div>
+        <span class="map-panel-chevron">⌃</span>
       </div>
       <div class="map-panel-body" id="mapPanelBody">
         <!-- généré par JS -->
@@ -1348,9 +1370,9 @@ function initMap(){
 
   // ── Construire le panneau latéral ─────────────────────────────────────
   const periods = [
-    {label:'1983 · Sète → Saint-Malo', color:'#72AC43', ids:[0,1,2,3,4,5,6]},
-    {label:'1984 · Saint-Malo → Albertville', color:'#F8A91F', ids:[7,8,9,10,11]},
-    {label:'1985 · Albertville → Sète', color:'#2B573A', ids:[12,13,14,15]},
+    {label:'1983 · Sète → Saint-Malo', ids:[0,1,2,3,4,5,6]},
+    {label:'1984 · Saint-Malo → Albertville', ids:[7,8,9,10,11]},
+    {label:'1985 · Albertville → Sète', ids:[12,13,14,15]},
   ];
   const panel = document.getElementById('mapPanelBody');
   periods.forEach(period => {
@@ -1371,22 +1393,31 @@ function initMap(){
           <div class="mp-km">${s.km}</div>
         </div>`;
       item.addEventListener('click', () => {
-        // fly to marker and open popup
-        const target = s.ll;
-        map.flyTo(target, 9, {duration: 1.1});
+        if (window.innerWidth <= 640) {
+          document.getElementById('mapPanel').classList.remove('panel-open');
+        }
+        map.flyTo(s.ll, 9, {duration: 1.1});
         setTimeout(() => {
           map.eachLayer(layer => {
-            if (layer._stopIdx === idx) {
-              layer.openPopup();
-              highlightStop(idx);
-            }
+            if (layer._stopIdx === idx) { layer.openPopup(); }
           });
-        }, 1000);
+          highlightStop(idx);
+        }, 1100);
         highlightStop(idx);
       });
       panel.appendChild(item);
     });
   });
+
+  // ── Toggle mobile (tap sur le header) ─────────────────────────────────
+  const panelHeader = document.getElementById('mapPanelHeader');
+  if (panelHeader) {
+    panelHeader.addEventListener('click', () => {
+      if (window.innerWidth <= 640) {
+        document.getElementById('mapPanel').classList.toggle('panel-open');
+      }
+    });
+  }
 }
 
 /* ══ CHARTS ═══════════════════════════════ */
