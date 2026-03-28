@@ -157,11 +157,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 }
 .hero-inner{display:flex;align-items:center;gap:32px}
 .hero-content{flex:1;min-width:0}
-.hero-img-wrap{display:block;width:100%;margin-bottom:14px}
-.hero-img-wrap img{width:100%;max-height:200px;object-fit:cover;border-radius:14px;opacity:.92;box-shadow:0 12px 36px rgba(0,0,0,.3)}
+.hero-img-wrap{display:block;flex-shrink:0;width:130px}
+.hero-img-wrap img{width:100%;height:160px;object-fit:cover;border-radius:14px;opacity:.92;box-shadow:0 12px 36px rgba(0,0,0,.3)}
 @media(min-width:768px){
   .hero{max-height:560px}
-  .hero-img-wrap{width:100%;max-width:500px}
+  .hero-img-wrap{width:180px}
+  .hero-img-wrap img{height:200px}
 }
 .hblob1{position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#4a8a50,#2B573A 65%);opacity:.5;pointer-events:none}
 .hblob2{position:absolute;bottom:40px;left:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,#72AC43,transparent 65%);opacity:.35;pointer-events:none}
@@ -626,18 +627,22 @@ footer strong{color:rgba(255,255,255,.7)}
       <p class="hero-ey">1983 – 1985 · France entière</p>
       <h1 class="hero-h">Le Tour de France<br><em>Randonneur</em></h1>
       <p class="hero-p">L'aventure de deux cyclistes tarnais qui ont fait le tour de la France en trois étés — 4 772 km, 47 cols, un carnet de route.</p>
-      <div class="hero-img-wrap">
-        <img src="imageprincipale.png" alt="André Puech et Bernard Burguete">
-      </div>
-      <div class="hero-stats">
-        <div class="hstat"><strong>4 772</strong><span>kilomètres</span></div>
-        <div class="hstat"><strong>47</strong><span>cols franchis</span></div>
-        <div class="hstat"><strong>24</strong><span>étapes</span></div>
-        <div class="hstat"><strong>23</strong><span>jours de selle</span></div>
-      </div>
-      <div class="hero-claire">
-        <div class="claire-av">🚴</div>
-        <p class="claire-text"><strong>Claire</strong> — petite-fille d'André, devenue cycliste à mon tour, je garde vivante cette aventure familiale extraordinaire.</p>
+      <div style="display:flex;gap:16px;align-items:flex-start">
+        <div style="flex:1;min-width:0">
+          <div class="hero-stats">
+            <div class="hstat"><strong>4 772</strong><span>kilomètres</span></div>
+            <div class="hstat"><strong>47</strong><span>cols franchis</span></div>
+            <div class="hstat"><strong>24</strong><span>étapes</span></div>
+            <div class="hstat"><strong>23</strong><span>jours de selle</span></div>
+          </div>
+          <div class="hero-claire">
+            <div class="claire-av">🚴</div>
+            <p class="claire-text"><strong>Claire</strong> — petite-fille d'André, devenue cycliste à mon tour, je garde vivante cette aventure familiale extraordinaire.</p>
+          </div>
+        </div>
+        <div class="hero-img-wrap">
+          <img src="imageprincipale.png" alt="André Puech et Bernard Burguete">
+        </div>
       </div>
     </div>
   </section>
