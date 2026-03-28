@@ -680,6 +680,17 @@ footer strong{color:rgba(255,255,255,.7)}
 .glightbox-clean .gslide-description{background:rgba(0,0,0,.7)}
 .glightbox-clean .gdesc-inner{padding:12px 16px}
 .glightbox-clean .gslide-title{color:#fff;font-size:13px;font-weight:300;margin:0}
+/* ── Photo toggle ───────────────────────── */
+.photo-grid-wrap{display:none}
+.photo-grid-wrap.open{display:block}
+.photo-toggle{
+  margin-left:auto;background:none;border:1px solid rgba(114,172,67,.35);
+  border-radius:100px;padding:2px 10px;font-size:10px;font-weight:600;
+  color:var(--gd);cursor:pointer;letter-spacing:.04em;
+  transition:background .15s;
+}
+.photo-toggle:hover{background:rgba(114,172,67,.1)}
+.photo-section-label{display:flex;align-items:center}
 </style>
 </head>
 <body>
@@ -1935,153 +1946,190 @@ function initMap(){
   // ── Période 1 : Sète → Saint-Malo (18-27 juin 1983) ──────────────────
   const p1=[
     [43.40,3.69],  // Sète
-    [43.32,3.22],[43.20,3.00], // vers Béziers
-    [43.19,2.35],  // Narbonne
-    [42.70,2.88],  // Perpignan
-    [42.60,2.36],  // Prades
-    [42.60,2.11],  // Villefranche-de-Conflent
-    [42.59,2.05],  // Olette
-    [42.72,2.11],  // Mont-Louis
-    [42.68,1.83],  // Font-Romeu
+    [43.35,3.41],  // Agde
+    [43.35,3.22],  // Béziers
+    [43.18,3.00],  // Narbonne
+    [43.05,2.90],  // Sigean
+    [42.87,2.90],  // Rivesaltes
+    [42.70,2.90],  // Perpignan
+    [42.72,2.63],  // Thuir
+    [42.68,2.45],  // Ille-sur-Têt
+    [42.61,2.36],  // Prades
+    [42.60,2.24],  // Villefranche-de-Conflent
+    [42.59,2.11],  // Olette
+    [42.62,2.07],  // Fontpédrouse
+    [42.72,2.07],  // Mont-Louis
+    [42.54,1.98],  // Font-Romeu
     [42.57,1.83],  // Col de Puymorens
-    [42.72,1.61],  // Ax-les-Thermes
-    [42.84,1.61],  // Tarascon-sur-Ariège
-    [43.00,1.22],  // Massat
-    [43.00,0.97],  // Saint-Girons
-    [42.97,0.73],  // Audressein
-    [43.03,0.62],  // Col de Portet d'Aspet
-    [42.91,0.48],  // Col de Mente
-    [42.92,0.40],  // Col de Peyresourde
+    [42.67,1.75],  // Bourg-Madame
+    [42.74,1.68],  // Puigcerda
+    [42.85,1.60],  // Ax-les-Thermes
+    [42.86,1.48],  // Tarascon-sur-Ariège
+    [43.07,1.37],  // Foix
+    [43.00,1.22],  // Saint-Girons
+    [43.02,1.03],  // Castillon-en-Couserans
+    [42.97,0.83],  // Audressein
+    [43.03,0.72],  // Col de Portet d'Aspet
+    [42.89,0.58],  // Col de la Clin
+    [42.91,0.48],  // Col de Menté
+    [42.79,0.43],  // Col de Peyresourde
     [42.97,0.29],  // Arreau / Col d'Aspin
     [42.97,0.17],  // Sainte-Marie-de-Campan
     [42.87,0.00],  // Col du Tourmalet
-    [42.87,0.00],  // Luz-Saint-Sauveur
-    [42.87,-0.20], // Argelès-Gazost
-    [43.00,-0.37], // Col du Soulor / Aubisque
+    [42.87,0.07],  // Barèges
+    [42.87,0.37],  // Luz-Saint-Sauveur
+    [43.01,0.10],  // Argelès-Gazost
+    [43.00,-0.13], // Argeles-Gazost
+    [43.05,-0.37], // Col du Soulor
+    [43.00,-0.43], // Col d'Aubisque
     [43.02,-0.57], // Laruns
-    [43.23,-0.88], // Oloron
-    [43.23,-1.00], // Col d'Osquich
-    [43.30,-1.13], // Mauléon
-    [43.38,-1.32], // Saint-Jean-Pied-de-Port
-    [43.45,-1.56], // Cambo-les-Bains
+    [43.15,-0.75], // Oloron-Sainte-Marie
+    [43.23,-0.88], // Mauléon
+    [43.30,-1.00], // Col d'Osquich
+    [43.38,-1.22], // Saint-Jean-Pied-de-Port
+    [43.49,-1.42], // Cambo-les-Bains
     [43.49,-1.47], // Bayonne
-    [43.56,-1.56], // Hossegor
-    [43.69,-1.60], // Léon
-    [44.20,-1.08], // Mimizan
+    [43.53,-1.55], // Biarritz
+    [43.59,-1.58], // Hossegor
+    [43.70,-1.62], // Léon
+    [43.87,-1.40], // Mimizan
+    [44.20,-1.10], // Biscarrosse
     [44.67,-1.15], // Biganos
-    [44.84,-0.70], // Andernos-les-Bains
-    [45.10,-1.07], // La Pointe de Graves / Bac
+    [44.95,-1.10], // Arcachon
+    [45.20,-0.93], // Blaye (bac Gironde)
     [45.64,-1.02], // Royan
-    [45.94,-1.00], // Saint-Jean-d'Angle
+    [45.94,-1.00], // Saintes
     [46.16,-1.15], // La Rochelle
     [46.22,-1.07], // Châtelaillon
-    [46.36,-1.17], // Luçon
-    [46.67,-1.80], // Talmont / Saint-Hilaire
-    [46.83,-2.00], // Sables-d'Olonne
-    [47.15,-2.20], // La Roche-Bernard
-    [47.28,-2.55], // Vannes
-    [47.51,-2.76], // Quimperlé
-    [47.89,-4.00], // Quimper
-    [48.07,-4.24], // Pont-l'Abbé
-    [48.22,-4.33], // Plonéour-Lanver
-    [48.40,-4.49], // Douarnenez / Châteaulin
-    [48.40,-4.49], // Brest
+    [46.45,-1.40], // Fontenay-le-Comte
+    [46.67,-1.80], // Luçon
+    [46.87,-1.95], // Saint-Jean-de-Monts
+    [47.07,-2.10], // Saint-Nazaire
+    [47.27,-2.23], // La Baule
+    [47.52,-2.30], // La Roche-Bernard
+    [47.66,-2.75], // Vannes
+    [47.87,-3.36], // Quimper
+    [47.98,-4.03], // Concarneau
+    [47.87,-4.12], // Pont-l'Abbé
+    [47.84,-4.33], // Plonéour-Lanvern
+    [48.09,-4.33], // Douarnenez
+    [48.40,-4.49], // Châteaulin
+    [48.45,-4.55], // Brest
     [48.60,-3.83], // Landivisiau
     [48.58,-3.83], // Saint-Thégonnec
-    [48.67,-3.38], // Morlaix
-    [48.70,-3.00], // Lannion
-    [48.67,-2.75], // Tréguier
-    [48.63,-2.50], // Paimpol
+    [48.58,-3.84], // Morlaix
+    [48.76,-3.46], // Lannion
+    [48.79,-3.24], // Tréguier
+    [48.78,-3.02], // Paimpol
     [48.52,-2.75], // Saint-Brieuc
-    [48.43,-2.00], // Yffiniac / Ploubalay
-    [48.65,-2.00]  // Saint-Malo 🏁
-  ];
+    [48.43,-2.00], // Yffiniac
+    [48.65,-2.00]  // Saint-Malo
+];
 
   // ── Période 2 : Saint-Malo → Albertville (15-24 juin 1984) ───────────
   const p2=[
     [48.65,-2.00], // Saint-Malo
-    [48.63,-1.51], // Pontorson / Mont-Saint-Michel
-    [48.73,-1.42], // Avranches
+    [48.63,-1.51], // Pontorson
+    [48.64,-1.51], // Mont-Saint-Michel
+    [48.73,-1.35], // Avranches
     [49.08,-1.30], // Isigny-sur-Mer
     [49.25,-1.08], // Carentan
-    [49.22,-0.55], // Caen (Lessay)
-    [49.42,-0.30], // Cherbourg
-    [49.52,-0.28], // Sainte-Mère-l'Église
-    [49.36,1.09],  // Vernon
+    [49.37,-0.36], // Sainte-Mère-l'Église
+    [49.18,-0.36], // Bayeux
+    [49.18,-0.08], // Arromanches
+    [49.35,0.07],  // Deauville
+    [49.42,0.23],  // Trouville
+    [49.42,0.23],  // Honfleur
+    [49.09,1.49],  // Vernon
     [49.30,1.49],  // Évreux
-    [49.33,2.07],  // Pontoise
-    [49.07,2.08],  // Berck (via côte)
-    [50.40,1.56],  // Berck-sur-Mer
-    [50.52,3.03],  // Arras / Douai
-    [50.63,3.07],  // Cysoing (près Lille)
-    [50.40,2.82],  // Lens
-    [50.02,3.37],  // Carignan / Maubeuge
-    [49.80,4.75],  // Charleville-Mézières
-    [49.80,4.75],  // Ardennes
-    [49.50,5.14],  // Carignan
-    [49.32,5.35],  // Longuyon
-    [49.08,6.11],  // Metz (Sarrebourg)
+    [49.05,2.08],  // Pontoise
+    [49.20,2.50],  // Compiègne (nord)
+    [49.55,2.28],  // Beauvais
+    [50.06,1.84],  // Abbeville
+    [50.46,1.59],  // Berck-Plage
+    [50.72,2.01],  // Boulogne-sur-Mer
+    [50.95,1.85],  // Calais
+    [50.72,2.01],  // Dunkerque
+    [50.63,3.07],  // Cysoing (Lille)
+    [50.41,3.08],  // Douai
+    [50.28,3.96],  // Valenciennes
+    [50.00,4.50],  // Maubeuge
+    [49.77,4.72],  // Charleville-Mézières
+    [49.50,4.94],  // Sedan
+    [49.28,5.13],  // Carignan
+    [49.08,6.11],  // Metz
     [48.73,7.28],  // Strasbourg
-    [48.54,7.74],  // Colmar / Mulhouse
-    [47.75,7.34],  // Grand Ballon / Cernay
-    [47.68,6.85],  // Belfort
+    [48.54,7.34],  // Sélestat
+    [47.75,7.34],  // Mulhouse
+    [47.90,7.05],  // Grand Ballon
+    [47.75,7.14],  // Cernay
+    [47.65,6.87],  // Belfort
     [47.49,6.52],  // Montbéliard
-    [46.99,6.12],  // Pontarlier
-    [46.90,5.54],  // Champagnole
+    [47.29,6.25],  // Pontarlier
+    [46.87,6.05],  // Champagnole
+    [46.56,5.92],  // Lons-le-Saunier
     [46.35,6.19],  // Thonon-les-Bains
-    [46.19,6.23],  // Annecy / Saint-Jorioz
-    [45.91,6.51],  // Albertville 🏁
-  ];
+    [46.19,6.23],  // Annecy
+    [45.91,6.51]   // Albertville
+];
 
   // ── Période 3 : Albertville → Sète (25-28 juin 1985) ─────────────────
   const p3=[
-    [45.91,6.51],  // Albertville (départ TDF Randonneur)
-    [45.67,6.37],  // Albertville → Col de la Madeleine
-    [45.44,6.71],  // Col du Télégraphe / Valloire
-    [45.18,6.69],  // Col du Galibier / Plan Nicolas
+    [45.91,6.51],  // Albertville
+    [45.44,6.65],  // Col de la Madeleine
+    [45.32,6.57],  // Saint-Jean-de-Maurienne
+    [45.27,6.71],  // Col du Télégraphe
+    [45.18,6.69],  // Col du Galibier
     [44.92,6.64],  // Col du Lautaret
     [44.85,6.64],  // Briançon
-    [44.66,6.65],  // Col de l'Izoard
-    [44.55,6.84],  // Col de Vars
-    [44.42,6.84],  // Col de la Bonnette
-    [44.25,7.06],  // Vence (via Côte d'Azur)
-    [44.10,7.28],  // Nice
-    [43.87,7.13],  // Antibes / Cannes
-    [43.73,7.00],  // Vence
-    [43.73,6.79],  // Grasse
+    [44.82,6.63],  // Cervières
+    [44.68,6.72],  // Col de l'Izoard
+    [44.67,6.58],  // Guillestre
+    [44.55,6.69],  // Col de Vars
+    [44.39,6.72],  // Barcelonnette
+    [44.17,6.83],  // Col de la Bonnette
+    [44.06,7.07],  // Saint-Martin-Vésubie
+    [43.86,7.10],  // Nice
+    [43.73,7.10],  // Vence
+    [43.60,6.93],  // Grasse
     [43.55,6.64],  // Draguignan
-    [43.42,6.49],  // Le Muy
-    [43.30,6.40],  // Fréjus / Hyères
-    [43.20,6.03],  // Cassis
-    [43.12,5.97],  // Marseille
+    [43.44,6.44],  // Fréjus
+    [43.25,5.95],  // Marseille
     [43.30,5.37],  // Montpellier
-    [43.52,5.20],  // Nîmes / Arles
+    [43.55,4.35],  // Nîmes
     [43.68,4.63],  // Aigues-Mortes
-    [43.55,4.43],  // Le Grau-du-Roi
-    [43.55,3.88],  // Palavas
-    [43.40,3.69]   // Sète 🏁🎉
-  ];
+    [43.55,3.95],  // Palavas
+    [43.40,3.69]   // Sète
+];
 
   L.polyline(p1,{color:C1,weight:3.5,opacity:.85}).addTo(map);
   L.polyline(p2,{color:C2,weight:3.5,opacity:.85}).addTo(map);
   L.polyline(p3,{color:C3,weight:3.5,opacity:.85}).addTo(map);
   const stops=[
-    {ll:[43.40,3.69],name:'Sète',km:'Départ 18 juin 1983',text:'Coup de pédale à 6h20. La mer est un peu brumeuse.',c:CA},
-    {ll:[42.72,1.84],name:'Audressein',km:'193+193 km',text:'Auberge du Baroudeur, charmant village ariégeois.',c:C1},
-    {ll:[42.87,0.37],name:'Luz-Saint-Sauveur',km:'543 km',text:'Orage au Tourmalet, une habitante nous héberge.',c:C1},
-    {ll:[43.49,-1.56],name:'Saint-Jean-le-Vieux',km:'707 km',text:'Chaleur suffocante, goudron fondu au col d\'Osquich.',c:C1},
-    {ll:[44.96,-1.06],name:'Biganos',km:'919 km',text:'Longue traversée des Landes à 30 km/h.',c:C1},
-    {ll:[47.15,-2.20],name:'La Roche Bernard',km:'1 347 km',text:'Belote animée sous la fenêtre de notre chambre.',c:C1},
-    {ll:[48.65,-2.00],name:'Saint-Malo 🏁',km:'1 896 km — Fin période 1',text:'"Quel dommage d\'arrêter là, nous étions tellement en forme !"',c:C1},
-    {ll:[49.20,-1.25],name:'Isigny-sur-Mer',km:'2 156 km',text:'40e anniversaire du Débarquement.',c:C2},
-    {ll:[50.63,3.07],name:'Cysoing',km:'2 513 km',text:'Très bien reçus. Traversée de Lille grâce à un plan local.',c:C2},
-    {ll:[48.67,7.27],name:'Strasbourg',km:'2 829 km',text:'Traversée en moins d\'une heure.',c:C2},
-    {ll:[46.99,6.12],name:'Pontarlier',km:'3 018 km',text:'31 km d\'avance sur le programme.',c:C2},
-    {ll:[45.67,6.37],name:'Albertville 🏁',km:'3 952 km — Fin période 2',text:'"L\'amitié Cyclo n\'est pas un vain mot."',c:C2},
-    {ll:[44.42,6.84],name:'Refuge Napoléon (Izoard)',km:'4 132 km',text:'Nuit à 2 300 m. Galibier, marmottes, neige fondante.',c:C3},
-    {ll:[43.73,7.10],name:'Vence',km:'4 343 km',text:'"C\'est ce que nous faisons depuis ce matin !"',c:C3},
-    {ll:[43.20,6.03],name:'Cassis',km:'4 563 km',text:'Hébergés près du port de plaisance.',c:C3},
-    {ll:[43.40,3.69],name:'Sète 🏁🎉',km:'4 772 km — ARRIVÉE !',text:'À 19h30 le 28 juin 1985. Geneviève, Anne et Catherine nous attendaient.',c:CA},
+    {ll:[43.40,3.69],name:"Sète",km:"Départ 18 juin 1983",text:"Coup de pédale à 6h20. Traversée de Béziers, Narbonne, Perpignan.",c:CA},
+    {ll:[42.60,2.18],name:"Olette",km:"193 km",text:"Arrivée à Olette, village catalan avec fête folklorique.",c:C1},
+    {ll:[42.72,1.84],name:"Audressein",km:"386 km",text:"Auberge du Baroudeur, charmant village ariégeois.",c:C1},
+    {ll:[42.87,0.37],name:"Luz-Saint-Sauveur",km:"542 km",text:"Orage au Tourmalet, une habitante nous héberge spontanément.",c:C1},
+    {ll:[43.49,-1.56],name:"Saint-Jean-le-Vieux",km:"706 km",text:"Chaleur suffocante, goudron fondu au col d'Osquich.",c:C1},
+    {ll:[44.96,-1.06],name:"Biganos",km:"918 km",text:"Longue traversée des Landes à 30 km/h.",c:C1},
+    {ll:[46.17,-1.07],name:"Champagne-les-Marais",km:"1 141 km",text:"Marais poitevins, longues lignes de canaux.",c:C1},
+    {ll:[47.52,-2.30],name:"La Roche Bernard",km:"1 355 km",text:"Belote animée sous la fenêtre de notre chambre.",c:C1},
+    {ll:[47.87,-4.07],name:"Plonéour-Lanvern",km:"1 545 km",text:"Petite ville typiquement bretonne aux coiffes.",c:C1},
+    {ll:[48.73,-3.46],name:"Lannion",km:"1 742 km",text:"Excellente assiette de fruits de mer en gîte.",c:C1},
+    {ll:[48.65,-2.00],name:"Saint-Malo 🏁",km:"1 896 km — Fin période 1",text:"Quel dommage d'arrêter là, nous étions tellement en forme !",c:C1},
+    {ll:[49.20,-1.25],name:"Isigny-sur-Mer",km:"2 156 km",text:"Mont Saint-Michel. 40e anniversaire du Débarquement.",c:C2},
+    {ll:[49.09,1.49],name:"Vernon",km:"2 394 km",text:"Nos vélos passent la nuit dans le couloir de la chambre.",c:C2},
+    {ll:[50.63,3.07],name:"Cysoing",km:"2 834 km",text:"Traversée de Lille grâce à un plan local. Très bien reçus.",c:C2},
+    {ll:[49.35,4.89],name:"Sarrebourg",km:"3 249 km",text:"Orage violent avant l'arrivée.",c:C2},
+    {ll:[48.05,7.05],name:"Col de la Schlucht",km:"3 425 km",text:"Cols des Vosges enchaînés. Nuit au refuge CAF.",c:C2},
+    {ll:[46.99,6.12],name:"Pontarlier",km:"3 630 km",text:"31 km d'avance sur le programme.",c:C2},
+    {ll:[46.37,6.47],name:"Thonon-les-Bains",km:"3 829 km",text:"Accueil exceptionnel au siège des cyclos locaux.",c:C2},
+    {ll:[45.67,6.37],name:"Albertville 🏁",km:"3 952 km — Fin période 2",text:"L'amitié Cyclo n'est pas un vain mot.",c:C2},
+    {ll:[44.42,6.84],name:"Refuge Napoléon (Izoard)",km:"4 132 km",text:"Nuit à 2 300 m. Galibier, marmottes, neige fondante.",c:C3},
+    {ll:[43.73,7.10],name:"Vence",km:"4 343 km",text:"C'est ce que nous faisions depuis ce matin !",c:C3},
+    {ll:[43.20,5.54],name:"Cassis",km:"4 563 km",text:"Traversée de Marseille. Hébergés près du port.",c:C3},
+    {ll:[43.40,3.69],name:"Sète 🏁🎉",km:"4 772 km — ARRIVÉE !",text:"À 19h30 le 28 juin 1985. Geneviève, Anne et Catherine nous attendaient.",c:CA},
+    {ll:[43.50,2.38],name:"Mazamet 🎉",km:"Fin 29 juin 1985",text:"Banderoles, fanions, discours, coupes, gâteaux et champagne !",c:CA},
   ];
   // ── Marqueurs avec highlight ──────────────────────────────────────────
   const markerElements = [];
