@@ -1641,22 +1641,30 @@ function initMap(){
   L.polyline(p2,{color:C2,weight:3.5,opacity:.85}).addTo(map);
   L.polyline(p3,{color:C3,weight:3.5,opacity:.85}).addTo(map);
   const stops=[
-    {ll:[43.40,3.69],name:'Sète',km:'Départ 18 juin 1983',text:'Coup de pédale à 6h20. La mer est un peu brumeuse.',c:CA},
-    {ll:[42.72,1.84],name:'Audressein',km:'193+193 km',text:'Auberge du Baroudeur, charmant village ariégeois.',c:C1},
-    {ll:[42.87,0.37],name:'Luz-Saint-Sauveur',km:'543 km',text:'Orage au Tourmalet, une habitante nous héberge.',c:C1},
-    {ll:[43.49,-1.56],name:'Saint-Jean-le-Vieux',km:'707 km',text:'Chaleur suffocante, goudron fondu au col d\'Osquich.',c:C1},
-    {ll:[44.96,-1.06],name:'Biganos',km:'919 km',text:'Longue traversée des Landes à 30 km/h.',c:C1},
-    {ll:[47.15,-2.20],name:'La Roche Bernard',km:'1 347 km',text:'Belote animée sous la fenêtre de notre chambre.',c:C1},
-    {ll:[48.65,-2.00],name:'Saint-Malo 🏁',km:'1 896 km — Fin période 1',text:'"Quel dommage d\'arrêter là, nous étions tellement en forme !"',c:C1},
-    {ll:[49.20,-1.25],name:'Isigny-sur-Mer',km:'2 156 km',text:'40e anniversaire du Débarquement.',c:C2},
-    {ll:[50.63,3.07],name:'Cysoing',km:'2 513 km',text:'Très bien reçus. Traversée de Lille grâce à un plan local.',c:C2},
-    {ll:[48.67,7.27],name:'Strasbourg',km:'2 829 km',text:'Traversée en moins d\'une heure.',c:C2},
-    {ll:[46.99,6.12],name:'Pontarlier',km:'3 018 km',text:'31 km d\'avance sur le programme.',c:C2},
-    {ll:[45.67,6.37],name:'Albertville 🏁',km:'3 952 km — Fin période 2',text:'"L\'amitié Cyclo n\'est pas un vain mot."',c:C2},
+    {ll:[43.40,3.69],name:'Sète',km:'Départ 18 juin 1983',text:'Coup de pédale à 6h20. Traversée de Béziers, Narbonne, Perpignan.',c:CA},
+    {ll:[42.60,2.18],name:'Olette',km:'193 km',text:'Arrivée à Olette, village catalan avec fête folklorique.',c:C1},
+    {ll:[42.72,1.84],name:'Audressein',km:'386 km',text:'Auberge du Baroudeur, charmant village ariégeois.',c:C1},
+    {ll:[42.87,0.37],name:'Luz-Saint-Sauveur',km:'542 km',text:'Orage au Tourmalet, une habitante nous héberge spontanément.',c:C1},
+    {ll:[43.49,-1.56],name:'Saint-Jean-le-Vieux',km:'706 km',text:'Chaleur suffocante, goudron fondu au col d'Osquich.',c:C1},
+    {ll:[44.96,-1.06],name:'Biganos',km:'918 km',text:'Longue traversée des Landes à 30 km/h.',c:C1},
+    {ll:[46.17,-1.07],name:'Champagne-les-Marais',km:'1 141 km',text:'Marais poitevins, longues lignes de canaux.',c:C1},
+    {ll:[47.52,-2.30],name:'La Roche Bernard',km:'1 355 km',text:'Belote animée sous la fenêtre de notre chambre.',c:C1},
+    {ll:[47.87,-4.07],name:'Plonéour-Lanvern',km:'1 545 km',text:'Petite ville typiquement bretonne aux coiffes.',c:C1},
+    {ll:[48.73,-3.46],name:'Lannion',km:'1 742 km',text:'Excellente assiette de fruits de mer en gîte.',c:C1},
+    {ll:[48.65,-2.00],name:'Saint-Malo 🏁',km:'1 896 km — Fin période 1',text:'"Quel dommage d'arrêter là, nous étions tellement en forme !"',c:C1},
+    {ll:[49.20,-1.25],name:'Isigny-sur-Mer',km:'2 156 km',text:'Mont Saint-Michel. 40e anniversaire du Débarquement.',c:C2},
+    {ll:[49.09,1.49],name:'Vernon',km:'2 394 km',text:'Nos vélos passent la nuit dans le couloir de la chambre.',c:C2},
+    {ll:[50.63,3.07],name:'Cysoing',km:'2 834 km',text:'Traversée de Lille grâce à un plan local. Très bien reçus.',c:C2},
+    {ll:[49.35,4.89],name:'Sarrebourg',km:'3 249 km',text:'Orage violent avant l'arrivée.',c:C2},
+    {ll:[48.05,7.05],name:'Col de la Schlucht',km:'3 425 km',text:'Cols des Vosges enchaînés. Nuit au refuge CAF.',c:C2},
+    {ll:[46.99,6.12],name:'Pontarlier',km:'3 630 km',text:'31 km d'avance sur le programme.',c:C2},
+    {ll:[46.37,6.47],name:'Thonon-les-Bains',km:'3 829 km',text:'Accueil exceptionnel au siège des cyclos locaux.',c:C2},
+    {ll:[45.67,6.37],name:'Albertville 🏁',km:'3 952 km — Fin période 2',text:'"L'amitié Cyclo n'est pas un vain mot."',c:C2},
     {ll:[44.42,6.84],name:'Refuge Napoléon (Izoard)',km:'4 132 km',text:'Nuit à 2 300 m. Galibier, marmottes, neige fondante.',c:C3},
-    {ll:[43.73,7.10],name:'Vence',km:'4 343 km',text:'"C\'est ce que nous faisons depuis ce matin !"',c:C3},
-    {ll:[43.20,6.03],name:'Cassis',km:'4 563 km',text:'Hébergés près du port de plaisance.',c:C3},
+    {ll:[43.73,7.10],name:'Vence',km:'4 343 km',text:'"C'est ce que nous faisons depuis ce matin !"',c:C3},
+    {ll:[43.20,5.54],name:'Cassis',km:'4 563 km',text:'Traversée de Marseille. Hébergés près du port.',c:C3},
     {ll:[43.40,3.69],name:'Sète 🏁🎉',km:'4 772 km — ARRIVÉE !',text:'À 19h30 le 28 juin 1985. Geneviève, Anne et Catherine nous attendaient.',c:CA},
+    {ll:[43.50,2.38],name:'Mazamet 🎉',km:'Fin 29 juin 1985',text:'Banderoles, fanions, discours, coupes, gâteaux et champagne !',c:CA},
   ];
   // ── Marqueurs avec highlight ──────────────────────────────────────────
   const markerElements = [];
@@ -1739,9 +1747,9 @@ function initMap(){
 
   // ── Construire le panneau latéral ─────────────────────────────────────
   const periods = [
-    {label:'1983 · Sète → Saint-Malo', ids:[0,1,2,3,4,5,6]},
-    {label:'1984 · Saint-Malo → Albertville', ids:[7,8,9,10,11]},
-    {label:'1985 · Albertville → Sète', ids:[12,13,14,15]},
+    {label:'1983 · Sète → Saint-Malo', ids:[0,1,2,3,4,5,6,7,8,9,10]},
+    {label:'1984 · Saint-Malo → Albertville', ids:[11,12,13,14,15,16,17,18]},
+    {label:'1985 · Albertville → Sète', ids:[19,20,21,22,23]},
   ];
   const panel = document.getElementById('mapPanelBody');
   periods.forEach(period => {
