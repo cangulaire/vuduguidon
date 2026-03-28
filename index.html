@@ -544,12 +544,54 @@ footer strong{color:rgba(255,255,255,.7)}
   border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;
 }
 .lightbox-caption{color:rgba(255,255,255,.6);font-size:12px;margin-top:12px;text-align:center}
-/* Photo section label */
+/* Photo section label + toggle */
 .photo-section-label{
   font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--muted);margin-top:14px;margin-bottom:8px;display:flex;align-items:center;gap:8px;
+  color:var(--muted);margin-top:14px;margin-bottom:0;display:flex;align-items:center;gap:8px;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;
 }
 .photo-section-label::after{content:'';flex:1;height:1px;background:var(--gp)}
+.photo-toggle-btn{
+  display:flex;align-items:center;gap:5px;
+  background:var(--gp);border:1px solid rgba(114,172,67,.2);
+  border-radius:100px;padding:3px 10px 3px 8px;
+  font-size:10px;font-weight:600;letter-spacing:.05em;
+  color:var(--gd);cursor:pointer;transition:all .2s;
+  white-space:nowrap;flex-shrink:0;
+  -webkit-tap-highlight-color:transparent;
+}
+.photo-toggle-btn:hover{background:#eef6e4;border-color:var(--gm)}
+.photo-toggle-btn .ptb-icon{
+  width:14px;height:14px;border-radius:3px;
+  background:var(--gm);display:flex;align-items:center;justify-content:center;
+  font-size:9px;color:#fff;transition:background .2s;flex-shrink:0;
+}
+.photo-toggle-btn.hidden .ptb-icon{background:var(--muted)}
+
+/* Photo grid collapse animation */
+.photo-grid-wrap{
+  overflow:hidden;
+  max-height:2000px;
+  transition:max-height .4s cubic-bezier(.25,.46,.45,.94), opacity .3s ease, margin .3s ease;
+  opacity:1;
+  margin-top:10px;
+}
+.photo-grid-wrap.collapsed{
+  max-height:0;
+  opacity:0;
+  margin-top:0;
+}
+
+/* Responsive grid */
+@media(min-width:480px){
+  .photo-grid{grid-template-columns:repeat(4,1fr)}
+}
+@media(min-width:768px){
+  .photo-grid{grid-template-columns:repeat(5,1fr)}
+}
+@media(min-width:1024px){
+  .photo-grid{grid-template-columns:repeat(6,1fr)}
+}
 @keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes fi{to{opacity:1}}
 
@@ -780,11 +822,10 @@ footer strong{color:rgba(255,255,255,.7)}
   <!-- 1983 -->
   <div class="pp active" id="p0">
     <div class="tli"><div class="tl-dc"><div class="tl-d">18</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Sète</span><span class="tl-ar">→</span><span class="tl-t">Olette</span><span class="tl-kp">193 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Départ à 4h de Mazamet en voiture. Photo souvenir et premier coup de pédale à 6h20 sous un soleil levant. Traversée de Béziers, Narbonne, Perpignan avec un vent très favorable. Arrêt imprévu à Sigean pour une vis de fixation. Arrivée à Olette, village catalan avec fête folklorique.</p><div class="tl-ch-row"><span class="ch">Col de Ternère 226 m</span><span class="ch">Col de Saint-Pierre 270 m</span></div>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="18juin83">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="18juin83">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697123/PICT0001_gyrepd.jpg" alt="Préparation départ Tour de France Randonneur 1983 — photo 1" title="Préparation départ Tour de France Randonneur 1983 — Mazamet, nuit avant le départ" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697127/PICT0002_mukygg.jpg" alt="Préparation départ Tour de France Randonneur 1983 — photo 2" title="Préparation départ Tour de France Randonneur 1983 — Mazamet, nuit avant le départ" loading="lazy">
 </div>
@@ -841,11 +882,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">19</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Olette</span><span class="tl-ar">→</span><span class="tl-t">Audressein</span><span class="tl-kp">193 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Réveil en pleine forme. Mont-Louis, Font-Romeu, gelée blanche à 1 800 m au col d'Egat. Puymorens franchi à bonne cadence. Col de Port sous un ciel orageux. Arrivée à l'Auberge du Baroudeur, charmant village ariégeois.</p><div class="tl-ch-row"><span class="ch">Col du Calvaire 1 836 m</span><span class="ch">Col d'Egat 1 615 m</span><span class="ch">Col du Puymorens 1 915 m</span><span class="ch">Col de Port 1 249 m</span></div>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="19juin83">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="19juin83">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697105/PICT0019_auomit.jpg" alt="Photo 1 — Olette → Audressein, 19 juin 1983, cols pyrénéens" title="Olette → Audressein, 19 juin 1983, cols pyrénéens" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697105/PICT0020_qmmaqr.jpg" alt="Photo 2 — Olette → Audressein, 19 juin 1983, cols pyrénéens" title="Olette → Audressein, 19 juin 1983, cols pyrénéens" loading="lazy">
 </div>
@@ -892,11 +932,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">20</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Audressein</span><span class="tl-ar">→</span><span class="tl-t">Luz-St-Sauveur</span><span class="tl-kp">156 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Portet d'Aspet, la Clin, Menté sous un soleil de plomb. Peyresourde puis Aspin — nombreux cyclistes. Orage violent entre Gripp et La Mongie : trempés, frigorifiés. Une habitante nous offre spontanément son appartement. Le Tourmalet franchi à 20h30 sous le beau temps revenu.</p><div class="tl-ch-row"><span class="ch">Portet d'Aspet 1 069 m</span><span class="ch">Col de la Clin 1 246 m</span><span class="ch">Col de Menté 1 349 m</span><span class="ch">Peyresourde 1 563 m</span><span class="ch">Col d'Aspin 1 489 m</span><span class="ch">Tourmalet 2 114 m</span></div>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="20juin83">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="20juin83">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697092/PICT0034_pbra3m.jpg" alt="Photo 1 — Audressein → Luz-Saint-Sauveur, 20 juin 1983, col du Tourmalet" title="Audressein → Luz-Saint-Sauveur, 20 juin 1983, col du Tourmalet" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697091/PICT0035_yhiyvr.jpg" alt="Photo 2 — Audressein → Luz-Saint-Sauveur, 20 juin 1983, col du Tourmalet" title="Audressein → Luz-Saint-Sauveur, 20 juin 1983, col du Tourmalet" loading="lazy">
 </div>
@@ -949,11 +988,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">21</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Luz</span><span class="tl-ar">→</span><span class="tl-t">St-Jean-le-Vieux</span><span class="tl-kp">164 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Journée de récupération — départ tardif. Soulor puis Aubisque à midi. Descente en Béarn sous chaleur suffocante. Montée du col d'Osquich, goudron fondant. Les enfants d'école nous traitent de "fainéants" — aucun ne nous accompagne.</p><div class="tl-ch-row"><span class="ch">Col du Soulor 1 485 m</span><span class="ch">Col d'Aubisque 1 708 m</span><span class="ch">Col d'Osquich 500 m</span></div>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="21juin83">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="21juin83">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697079/PICT0051_ouwaj1.jpg" alt="Photo 1 — Luz → Saint-Jean-le-Vieux, 21 juin 1983, col d'Aubisque" title="Luz → Saint-Jean-le-Vieux, 21 juin 1983, col d'Aubisque" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697079/PICT0052_j5ynre.jpg" alt="Photo 2 — Luz → Saint-Jean-le-Vieux, 21 juin 1983, col d'Aubisque" title="Luz → Saint-Jean-le-Vieux, 21 juin 1983, col d'Aubisque" loading="lazy">
 </div>
@@ -991,11 +1029,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">22</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">St-Jean-le-Vieux</span><span class="tl-ar">→</span><span class="tl-t">Biganos</span><span class="tl-kp">212 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Brume dans les vallées. À Louhossoa, patron sportif en compagnie d'un perroquet très bavard. Traversée de Bayonne, colis poste restante à Labenne. Longue traversée des Landes à 30 km/h, les bornes kilométriques défilent à moins de 2 min.</p>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="22juin83">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="22juin83">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697069/PICT0063_s2wptm.jpg" alt="Photo 1 — Saint-Jean-le-Vieux → Biganos, 22 juin 1983, traversée des Landes" title="Saint-Jean-le-Vieux → Biganos, 22 juin 1983, traversée des Landes" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697068/PICT0064_jtpyxq.jpg" alt="Photo 2 — Saint-Jean-le-Vieux → Biganos, 22 juin 1983, traversée des Landes" title="Saint-Jean-le-Vieux → Biganos, 22 juin 1983, traversée des Landes" loading="lazy">
 </div>
@@ -1027,11 +1064,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">23</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Biganos</span><span class="tl-ar">→</span><span class="tl-t">Champagne-les-Marais</span><span class="tl-kp">223 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Traversée en bac "Côte d'Argent" vers Royan. Pays du Pineau — stands fermés. La voie express de La Rochelle, cauchemar pour cyclistes. Marais poitevins, longues lignes de canaux jusqu'au village vendéen.</p>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="23juin83">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="23juin83">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697063/PICT0073_qx1azr.jpg" alt="Photo 1 — Biganos → Champagne-les-Marais, 23 juin 1983, côte Atlantique" title="Biganos → Champagne-les-Marais, 23 juin 1983, côte Atlantique" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697062/PICT0074_k72ytn.jpg" alt="Photo 2 — Biganos → Champagne-les-Marais, 23 juin 1983, côte Atlantique" title="Biganos → Champagne-les-Marais, 23 juin 1983, côte Atlantique" loading="lazy">
 </div>
@@ -1063,11 +1099,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">24</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Champagne-les-Marais</span><span class="tl-ar">→</span><span class="tl-t">La Roche Bernard</span><span class="tl-kp">214 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Brume matinale. Chaumières aux toits de chaumes près de Saint-Jean-de-Mont. Grand pont sur la Loire à Saint-Nazaire. Dérailleur défaillant vite réparé. Deux couples du 3e âge disputaient des parties de belote sous notre fenêtre.</p>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="24juin83">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="24juin83">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697051/PICT0083_bgtaac.jpg" alt="Photo 1 — Champagne-les-Marais → La Roche Bernard, 24 juin 1983, Loire" title="Champagne-les-Marais → La Roche Bernard, 24 juin 1983, Loire" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697051/PICT0084_v5gf9d.jpg" alt="Photo 2 — Champagne-les-Marais → La Roche Bernard, 24 juin 1983, Loire" title="Champagne-les-Marais → La Roche Bernard, 24 juin 1983, Loire" loading="lazy">
 </div>
@@ -1099,11 +1134,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">25</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">La Roche Bernard</span><span class="tl-ar">→</span><span class="tl-t">Plonéour-Lanvern</span><span class="tl-kp">190 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Pluie dès le départ, dérailleur changé. Vannes, Sainte-Anne d'Auray. Pont Aven, Concarneau — sandwich fromage et cidre en Forêt Fouesnant. Bénodet par le grand pont sur l'Odet. Arrivée à Plonéour, petite ville typiquement bretonne aux coiffes.</p>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="25juin83">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="25juin83">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697044/PICT0093_ox5eiw.jpg" alt="Photo 1 — La Roche Bernard → Plonéour-Lanvern, 25 juin 1983, Bretagne" title="La Roche Bernard → Plonéour-Lanvern, 25 juin 1983, Bretagne" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697044/PICT0094_vjqm8g.jpg" alt="Photo 2 — La Roche Bernard → Plonéour-Lanvern, 25 juin 1983, Bretagne" title="La Roche Bernard → Plonéour-Lanvern, 25 juin 1983, Bretagne" loading="lazy">
 </div>
@@ -1138,11 +1172,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">26</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Plonéour-Lanvern</span><span class="tl-ar">→</span><span class="tl-t">Lannion</span><span class="tl-kp">197 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Dimanche sans restaurant. Douarnenez, le Club Cyclo local nous mène à Locronan. Magnifique village breton, déjeuner copieux, gâteaux bretons achetés. Châteaulin, Brest sous le soleil. Saint-Thégonnec, Landivisiau, Morlaix. Excellente assiette de fruits de mer en gîte.</p>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="26juin83">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="26juin83">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697036/PICT0104_ybakdj.jpg" alt="Photo 1 — Plonéour-Lanvern → Lannion, 26 juin 1983, Finistère" title="Plonéour-Lanvern → Lannion, 26 juin 1983, Finistère" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697036/PICT0105_urossm.jpg" alt="Photo 2 — Plonéour-Lanvern → Lannion, 26 juin 1983, Finistère" title="Plonéour-Lanvern → Lannion, 26 juin 1983, Finistère" loading="lazy">
 </div>
@@ -1183,11 +1216,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">27</div><div class="tl-m">juin 83</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Lannion</span><span class="tl-ar">→</span><span class="tl-t">Saint-Malo 🏁</span><span class="tl-kp">154 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Tréguier, Paimpol, rencontre de deux cyclos de Bellegarde faisant le Tour en sens inverse. Saint-Brieuc, Yffiniac — pays de Bernard. Saint-Malo atteint à 16h. Terme du premier tiers. <em>"Quel dommage d'arrêter là, nous étions tellement en forme !"</em></p>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="27juin83">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="27juin83">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697025/PICT0117_ibhdzf.jpg" alt="Photo 1 — Lannion → Saint-Malo, 27 juin 1983, arrivée 1ère période" title="Lannion → Saint-Malo, 27 juin 1983, arrivée 1ère période" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697025/PICT0118_w6lsdm.jpg" alt="Photo 2 — Lannion → Saint-Malo, 27 juin 1983, arrivée 1ère période" title="Lannion → Saint-Malo, 27 juin 1983, arrivée 1ère période" loading="lazy">
 </div>
@@ -1234,11 +1266,10 @@ footer strong{color:rgba(255,255,255,.7)}
   <!-- 1984 -->
   <div class="pp" id="p1">
     <div class="tli"><div class="tl-dc"><div class="tl-d">15</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Saint-Malo</span><span class="tl-ar">→</span><span class="tl-t">Isigny-sur-Mer</span><span class="tl-kp">260 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Départ 5h50. 500 mètres parcourus, chambre à air de Bernard éclate — réparée vite. Mont Saint-Michel. 40e anniversaire du Débarquement : échange de poignées de mains avec un soldat américain à Sainte-Mère-l'Église.</p>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="15juin84">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="15juin84">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697012/PICT0131_qi4r6c.jpg" alt="Photo 1 — Saint-Malo → Isigny-sur-Mer, 15 juin 1984, Mont-Saint-Michel" title="Saint-Malo → Isigny-sur-Mer, 15 juin 1984, Mont-Saint-Michel" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697013/PICT0132_oro8ox.jpg" alt="Photo 2 — Saint-Malo → Isigny-sur-Mer, 15 juin 1984, Mont-Saint-Michel" title="Saint-Malo → Isigny-sur-Mer, 15 juin 1984, Mont-Saint-Michel" loading="lazy">
 </div>
@@ -1279,11 +1310,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">16</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Isigny</span><span class="tl-ar">→</span><span class="tl-t">Vernon</span><span class="tl-kp">238 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Plages du débarquement, Arromanches. Deauville, Trouville, corniche. Honfleur, réparation garde-boue d'André. Rencontre du TDF n°986 parti le matin même de Paris. Vernon : nos vélos passent la nuit dans le couloir de la chambre.</p>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="16juin84">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="16juin84">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697003/PICT0144_tmtdgr.jpg" alt="Photo 1 — Isigny → Vernon, 16 juin 1984, plages du Débarquement" title="Isigny → Vernon, 16 juin 1984, plages du Débarquement" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774697003/PICT0145_dzr2bl.jpg" alt="Photo 2 — Isigny → Vernon, 16 juin 1984, plages du Débarquement" title="Isigny → Vernon, 16 juin 1984, plages du Débarquement" loading="lazy">
 </div>
@@ -1324,11 +1354,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">17–18</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Vernon</span><span class="tl-ar">→</span><span class="tl-t">Cysoing</span><span class="tl-kp">440 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Pontoise, Beauvais, deux cyclos canadiennes vers Abbeville. Rue : hôtels mauvais, 20 km de plus jusqu'à Berk-Plage. Le lendemain, Boulogne, Calais, Flandres plates. Déjeuner avec deux cyclos bretons. Traversée de Lille grâce à un plan local. Cysoing, très bien reçus.</p>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="1718juin84">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="1718juin84">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696994/PICT0157_v9r1zr.jpg" alt="Photo 1 — Vernon → Cysoing, 17-18 juin 1984, Nord de la France" title="Vernon → Cysoing, 17-18 juin 1984, Nord de la France" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696993/PICT0158_m9cvp7.jpg" alt="Photo 2 — Vernon → Cysoing, 17-18 juin 1984, Nord de la France" title="Vernon → Cysoing, 17-18 juin 1984, Nord de la France" loading="lazy">
 </div>
@@ -1366,11 +1395,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">19–20</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Cysoing</span><span class="tl-ar">→</span><span class="tl-t">Sarrebourg</span><span class="tl-kp">415 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Quelques passages pavés, forêt de Mormal. À Trélon, un "courraillon" tente de nous lâcher — Bernard le rejoint facilement. Vallée de la Meuse, Sedan, Carignan. Le lendemain, Metz : accueil de Bernard Migaud avec plan de la ville. Orage violent avant Sarrebourg.</p>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="1920juin84">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="1920juin84">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696984/PICT0169_bxy7sa.jpg" alt="Photo 1 — Cysoing → Sarrebourg, 19-20 juin 1984, Ardennes Lorraine" title="Cysoing → Sarrebourg, 19-20 juin 1984, Ardennes Lorraine" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696984/PICT0170_ghsfmz.jpg" alt="Photo 2 — Cysoing → Sarrebourg, 19-20 juin 1984, Ardennes Lorraine" title="Cysoing → Sarrebourg, 19-20 juin 1984, Ardennes Lorraine" loading="lazy">
 </div>
@@ -1408,11 +1436,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">21</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Sarrebourg</span><span class="tl-ar">→</span><span class="tl-t">Col de la Schlucht</span><span class="tl-kp">176 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Affaires volées dans les sacoches d'André ! Col de Valsberg, premier col TDF 1984. Orages à Sélestat — séchage chez un coiffeur ! Cols des Vosges enchaînés. Nuit au refuge CAF près du Markstein.</p><div class="tl-ch-row"><span class="ch">Col de Valsberg 652 m</span><span class="ch">Col des Bagenelles 903 m</span><span class="ch">Col du Bonhomme 949 m</span><span class="ch">Col de la Schlucht 1 159 m</span></div>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="21juin84">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="21juin84">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696971/PICT0181_j8ikzl.jpg" alt="Photo 1 — Sarrebourg → Col de la Schlucht, 21 juin 1984, Vosges" title="Sarrebourg → Col de la Schlucht, 21 juin 1984, Vosges" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696970/PICT0182_lpq0j8.jpg" alt="Photo 2 — Sarrebourg → Col de la Schlucht, 21 juin 1984, Vosges" title="Sarrebourg → Col de la Schlucht, 21 juin 1984, Vosges" loading="lazy">
 </div>
@@ -1444,11 +1471,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">22</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Schlucht</span><span class="tl-ar">→</span><span class="tl-t">Pontarlier</span><span class="tl-kp">205 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Route des crêtes au petit matin, brouillard se dissipant. Grand Ballon couvert de fleurs printanières. Cernay, cigognes alsaciennes. Crochet devant la fabrique Peugeot à Mandeure. Magnifique descente vers Morteau, puis Pontarlier — 31 km d'avance.</p><div class="tl-ch-row"><span class="ch">Grand Ballon 1 424 m</span><span class="ch">Col Amic 850 m</span></div>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="22juin84">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="22juin84">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696964/PICT0191_r6edpj.jpg" alt="Photo 1 — Schlucht → Pontarlier, 22 juin 1984, Grand Ballon Jura" title="Schlucht → Pontarlier, 22 juin 1984, Grand Ballon Jura" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696963/PICT0192_saw3ke.jpg" alt="Photo 2 — Schlucht → Pontarlier, 22 juin 1984, Grand Ballon Jura" title="Schlucht → Pontarlier, 22 juin 1984, Grand Ballon Jura" loading="lazy">
 </div>
@@ -1492,11 +1518,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">23</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Pontarlier</span><span class="tl-ar">→</span><span class="tl-t">Thonon-les-Bains</span><span class="tl-kp">199 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Pluie fine, lac de Saint-Point. Col de la Faucille : déjeuner au sommet, belle vue sur le Léman. Descente ensoleillée, avions à Genève. Thonon, accueil exceptionnel au siège des cyclos locaux.</p><div class="tl-ch-row"><span class="ch">Col Savarine 995 m</span><span class="ch">Col de la Faucille 1 320 m</span></div>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="23juin84">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="23juin84">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696952/PICT0205_menhcr.jpg" alt="Photo 1 — Pontarlier → Thonon-les-Bains, 23 juin 1984, col de la Faucille" title="Pontarlier → Thonon-les-Bains, 23 juin 1984, col de la Faucille" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696952/PICT0206_vzn1f1.jpg" alt="Photo 2 — Pontarlier → Thonon-les-Bains, 23 juin 1984, col de la Faucille" title="Pontarlier → Thonon-les-Bains, 23 juin 1984, col de la Faucille" loading="lazy">
 </div>
@@ -1534,11 +1559,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">24</div><div class="tl-m">juin 84</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Thonon</span><span class="tl-ar">→</span><span class="tl-t">Albertville 🏁</span><span class="tl-kp">119 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Pluie diluvienne au col des Gets, glissements de terrain. Deux jeunes cyclos nous accompagnent. Vent de dos sur Sallanches. Déjeuner à Megève vue sur les sommets. Albertville à 15h. <em>"L'amitié Cyclo n'est pas un vain mot."</em></p><div class="tl-ch-row"><span class="ch">Col des Gets 1 163 m</span><span class="ch">Col de Châtillon 738 m</span></div>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="24juin84">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="24juin84">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696942/PICT0217_iec3i0.jpg" alt="Photo 1 — Thonon → Albertville, 24 juin 1984, col des Gets Megève" title="Thonon → Albertville, 24 juin 1984, col des Gets Megève" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696942/PICT0218_j3irle.jpg" alt="Photo 2 — Thonon → Albertville, 24 juin 1984, col des Gets Megève" title="Thonon → Albertville, 24 juin 1984, col des Gets Megève" loading="lazy">
 </div>
@@ -1579,11 +1603,10 @@ footer strong{color:rgba(255,255,255,.7)}
   <!-- 1985 -->
   <div class="pp" id="p2">
     <div class="tli"><div class="tl-dc"><div class="tl-d">22–24</div><div class="tl-m">juin 85</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Mazamet → Annecy</span><span class="tl-kp">Avant-Tour</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Les vélos ne voyagent pas en train cette année : Mazamet–Annecy en vélo pour l'entraînement final. Route via Bédarieux, Clermont-l'Hérault, Bagnols-sur-Cèze, Chambéry, tour du lac d'Annecy, col de la Forclaz de Montmin. Soirée chez Colette et Henri Dusseau.</p><div class="tl-ch-row"><span class="ch">Col de Fénille 480 m</span><span class="ch">Col du Couz 624 m</span><span class="ch">Forclaz de Montmin 1 150 m</span></div>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="avantour85">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="avantour85">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696934/PICT0229_dwpmsg.jpg" alt="Photo 1 — Mazamet → Annecy, avant-tour 1985, lac d'Annecy" title="Mazamet → Annecy, avant-tour 1985, lac d'Annecy" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696934/PICT0230_wmuc0r.jpg" alt="Photo 2 — Mazamet → Annecy, avant-tour 1985, lac d'Annecy" title="Mazamet → Annecy, avant-tour 1985, lac d'Annecy" loading="lazy">
 </div>
@@ -1615,11 +1638,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">25</div><div class="tl-m">juin 85</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Albertville</span><span class="tl-ar">→</span><span class="tl-t">Refuge Napoléon</span><span class="tl-kp">180 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Départ 6h précises. Madeleine — premières congères, troupeaux en alpage. Télégraphe, Valloire, rencontre du TDF n°1083 parti de Rouen. Galibier : hélicoptère, marmottes, neige fondante. Lautaret, Briançon. Forêt de sapins vers l'Izoard. Nuit au refuge Napoléon à 2 300 m.</p><div class="tl-ch-row"><span class="ch">Col de la Madeleine 1 993 m</span><span class="ch">Col du Télégraphe 1 566 m</span><span class="ch">Plan Nicolas 2 406 m</span><span class="ch">Col du Galibier 2 642 m</span><span class="ch">Col du Lautaret 2 057 m</span><span class="ch">Col de l'Izoard 2 360 m</span></div>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="25juin85">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="25juin85">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696927/PICT0239_kyo5zf.jpg" alt="Photo 1 — Albertville → Refuge Napoléon, 25 juin 1985, col du Galibier" title="Albertville → Refuge Napoléon, 25 juin 1985, col du Galibier" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696927/PICT0240_vg0u5p.jpg" alt="Photo 2 — Albertville → Refuge Napoléon, 25 juin 1985, col du Galibier" title="Albertville → Refuge Napoléon, 25 juin 1985, col du Galibier" loading="lazy">
 </div>
@@ -1663,11 +1685,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">26</div><div class="tl-m">juin 85</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Col de l'Izoard</span><span class="tl-ar">→</span><span class="tl-t">Vence</span><span class="tl-kp">211 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Casse Déserte, stèle de Coppi et Bobet. Col de Vars. La Bonnette — 25 km de côtes étroites et torrides. Un couple hollandais nous photographie dans la neige. Transhumance de moutons sur la route. Nice, puis Vence. <em>"C'est ce que nous faisons depuis ce matin !"</em></p><div class="tl-ch-row"><span class="ch">Col de Vars 2 108 m</span><span class="ch">Col de la Bonnette 2 715 m</span><span class="ch">Col des Granges Communes 2 513 m</span></div>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="26juin85">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="26juin85">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696919/PICT0253_rl9ryn.jpg" alt="Photo 1 — Col de l'Izoard → Vence, 26 juin 1985, col de la Bonnette" title="Col de l'Izoard → Vence, 26 juin 1985, col de la Bonnette" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696918/PICT0254_gr0geo.jpg" alt="Photo 2 — Col de l'Izoard → Vence, 26 juin 1985, col de la Bonnette" title="Col de l'Izoard → Vence, 26 juin 1985, col de la Bonnette" loading="lazy">
 </div>
@@ -1708,11 +1729,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">27</div><div class="tl-m">juin 85</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Vence</span><span class="tl-ar">→</span><span class="tl-t">Cassis</span><span class="tl-kp">220 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Grasse, intégration dans un peloton. Mandelieu, la Grande Bleue enfin visible. Saint-Raphaël, massif des Maures en forêt de chênes-liège. Cogolin, restaurant à l'ombre. Hyères, Toulon. Cassis le soir, hébergés près du port de plaisance.</p><div class="tl-ch-row"><span class="ch">Col de l'Esquilon 83 m</span><span class="ch">Col de Gratteloup 200 m</span><span class="ch">Pas de Bellefille 195 m</span></div>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="27juin85">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="27juin85">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696911/PICT0266_chczen.jpg" alt="Photo 1 — Vence → Sète, 27 juin 1985, Côte d'Azur Méditerranée" title="Vence → Sète, 27 juin 1985, Côte d'Azur Méditerranée" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696911/PICT0267_bng7op.jpg" alt="Photo 2 — Vence → Sète, 27 juin 1985, Côte d'Azur Méditerranée" title="Vence → Sète, 27 juin 1985, Côte d'Azur Méditerranée" loading="lazy">
 </div>
@@ -1774,11 +1794,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">28</div><div class="tl-m">juin 85</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Cassis</span><span class="tl-ar">→</span><span class="tl-t">Sète 🏁</span><span class="tl-kp">209 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Marseille traversée sans encombre. Traversée de la Crau sous le mistral. Arles, Camargue, vent en poupe. Aigues-Mortes. La voie ferrée : trois trains sifflent pour nous encourager. À 19h30, Sète. <em>"Nous arrivons dans la ville où trois ans plus tôt nous étions partis."</em> Geneviève, Anne et Catherine nous attendaient.</p><div class="tl-ch-row"><span class="ch">Col de la Gineste 328 m</span></div>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="28juin85">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="28juin85">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696901/PICT0286_bve7te.jpg" alt="Photo 1 — Nice → Sète, 28 juin 1985, arrivée finale Tour de France Randonneur" title="Nice → Sète, 28 juin 1985, arrivée finale Tour de France Randonneur" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696900/PICT0287_bincr3.jpg" alt="Photo 2 — Nice → Sète, 28 juin 1985, arrivée finale Tour de France Randonneur" title="Nice → Sète, 28 juin 1985, arrivée finale Tour de France Randonneur" loading="lazy">
 </div>
@@ -1819,11 +1838,10 @@ footer strong{color:rgba(255,255,255,.7)}
 </div></div></div></div>
 
     <div class="tli"><div class="tl-dc"><div class="tl-d">29</div><div class="tl-m">juin 85</div></div><div class="tl-sp"><div class="tl-dot"></div><div class="tl-ln"></div></div><div class="tl-card"><div class="tl-bar"></div><div class="tl-head" onclick="tog(this)"><div class="tl-st"><span class="tl-f">Sète</span><span class="tl-ar">→</span><span class="tl-t">Mazamet — Fête 🎉</span><span class="tl-kp">131 km</span><span class="tl-tog"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span></div></div><div class="tl-body"><p class="tl-tx">Dernière carte contrôle postée. Col de Rodomouls — à 500 mètres du sommet, le comité d'accueil en place : banderoles, fanions, appareils photos. Caravane de retour vers Mazamet. Rue Nungesser et Coli : discours, coupes, gâteaux et champagne. <em>"Une vraie petite fête cyclo clôture cette journée inoubliable."</em></p><div class="tl-ch-row"><span class="ch">Col de Fontjun 230 m</span><span class="ch">Col de Rodomouls 562 m</span><span class="ch">Col de Fénille 480 m</span></div>
-<div class="photo-section-label">Photos</div>
-<div class="photo-grid" data-stage="29juin85">
+<div class="photo-section-label" onclick="togglePhotos(this)">Photos<button class="photo-toggle-btn" tabindex="-1"><span class="ptb-icon">▼</span> Afficher</button></div><div class="photo-grid-wrap collapsed"><div class="photo-grid" data-stage="29juin85">
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696895/PICT0299_us8tcf.jpg" alt="Photo 1 — Fête de clôture à Mazamet, 29 juin 1985, Tour de France Randonneur" title="Fête de clôture à Mazamet, 29 juin 1985, Tour de France Randonneur" loading="lazy">
-</div>
+</div></div>
 <div class="photo-item" onclick="openLb(this)">
   <img src="https://res.cloudinary.com/dkqhpegg8/image/upload/v1774696894/PICT0300_iae63m.jpg" alt="Photo 2 — Fête de clôture à Mazamet, 29 juin 1985, Tour de France Randonneur" title="Fête de clôture à Mazamet, 29 juin 1985, Tour de France Randonneur" loading="lazy">
 </div>
@@ -2342,6 +2360,25 @@ function initMap(){
         document.getElementById('mapPanel').classList.toggle('panel-open');
       }
     });
+  }
+}
+
+/* ══ TOGGLE PHOTOS ════════════════════════ */
+function togglePhotos(label) {
+  const wrap = label.nextElementSibling;
+  const btn = label.querySelector('.photo-toggle-btn');
+  const icon = btn.querySelector('.ptb-icon');
+  const isCollapsed = wrap.classList.contains('collapsed');
+  if (isCollapsed) {
+    wrap.classList.remove('collapsed');
+    btn.classList.remove('hidden');
+    icon.textContent = '▲';
+    btn.childNodes[1].textContent = ' Masquer';
+  } else {
+    wrap.classList.add('collapsed');
+    btn.classList.add('hidden');
+    icon.textContent = '▼';
+    btn.childNodes[1].textContent = ' Afficher';
   }
 }
 
