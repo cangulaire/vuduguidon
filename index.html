@@ -1,173 +1,697 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
- 
-<!-- ══ VÉRIFICATION GOOGLE ════════════════════════════════════ -->
-<meta name="google-site-verification" content="iHCms373bd-3i6rURis2zfj65olLFTyOu8tYCSAgcic" />
- 
-<!-- ══ CHARSET & VIEWPORT ════════════════════════════════════ -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
- 
-<!-- ══ PERFORMANCE : préconnexions CDN ═══════════════════════ -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://res.cloudinary.com">
-<link rel="dns-prefetch" href="https://unpkg.com">
-<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
- 
-<!-- ══ SEO PRIMAIRE ══════════════════════════════════════════ -->
-<!-- Une seule <title>, claire, mots-clés devant -->
-<title>Tour de France Randonneur 1983-1985 — André Puech & Bernard Burguete | Vu du Guidon</title>
- 
-<!-- Une seule meta description, < 160 caractères, incitative -->
-<meta name="description" content="4 772 km, 47 cols, 23 jours de selle. Le récit complet du Tour de France Randonneur 1983-1985 d'André Puech et Bernard Burguete, raconté par Claire, leur petite-fille.">
- 
-<!-- Auteur, langue, robots -->
-<meta name="author" content="Claire Puech">
-<meta name="language" content="fr">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
- 
-<!-- Mots-clés (secondaire mais utile pour certains moteurs) -->
-<meta name="keywords" content="Tour de France Randonneur, cyclotourisme, André Puech, Bernard Burguete, vélo touring France, cols Pyrénées Alpes Vosges, 1983 1984 1985, FFCT, Mazamet, Tarn, V.C. Annecy, vu du guidon">
- 
-<!-- ══ CANONICAL UNIQUE ═══════════════════════════════════════ -->
-<!-- Une seule URL canonique — adapte si tu utilises .fr -->
+
+<!-- ══ SEO ═══════════════════════════════════════════════ -->
+<title>Tour de France Randonneur 1983-1985 - Vu du Guidon</title>
+<meta name="description" content="Bernard Burguete et André Puech ont bouclé 4 772 km et 47 cols en trois étés. Le récit complet de leur Tour de France Randonneur 1983-1985, raconté par Claire, petite-fille d'André.">
 <link rel="canonical" href="https://vuduguidon.com/">
- 
-<!-- ══ OPEN GRAPH (Facebook, WhatsApp, LinkedIn) ═════════════ -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Vu du Guidon">
-<meta property="og:locale" content="fr_FR">
-<meta property="og:url" content="https://vuduguidon.com/">
-<meta property="og:title" content="Tour de France Randonneur 1983-1985 — Vu du Guidon">
-<meta property="og:description" content="4 772 km, 47 cols, 23 jours de selle. Le journal de bord de deux cyclistes tarnais qui ont fait le tour de la France en trois étés.">
-<!-- Image partagée : 1200×630 px recommandé — utilise ta photo principale -->
-<meta property="og:image" content="https://vuduguidon.com/imageprincipale.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="André Puech et Bernard Burguete — Tour de France Randonneur 1983-1985">
- 
-<!-- ══ TWITTER / X CARD ═══════════════════════════════════════ -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Tour de France Randonneur 1983-1985 — Vu du Guidon">
-<meta name="twitter:description" content="4 772 km, 47 cols, 23 jours de selle. Journal de bord de Bernard Burguete et André Puech.">
-<meta name="twitter:image" content="https://vuduguidon.com/imageprincipale.png">
- 
-<!-- ══ JSON-LD STRUCTURÉ (Google Rich Results) ═══════════════ -->
-<!-- Bloc 1 : le site lui-même -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Vu du Guidon",
-  "url": "https://vuduguidon.com/",
-  "description": "Récit complet du Tour de France Randonneur 1983-1985 de Bernard Burguete et André Puech — 4 772 km, 47 cols, 23 jours de selle.",
-  "inLanguage": "fr",
-  "author": {
-    "@type": "Person",
-    "name": "Claire Puech",
-    "description": "Petite-fille d'André Puech, cycliste"
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": "Claire Puech"
-  }
-}
-</script>
- 
-<!-- Bloc 2 : l'événement sportif (déclenche les Rich Results Google) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SportsEvent",
+  "@type": "Article",
   "name": "Tour de France Randonneur 1983-1985",
-  "sport": "Cycling",
-  "startDate": "1983-06-18",
-  "endDate": "1985-06-29",
-  "location": {
-    "@type": "Country",
-    "name": "France"
-  },
-  "description": "Tour de France Randonneur effectué par André Puech (n°925) et Bernard Burguete (n°924) en trois périodes entre 1983 et 1985. 4 772 km, 47 cols, 23 jours de selle.",
-  "organizer": {
-    "@type": "Organization",
-    "name": "U.S. Métro Cyclotourisme",
-    "url": "https://www.usmetrocyclotourisme.fr"
-  },
-  "athlete": [
-    {
-      "@type": "Person",
-      "name": "André Puech",
-      "birthDate": "1936",
-      "nationality": "French"
-    },
-    {
-      "@type": "Person",
-      "name": "Bernard Burguete",
-      "birthDate": "1954",
-      "nationality": "French"
-    }
-  ]
+  "description": "Récit complet du Tour de France Randonneur de Bernard Burguete et André Puech",
+  "author": {"@type": "Person", "name": "Claire Puech"},
+  "url": "https://vuduguidon.com/"
 }
 </script>
- 
-<!-- Bloc 3 : fil d'Ariane (BreadcrumbList) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": "https://vuduguidon.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Journal de bord",
-      "item": "https://vuduguidon.com/#journal"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Les 47 cols",
-      "item": "https://vuduguidon.com/#cols"
-    }
-  ]
-}
-</script>
- 
-<!-- ══ THÈME COULEUR (barre navigateur mobile) ═══════════════ -->
+<meta name="description" content="Journal de bord du Tour de France Randonneur accompli par Bernard Burguete et André Puech entre 1983 et 1985 : 4 772 km, 47 cols, 24 étapes à travers toute la France. Un site réalisé par Claire, petite-fille d'André Puech.">
+<meta name="keywords" content="Tour de France Randonneur, cyclotourisme, André Puech, Bernard Burguete, vélo, randonnée cycliste, cols, 1983 1984 1985, U.S. Métro Paris, FFCT, Mazamet, Tarn">
+<meta name="author" content="Claire, petite-fille d'André Puech">
+<meta name="robots" content="index, follow">
+<meta name="language" content="fr">
 <meta name="theme-color" content="#2B573A">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Vu du Guidon">
- 
-<!-- ══ FAVICON (à créer depuis ton logo) ════════════════════ -->
-<!--
-  Génère tes favicons sur https://realfavicongenerator.net
-  et dépose les fichiers à la racine de ton site, puis décommente :
- 
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
--->
- 
-<!-- ══ FONTS (chargement optimisé) ══════════════════════════ -->
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Le Tour de France Randonneur 1983–1985 - Vu du Guidon">
+<meta property="og:description" content="4 772 km, 47 cols, 23 jours de selle. Le journal de bord de deux cyclistes tarnais qui ont fait le tour de la France à vélo en trois étés.">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Vu du Guidon">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Le Tour de France Randonneur 1983–1985 - Vu du Guidon">
+<meta name="twitter:description" content="4 772 km, 47 cols, 23 jours de selle. Journal de bord de Bernard Burguete et André Puech.">
+<!-- Canonical (à adapter selon votre domaine) -->
+<link rel="canonical" href="https://vuduguidon.fr/">
+<!-- ════════════════════════════════════════════════════════ -->
+
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Bebas+Neue&display=swap" rel="stylesheet">
- 
-<!-- ══ CSS TIERS (Leaflet + GLightbox) ═══════════════════════ -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
- 
-<!-- ══ SCRIPTS TIERS (defer = non bloquants) ════════════════ -->
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
- 
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+/* ══ RESET & TOKENS ══════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* ══ Palette Brief ══════════════════════ */
+  --color-primary:    #72AC43;   /* Light green - KPI, série 1 */
+  --color-secondary:  #EC6426;   /* Orange - série 2, contraste */
+  --color-tertiary:   #F8A91F;   /* Yellow - série 3, objectifs */
+  --color-quaternary: #E4A5CA;   /* Pink - données secondaires */
+  --color-dark:       #2B573A;   /* Green - fond dark */
+  --color-bg:         #FDE3CF;   /* Cream - fond carte */
+  --color-text:       #63271B;   /* Brown - texte, labels */
+  --color-grid:       #D5C4B0;   /* Grille, séparateurs */
+
+  /* ══ Aliases legacy → palette ══════════ */
+  --gd: #2B573A;   /* vert foncé */
+  --gm: #72AC43;   /* vert clair (primary) */
+  --gl: #EC6426;   /* orange (secondary) */
+  --gp: #FDE3CF;   /* cream (bg) */
+  --cw: #F8A91F;   /* yellow (tertiary) */
+  --white: #fff;
+  --ink:  #63271B;   /* brown */
+  --muted:#8a5a3a;
+  --bg:   #FDF4EC;   /* fond global, crème très clair */
+  --r:18px;--rl:26px;
+  --sab:env(safe-area-inset-bottom,0px);
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ══ NAV BAR ═════════════════════════════ */
+.topnav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(43,87,58,0.97);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  padding:0 20px;
+  padding-top:env(safe-area-inset-top,0px);
+}
+.topnav-inner{
+  max-width:1120px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  height:52px;
+}
+.site-name{
+  font-family:'Bebas Neue',sans-serif;font-size:18px;font-weight:400;
+  color:var(--cw);white-space:nowrap;letter-spacing:-.01em;
+}
+.site-name span{color:rgba(255,255,255,.85);font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.02em}
+
+/* Desktop tabs in nav */
+.nav-tabs{display:none;gap:2px}
+.nav-tab{
+  background:transparent;border:none;cursor:pointer;
+  font-family:'Bebas Neue',sans-serif;font-size:16px;font-weight:400;
+  color:rgba(255,255,255,.45);padding:6px 14px;border-radius:100px;
+  transition:all .2s;letter-spacing:.06em;white-space:nowrap;
+}
+.nav-tab:hover{color:rgba(255,255,255,.8);background:rgba(255,255,255,.08)}
+.nav-tab.active{color:#fff;background:rgba(255,255,255,.12)}
+
+/* Mobile hamburger */
+.burger{
+  width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.08);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:4.5px;cursor:pointer;
+  transition:background .2s;
+}
+.burger span{display:block;width:15px;height:1.5px;background:rgba(255,255,255,.7);border-radius:2px;transition:all .3s}
+.burger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.burger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+/* Drawer */
+.drawer{
+  position:fixed;inset:0;z-index:190;
+  background:var(--gd);
+  padding:calc(52px + env(safe-area-inset-top,0px) + 24px) 28px 40px;
+  transform:translateX(100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94);
+  display:flex;flex-direction:column;
+}
+.drawer.open{transform:none}
+.drawer-links{display:flex;flex-direction:column;gap:2px;flex:1}
+.drawer-btn{
+  background:none;border:none;cursor:pointer;text-align:left;
+  font-family:'Bebas Neue',sans-serif;font-size:26px;font-weight:400;
+  color:rgba(255,255,255,.3);letter-spacing:-.02em;
+  padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);
+  transition:color .2s;display:flex;align-items:center;justify-content:space-between;
+}
+.drawer-btn:hover,.drawer-btn.active{color:#fff}
+.drawer-btn .da{font-size:16px;opacity:.3}
+.drawer-footer{font-size:11px;color:rgba(255,255,255,.22);line-height:1.7;padding-top:24px}
+
+/* ══ BOTTOM TAB BAR (mobile) ══════════════ */
+.bottom-tabs{
+  position:fixed;bottom:0;left:0;right:0;z-index:180;
+  background:rgba(253,228,207,.97);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:1px solid rgba(99,39,27,.1);
+  display:flex;
+  padding-bottom:max(8px,var(--sab));
+}
+.btab{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  gap:2px;padding:8px 4px 6px;cursor:pointer;
+  border:none;background:none;
+  -webkit-tap-highlight-color:transparent;transition:opacity .15s;
+}
+.btab:active{opacity:.6}
+.btab-icon{font-size:19px;line-height:1}
+.btab-label{font-size:9px;font-weight:500;color:var(--muted);letter-spacing:.03em;line-height:1}
+.btab.active .btab-label{color:var(--gd);font-weight:600}
+.btab.active .btab-icon{filter:saturate(1.5)}
+
+/* ══ PAGES ════════════════════════════════ */
+.page{display:none;min-height:100vh;padding-top:52px}
+.page.active{display:block}
+
+/* ══ ① ACCUEIL ════════════════════════════ */
+.hero{
+  background:var(--gd);min-height:500px;max-height:none;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden;
+  padding:calc(52px + 28px) 24px 36px;
+}
+.hero-inner{display:flex;align-items:center;gap:32px}
+.hero-content{flex:1;min-width:0}
+.hero-img-wrap{display:none;flex-shrink:0;width:260px;position:relative}
+.hero-img-wrap img{
+  width:100%;height:320px;object-fit:cover;
+  border-radius:20px;
+  display:block;
+  box-shadow:0 24px 64px rgba(0,0,0,.45);
+  border:2px solid rgba(255,255,255,.1);
+}
+/* Fondu gauche pour fondre dans le vert */
+.hero-img-wrap::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to right, var(--gd) 0%, transparent 30%);
+  border-radius:20px;z-index:1;pointer-events:none;
+}
+@media(min-width:768px){
+  .hero{max-height:none;padding:calc(52px + 36px) 40px 44px}
+  .hero-img-wrap{display:block}
+}
+@media(min-width:1024px){
+  .hero-img-wrap{width:320px}
+  .hero-img-wrap img{height:380px}
+}
+.hblob1{position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#4a8a50,#2B573A 65%);opacity:.5;pointer-events:none}
+.hblob2{position:absolute;bottom:40px;left:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,#72AC43,transparent 65%);opacity:.35;pointer-events:none}
+.hero-ey{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--cw);opacity:.7;margin-bottom:10px;animation:fu .7s .2s both}
+.hero-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,9vw,76px);font-weight:400;color:#fff;line-height:.95;letter-spacing:.02em;margin-bottom:10px;animation:fu .8s .35s both}
+.hero-h em{color:var(--cw);font-style:normal}
+.hero-p{font-size:13px;font-weight:300;color:rgba(255,255,255,.5);max-width:400px;margin-bottom:16px;animation:fu .8s .5s both;line-height:1.6}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;animation:fu .8s .6s both}
+.hstat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.11);border-radius:var(--r);padding:12px 14px}
+.hstat strong{font-family:'Literata',Georgia,serif;font-weight:600;color:var(--cw);font-size:24px;display:block;line-height:1;margin-bottom:2px;letter-spacing:-.01em}
+.hstat span{font-size:10px;color:rgba(255,255,255,.4);font-weight:500}
+.hero-claire{
+  display:flex;align-items:center;gap:12px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--r);padding:12px 16px;margin-top:14px;
+  animation:fu .8s .75s both;
+}
+.claire-av{width:32px;height:32px;border-radius:50%;background:var(--cw);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.claire-text{font-size:12px;color:rgba(255,255,255,.55);font-weight:300;line-height:1.5;font-style:italic}
+.claire-text strong{color:var(--cw);font-style:normal;font-weight:600}
+
+/* Sections accueil */
+.home-section{max-width:1120px;margin:0 auto;padding:40px 16px}
+.home-block{background:var(--white);border-radius:var(--rl);padding:28px 22px;margin-bottom:16px}
+.home-block-title{font-family:'Bebas Neue',sans-serif;font-size:22px;font-weight:400;color:var(--ink);letter-spacing:.05em;margin-bottom:16px}
+.home-block-text{font-size:14px;color:#8a5a3a;line-height:1.75;font-weight:300}
+.home-block-text p+p{margin-top:10px}
+
+.timeline-mini{display:flex;flex-direction:column;gap:0}
+.tmi{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--gp)}
+.tmi:last-child{border-bottom:none}
+.tmi-dot{width:32px;height:32px;border-radius:50%;background:var(--gd);display:flex;align-items:center;justify-content:center;color:var(--cw);font-family:'Bebas Neue',sans-serif;font-size:12px;font-weight:400;flex-shrink:0;margin-top:2px}
+.tmi-year{font-family:'Bebas Neue',sans-serif;font-size:22px;font-weight:400;color:var(--ink);letter-spacing:.04em;margin-bottom:2px;font-style:normal}
+.tmi-desc{font-size:13px;color:var(--muted);font-weight:400}
+.tmi-km{font-family:'Bebas Neue',sans-serif;font-size:17px;font-weight:400;color:var(--gl);margin-top:2px}
+
+.quick-nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.qnav{
+  background:var(--gd);border-radius:var(--r);padding:18px 16px;
+  cursor:pointer;border:none;text-align:left;transition:opacity .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.qnav:active{opacity:.8}
+.qnav-icon{font-size:22px;margin-bottom:8px;display:block}
+.qnav-label{font-family:'Bebas Neue',sans-serif;font-size:18px;font-weight:400;color:#fff;letter-spacing:.04em;display:block;margin-bottom:2px}
+.qnav-sub{font-size:11px;color:rgba(255,255,255,.4);display:block}
+
+.riders-mini{display:flex;flex-direction:column;gap:10px}
+.rider-mini{background:var(--gp);border-radius:var(--r);padding:16px 16px;display:flex;align-items:center;gap:14px}
+.rider-mini-num{font-family:'Literata',Georgia,serif;font-size:28px;font-weight:600;color:var(--gd);line-height:1;letter-spacing:-.01em;width:44px;flex-shrink:0}
+.rider-mini-name{font-family:'Bebas Neue',sans-serif;font-size:20px;font-weight:400;color:var(--ink);letter-spacing:.03em;margin-bottom:2px}
+.rider-mini-info{font-size:12px;color:var(--muted)}
+
+/* ══ ② JOURNAL ════════════════════════════ */
+.journal-wrap{max-width:1120px;margin:0 auto;padding:28px 16px calc(80px + var(--sab))}
+.sh-tag{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gl);margin-bottom:5px}
+.sh-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,6vw,46px);font-weight:400;color:var(--ink);letter-spacing:.05em;line-height:1.1;margin-bottom:22px}
+
+.pc-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:24px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.pc-row::-webkit-scrollbar{display:none}
+.pc{flex-shrink:0;background:var(--white);border-radius:var(--r);padding:14px 16px;cursor:pointer;transition:all .22s;border:2px solid transparent;min-width:140px}
+.pc.active{background:var(--gd);border-color:var(--gm)}
+.pc-tag{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;transition:color .2s}
+.pc.active .pc-tag{color:rgba(255,255,255,.38)}
+.pc-yr{font-family:'Bebas Neue',sans-serif;font-size:22px;font-weight:400;color:var(--ink);line-height:1;letter-spacing:-.02em;margin-bottom:4px;transition:color .2s}
+.pc.active .pc-yr{color:#fff}
+.pc-rt{font-size:11px;font-weight:500;color:var(--muted);margin-bottom:6px;transition:color .2s}
+.pc.active .pc-rt{color:rgba(255,255,255,.5)}
+.pc-km{font-family:'Bebas Neue',sans-serif;font-size:21px;font-weight:400;color:var(--gl);transition:color .2s}
+.pc.active .pc-km{color:var(--cw)}
+
+.pp{display:none}.pp.active{display:block}
+.tli{display:grid;grid-template-columns:52px 2px 1fr;gap:0 14px;opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s}
+.tli.vis{opacity:1;transform:none}
+.tl-dc{text-align:right;padding-top:20px}
+.tl-d{font-family:'Literata',Georgia,serif;font-size:20px;font-weight:600;color:var(--ink);line-height:1;letter-spacing:-.01em}
+.tl-m{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-top:2px}
+.tl-sp{display:flex;flex-direction:column;align-items:center}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--gm);margin-top:23px;flex-shrink:0;box-shadow:0 0 0 3px rgba(114,172,67,.2)}
+.tl-ln{width:2px;flex:1;background:#E8D5C0;margin-top:4px}
+.tli:last-child .tl-ln{display:none}
+.tl-card{background:var(--white);border-radius:var(--r);padding:14px 16px;margin:10px 0;position:relative;overflow:hidden;transition:box-shadow .2s}
+.tl-card:active{box-shadow:0 6px 18px rgba(45,74,53,.1)}
+.tl-bar{position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--color-primary);border-radius:var(--r) 0 0 var(--r)}
+.tl-head{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tl-st{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.tl-f,.tl-t{font-family:'Bebas Neue',sans-serif;font-size:22px;font-weight:400;color:var(--ink);letter-spacing:.04em}
+.tl-ar{color:var(--muted);font-size:16px}
+.tl-kp{background:var(--gp);color:var(--gd);font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px}
+.tl-tog{margin-left:auto;width:20px;height:20px;border-radius:50%;background:var(--gp);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s}
+.tl-tog svg{width:9px;height:9px;stroke:var(--gd);stroke-width:2.5;fill:none;transition:transform .25s}
+.tl-card.open .tl-tog{background:var(--gd)}
+.tl-card.open .tl-tog svg{stroke:#fff;transform:rotate(180deg)}
+.tl-body{overflow:hidden;max-height:0;transition:max-height .35s cubic-bezier(.25,.46,.45,.94)}
+.tl-card.open .tl-body{max-height:700px}
+.tl-tx{font-size:13.5px;color:#8a5a3a;line-height:1.72;font-weight:300;padding-top:10px}
+.tl-ch-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+.ch{background:var(--gp);border-radius:100px;padding:3px 9px;font-size:10px;color:var(--gd);font-weight:500;border:1px solid rgba(114,172,67,.15)}
+
+/* ══ ③ CARTE ══════════════════════════════ */
+.map-wrap{display:flex;flex-direction:column;height:calc(100svh - 52px);position:relative}
+#map{flex:1;width:100%;z-index:1}
+@media(max-width:640px){
+  .map-legend{display:none}
+}
+.map-legend{
+  background:var(--white);border-top:1px solid rgba(99,39,27,.08);
+  padding:10px 16px;display:flex;gap:14px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;flex-shrink:0;
+  padding-bottom:calc(10px + max(0px,var(--sab)));
+}
+.map-legend::-webkit-scrollbar{display:none}
+.leg-item{display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0}
+.leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.leg-label{font-size:11px;font-weight:500;color:var(--muted)}
+.map-popup-title{font-family:'Bebas Neue',sans-serif;font-size:18px;font-weight:400;color:var(--ink);margin-bottom:4px;letter-spacing:.04em}
+.map-popup-km{font-size:12px;font-weight:600;color:var(--gl);margin-bottom:4px}
+.map-popup-text{font-size:12px;color:#8a5a3a;line-height:1.5;font-weight:300;max-width:220px}
+.leaflet-popup-content-wrapper{border-radius:14px!important;box-shadow:0 8px 24px rgba(0,0,0,.12)!important}
+.leaflet-popup-content{margin:14px 16px!important}
+
+/* ══ MAP FLOATING PANEL ═══════════════════ */
+.map-panel{
+  position:absolute;top:16px;right:16px;z-index:10;
+  width:240px;max-height:calc(100% - 100px);
+  background:rgba(253,244,236,.96);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-radius:var(--rl);
+  border:1px solid rgba(99,39,27,.1);
+  box-shadow:0 8px 32px rgba(43,87,58,.18);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  transition:transform .3s cubic-bezier(.25,.46,.45,.94);
+}
+.map-panel-header{
+  padding:14px 16px 10px;
+  border-bottom:1px solid rgba(99,39,27,.08);
+  flex-shrink:0;
+}
+.map-panel-title{
+  font-family:'Bebas Neue',sans-serif;font-size:16px;font-weight:400;
+  color:var(--gd);letter-spacing:.06em;margin-bottom:4px;
+}
+.map-panel-sub{font-size:10px;color:var(--muted);font-weight:500}
+.map-panel-body{overflow-y:auto;flex:1;padding:8px 0;scrollbar-width:thin;scrollbar-color:rgba(114,172,67,.3) transparent}
+.map-panel-body::-webkit-scrollbar{width:3px}
+.map-panel-body::-webkit-scrollbar-thumb{background:rgba(114,172,67,.4);border-radius:3px}
+
+.mp-period{
+  padding:6px 14px 4px;
+  font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;
+}
+.mp-stop{
+  display:flex;align-items:center;gap:9px;
+  padding:7px 14px;cursor:pointer;
+  transition:background .15s;
+  border-left:3px solid transparent;
+}
+.mp-stop:hover{background:rgba(114,172,67,.08)}
+.mp-stop.active{
+  background:rgba(114,172,67,.13);
+  border-left-color:var(--gm);
+}
+.mp-dot{
+  width:9px;height:9px;border-radius:50%;flex-shrink:0;
+  border:1.5px solid rgba(255,255,255,.8);
+  box-shadow:0 1px 3px rgba(0,0,0,.2);
+}
+.mp-info{flex:1;min-width:0}
+.mp-name{
+  font-family:'Bebas Neue',sans-serif;font-size:14px;font-weight:400;
+  color:var(--ink);letter-spacing:.03em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  line-height:1.1;
+}
+.mp-km{font-size:10px;color:var(--muted);font-weight:400;margin-top:1px}
+
+/* Highlight pulsé sur le marqueur sélectionné */
+.marker-highlight{
+  animation:pulseMarker 1.2s ease-out;
+}
+@keyframes pulseMarker{
+  0%{transform:scale(1)}
+  30%{transform:scale(2.2)}
+  60%{transform:scale(1.4)}
+  100%{transform:scale(1)}
+}
+
+/* ── Mobile : panneau collapsible en bas ── */
+@media(max-width:640px){
+  .map-panel{
+    top:80%;left:12px;right:12px;
+    width:auto;
+    transform:translateY(-50%);
+    max-height:44px;
+    border-radius:var(--rl);
+    transition:max-height .35s cubic-bezier(.25,.46,.45,.94);
+  }
+  .map-panel.panel-open{max-height:58vh}
+  .map-panel-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 16px;cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .map-panel-title{font-size:14px;margin-bottom:0}
+  .map-panel-sub{display:none}
+  .map-panel-chevron{
+    font-size:16px;color:var(--gd);
+    transition:transform .3s;line-height:1;flex-shrink:0;
+  }
+  .map-panel.panel-open .map-panel-chevron{transform:rotate(180deg)}
+  .mp-stop{padding:8px 14px}
+  .mp-name{font-size:13px}
+}
+
+/* ══ ④ INFOGRAPHIE ════════════════════════ */
+.infog-wrap{max-width:1120px;margin:0 auto;padding:28px 16px calc(80px + var(--sab))}
+.infog-card{background:var(--white);border-radius:var(--rl);padding:24px 20px;margin-bottom:16px}
+.infog-title{font-family:'Bebas Neue',sans-serif;font-size:20px;font-weight:400;color:var(--ink);letter-spacing:.05em;margin-bottom:18px}
+
+/* Big stats */
+.big-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.big-stat{background:var(--gd);border-radius:var(--r);padding:20px 16px;text-align:center}
+.bs-num{font-family:'Literata',Georgia,serif;font-size:clamp(28px,7vw,48px);font-weight:600;color:var(--cw);line-height:1;letter-spacing:-.01em;margin-bottom:4px}
+.bs-label{font-size:11px;color:rgba(255,255,255,.45);font-weight:500}
+
+/* Bar chart */
+.bar-chart{display:flex;flex-direction:column;gap:6px}
+.bar-row{display:flex;align-items:center;gap:8px}
+.bar-label{font-size:10px;color:var(--muted);width:36px;text-align:right;flex-shrink:0;line-height:1.2}
+.bar-track{flex:1;height:20px;background:#F3E8DC;border-radius:100px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:100px;background:var(--gm);transition:width 1s ease;display:flex;align-items:center;justify-content:flex-end;padding-right:6px;min-width:28px}
+.bar-fill.p1{background:#72AC43}
+.bar-fill.p2{background:#2B573A}
+.bar-fill.p3{background:#F8A91F}
+.bar-val{font-size:9px;font-weight:700;color:#fff;white-space:nowrap}
+
+/* Col altitude chart */
+.col-chart{
+  display:flex;align-items:flex-end;
+  gap:2px;
+  width:100%;
+  height:clamp(220px,35vw,340px);
+  padding-top:60px;padding-bottom:44px;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;position:relative;
+  box-sizing:border-box;
+}
+.col-chart::-webkit-scrollbar{display:none}
+.col-bar-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  flex:1 1 0;min-width:18px;max-width:36px;
+  cursor:pointer;position:relative;
+}
+.col-bar{
+  width:60%;min-width:8px;max-width:22px;
+  border-radius:4px 4px 0 0;background:var(--gm);
+  position:relative;
+  transition:width .2s ease, min-width .2s, opacity .2s, filter .2s;
+  transform-origin:bottom center;
+}
+.col-bar.p1{background:#72AC43}
+.col-bar.p2{background:#EC6426}
+.col-bar.p3{background:#2B573A}
+.col-bar-wrap:hover .col-bar{
+  width:85%;min-width:14px;
+  filter:brightness(1.2);
+  opacity:1 !important;
+}
+.col-chart:hover .col-bar-wrap:not(:hover) .col-bar{
+  opacity:.35;
+}
+.col-bar-tooltip{
+  display:none;
+  position:absolute;
+  bottom:calc(100% + 6px);
+  left:50%;transform:translateX(-50%);
+  background:var(--ink);color:#fff;
+  font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.04em;
+  padding:5px 10px;border-radius:8px;
+  white-space:nowrap;pointer-events:none;z-index:10;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+}
+.col-bar-tooltip::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:var(--ink);
+}
+.col-bar-wrap:hover .col-bar-tooltip{display:block}
+.col-bar-name{font-size:9px;color:var(--muted);text-align:center;transform:rotate(-55deg);transform-origin:top center;white-space:nowrap;margin-top:8px;line-height:1;width:56px;transition:color .2s}
+.col-bar-wrap:hover .col-bar-name{color:var(--ink);font-weight:600}
+
+/* Dept map */
+.dept-list{display:flex;flex-wrap:wrap;gap:5px}
+.dept-chip{background:var(--gp);border-radius:100px;padding:4px 10px;font-size:11px;color:var(--gd);font-weight:500;border:1px solid rgba(114,172,67,.15)}
+.dept-chip.p1{background:#eef6e4;border-color:rgba(114,172,67,.25)}
+.dept-chip.p2{background:#fff3e0;border-color:rgba(248,169,31,.3)}
+.dept-chip.p3{background:#fde3cf;border-color:rgba(236,100,38,.25)}
+
+/* Legend infog */
+.infog-legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.il-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.il-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+
+/* ══ ⑤ PRESSE ═════════════════════════════ */
+.presse-wrap{max-width:1120px;margin:0 auto;padding:28px 16px calc(80px + var(--sab))}
+.pcard{background:var(--white);border-radius:var(--rl);padding:22px 20px;margin-bottom:12px}
+.ps{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gl);margin-bottom:2px}
+.pd{font-size:10px;color:var(--muted);margin-bottom:10px}
+.pt{font-family:'Bebas Neue',sans-serif;font-size:20px;font-weight:400;color:var(--ink);letter-spacing:.04em;margin-bottom:8px;line-height:1.2}
+.pb{font-size:13.5px;color:#8a5a3a;line-height:1.72;font-weight:300}
+
+/* ══ FOOTER ═══════════════════════════════ */
+footer{background:var(--gd);color:rgba(255,255,255,.35);text-align:center;padding:28px 20px calc(28px + max(0px,var(--sab)));font-size:11px;line-height:1.8}
+.ft{font-family:'Bebas Neue',sans-serif;font-size:20px;font-weight:400;color:rgba(255,255,255,.6);margin-bottom:5px}
+footer strong{color:rgba(255,255,255,.7)}
+
+/* ══ PHOTO GRID ═══════════════════════════ */
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:12px}
+.photo-placeholder-simple{
+  grid-column:1/-1;
+  padding:14px 16px;
+  font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.08em;
+  color:var(--muted);background:var(--gp);
+  border-radius:10px;text-align:center;
+  border:2px dashed rgba(114,172,67,.25);
+}
+.photo-item{
+  aspect-ratio:1;border-radius:8px;overflow:hidden;
+  background:var(--gp);cursor:pointer;position:relative;
+  transition:opacity .2s;
+}
+.photo-item:active{opacity:.85}
+.photo-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.photo-item:hover img{transform:scale(1.04)}
+.photo-placeholder{
+  width:100%;height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:6px;
+  border:2px dashed rgba(114,172,67,.25);border-radius:8px;
+}
+.photo-placeholder-icon{font-size:22px;opacity:.4}
+.photo-placeholder-text{font-size:9px;color:var(--muted);text-align:center;line-height:1.4;max-width:60px}
+.photo-add-btn{
+  aspect-ratio:1;border-radius:8px;
+  background:none;border:2px dashed rgba(114,172,67,.3);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:5px;cursor:pointer;transition:all .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.photo-add-btn:hover{background:var(--gp);border-color:var(--gm)}
+.photo-add-btn span:first-child{font-size:20px;color:var(--muted)}
+.photo-add-btn span:last-child{font-size:9px;color:var(--muted);font-weight:500}
+/* Lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.92);
+  display:none;align-items:center;justify-content:center;flex-direction:column;
+  padding:20px;
+}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:80svh;border-radius:12px;object-fit:contain}
+.lightbox-close{
+  position:absolute;top:max(16px,env(safe-area-inset-top,16px));right:16px;
+  width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);
+  border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+}
+.lightbox-caption{color:rgba(255,255,255,.6);font-size:12px;margin-top:12px;text-align:center}
+/* Photo section label */
+.photo-section-label{
+  font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);margin-top:14px;margin-bottom:8px;display:flex;align-items:center;gap:8px;
+}
+.photo-section-label::after{content:'';flex:1;height:1px;background:var(--gp)}
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes fi{to{opacity:1}}
+
+/* ══ TABLET ≥600 ══════════════════════════ */
+@media(min-width:600px){
+  .bottom-tabs{display:none}
+  .burger{display:none}
+  .nav-tabs{display:flex}
+  .hero{padding:calc(52px + 28px) 40px 36px}
+  .hero-stats{grid-template-columns:repeat(4,1fr)}
+  .home-section{padding:40px 32px}
+  .journal-wrap{padding:28px 32px calc(40px)}
+  .infog-wrap{padding:28px 32px 40px}
+  .presse-wrap{padding:28px 32px 40px}
+  .big-stats{grid-template-columns:repeat(4,1fr)}
+  .page.active{padding-top:52px}
+}
+@media(min-width:900px){
+  .hero-h{font-size:clamp(68px,8vw,100px)}
+  .hero-stats{gap:12px}
+  .hstat{padding:18px 20px}
+  .hstat strong{font-size:28px}
+  .quick-nav-grid{grid-template-columns:repeat(4,1fr)}
+  .riders-mini{flex-direction:row;gap:14px}
+  .rider-mini{flex:1}
+  .tl-card.open .tl-body,.tl-body{max-height:none!important}
+  .tl-tog{display:none}
+  .tl-head{cursor:default}
+  .tl-st{margin-bottom:8px}
+  .journal-wrap{padding:32px 40px 60px}
+  .tli{grid-template-columns:72px 2px 1fr;gap:0 22px}
+  .tl-d{font-size:22px}
+  .tl-f,.tl-t{font-size:24px}
+  .tl-tx{font-size:14px}
+  .pc-row{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible}
+  .infog-wrap{padding:32px 40px 60px}
+  .presse-wrap{padding:32px 40px 60px}
+  .presse-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .presse-grid .pcard{margin-bottom:0}
+  .home-section{padding:40px 40px}
+}
+
+/* ══ PAGE AVENTURE ════════════════════════════════════════════ */
+.aventure-wrap{max-width:1120px;margin:0 auto;padding:28px 16px calc(80px + var(--sab))}
+.av-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:28px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.av-tabs::-webkit-scrollbar{display:none}
+.av-tab{flex-shrink:0;background:var(--white);border:2px solid transparent;border-radius:var(--r);padding:10px 18px;cursor:pointer;font-family:"Bebas Neue",sans-serif;font-size:16px;color:var(--muted);letter-spacing:.05em;transition:all .2s}
+.av-tab.active{background:var(--gd);color:#fff;border-color:var(--gm)}
+.av-section{display:none}.av-section.active{display:block}
+.av-intro{background:var(--white);border-radius:var(--rl);padding:28px 24px;margin-bottom:20px;border-left:4px solid var(--cw)}
+.av-intro p{font-size:15px;color:#6b4226;line-height:1.9;font-weight:300;margin-bottom:12px;font-style:italic}
+.av-intro p:last-child{margin-bottom:0;font-weight:500;color:var(--ink);font-style:normal}
+.av-card{background:var(--white);border-radius:var(--rl);padding:24px 22px;margin-bottom:16px}
+.av-card h2{font-family:"Bebas Neue",sans-serif;font-size:22px;color:var(--gd);letter-spacing:.05em;margin-bottom:14px}
+.av-card h3{font-family:"Bebas Neue",sans-serif;font-size:18px;color:var(--ink);letter-spacing:.04em;margin:18px 0 10px}
+.av-card p{font-size:14px;color:#8a5a3a;line-height:1.75;font-weight:300;margin-bottom:8px}
+.av-card ul{list-style:none;padding:0;margin:0 0 12px}
+.av-card ul li{font-size:13.5px;color:#8a5a3a;line-height:1.7;font-weight:300;padding:3px 0 3px 14px;position:relative}
+.av-card ul li::before{content:"→";position:absolute;left:0;color:var(--gm);font-size:11px}
+.av-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.av-stat{background:var(--gd);border-radius:var(--r);padding:16px;text-align:center}
+.av-stat strong{font-family:"Literata",Georgia,serif;font-size:28px;color:var(--cw);display:block;line-height:1}
+.av-stat span{font-size:10px;color:rgba(255,255,255,.5)}
+.velo-card{background:var(--gp);border-radius:var(--r);padding:18px;margin-bottom:14px;border-left:3px solid var(--gm)}
+.velo-card h4{font-family:"Bebas Neue",sans-serif;font-size:17px;color:var(--gd);margin-bottom:10px;letter-spacing:.04em}
+.context-box{background:#fff8e8;border:1px solid rgba(248,169,31,.3);border-radius:10px;padding:12px 16px;margin:12px 0;font-size:12px;color:#7a5a00}
+
+/* ══ PAGE 47 COLS ═════════════════════════════════════════════ */
+.cols-wrap{max-width:1120px;margin:0 auto;padding:28px 16px calc(80px + var(--sab))}
+.cols-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:28px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.cols-tabs::-webkit-scrollbar{display:none}
+.cols-tab{flex-shrink:0;background:var(--white);border:2px solid transparent;border-radius:var(--r);padding:10px 18px;cursor:pointer;font-family:"Bebas Neue",sans-serif;font-size:16px;color:var(--muted);letter-spacing:.05em;transition:all .2s}
+.cols-tab.active{background:var(--gd);color:#fff;border-color:var(--gm)}
+.cols-section{display:none}.cols-section.active{display:block}
+
+/* Tableau cols desktop */
+.cols-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:var(--rl);overflow:hidden}
+.cols-table th{background:var(--gd);color:#fff;font-family:"Bebas Neue",sans-serif;font-size:14px;letter-spacing:.06em;padding:12px 14px;text-align:left;font-weight:400}
+.cols-table td{padding:10px 14px;border-bottom:1px solid var(--gp);font-size:13px;color:var(--ink);vertical-align:top}
+.cols-table tr:last-child td{border-bottom:none}
+.cols-table tr:hover td{background:#faf6f2}
+.col-alt{font-family:"Literata",Georgia,serif;font-size:15px;font-weight:600;color:var(--gd)}
+.col-badge{display:inline-block;background:var(--gp);border-radius:100px;padding:2px 8px;font-size:10px;color:var(--gd);font-weight:600}
+
+/* Cartes cols mobile */
+.cols-cards{display:none;flex-direction:column;gap:10px}
+.col-card{background:var(--white);border-radius:var(--r);padding:16px;border-left:3px solid var(--gm)}
+.col-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.col-card-name{font-family:"Bebas Neue",sans-serif;font-size:18px;color:var(--ink);letter-spacing:.04em}
+.col-card-alt{font-family:"Literata",Georgia,serif;font-size:20px;font-weight:600;color:var(--gd)}
+.col-card-meta{font-size:11px;color:var(--muted);margin-bottom:6px}
+.col-card-anecdote{font-size:12px;color:#8a5a3a;line-height:1.6;font-style:italic}
+
+@media(max-width:600px){
+  .cols-table{display:none}
+  .cols-cards{display:flex}
+}
+
+/* Fiches cols mythiques */
+.col-fiche{background:var(--white);border-radius:var(--rl);padding:24px 22px;margin-bottom:16px;overflow:hidden;position:relative}
+.col-fiche::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gm),var(--cw))}
+.col-fiche h3{font-family:"Bebas Neue",sans-serif;font-size:26px;color:var(--gd);letter-spacing:.04em;margin-bottom:4px}
+.col-fiche-alt{font-family:"Literata",Georgia,serif;font-size:36px;font-weight:600;color:var(--cw);line-height:1;margin-bottom:12px}
+.col-fiche-stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.col-fiche-stat{background:var(--gp);border-radius:8px;padding:6px 12px;font-size:12px;color:var(--gd);font-weight:600}
+.col-fiche p{font-size:14px;color:#8a5a3a;line-height:1.75;font-weight:300;margin-bottom:8px}
+.col-fiche ul{list-style:none;padding:0;margin:0}
+.col-fiche ul li{font-size:13.5px;color:#8a5a3a;padding:4px 0 4px 16px;position:relative;line-height:1.6}
+.col-fiche ul li::before{content:"⛰";position:absolute;left:0;font-size:11px}
+.col-fiche-date{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gl);margin-bottom:14px}
+.col-fiche-anecdote{background:#f0f8e8;border-radius:10px;padding:14px 16px;margin-top:12px;font-size:13px;color:var(--gd);line-height:1.7;border-left:3px solid var(--gm)}
+
+/* ══ GLightbox override ════════════════════════════════════════ */
+.glightbox-clean .gslide-description{background:rgba(0,0,0,.7)}
+.glightbox-clean .gdesc-inner{padding:12px 16px}
+.glightbox-clean .gslide-title{color:#fff;font-size:13px;font-weight:300;margin:0}
+/* ── Photo toggle ───────────────────────── */
+.photo-grid-wrap{display:none}
+.photo-grid-wrap.open{display:block}
+.photo-toggle{
+  margin-left:auto;background:none;border:1px solid rgba(114,172,67,.35);
+  border-radius:100px;padding:2px 10px;font-size:10px;font-weight:600;
+  color:var(--gd);cursor:pointer;letter-spacing:.04em;
+  transition:background .15s;
+}
+.photo-toggle:hover{background:rgba(114,172,67,.1)}
+.photo-section-label{display:flex;align-items:center}
+</style>
 </head>
 <body>
 
@@ -444,6 +968,13 @@
 
   <!-- Sous-section C : À propos -->
   <div class="av-section" id="avs2">
+    <div class="av-intro">
+      <p>Il y a une carte dans la chambre de mes grands-parents. Je l'ai toujours vue là, accrochée au mur, avec un tracé qui fait le tour de la France. Enfant, je ne savais pas vraiment ce que c'était. Un voyage. Une aventure. Quelque chose d'important, visiblement, puisqu'on l'avait encadrée.</p>
+      <p>C'est seulement quand j'ai commencé à faire du vélo moi-même que j'ai compris ce que représentait ce trait sur la carte. Que derrière chaque centimètre de ce tracé, il y avait des cols à grimper, des routes à tenir, de la pluie, de la chaleur, des crevaisons, des orages au Tourmalet et des matins à 5h sous les étoiles. Que mon grand-père André et son ami Bernard avaient fait quelque chose d'extraordinaire, pas pour les caméras, pas pour les réseaux sociaux, pas pour la gloire.</p>
+      <p>Juste parce qu'ils en avaient envie.</p>
+      <p>Je suis novice à vélo. Je n'ai pas encore roulé sur ces routes, encore moins franchi ces cols. Mais ce site, c'est ma façon de pédaler avec eux, à rebours, depuis 2025, en reconstituant chaque étape, chaque col, chaque nuit d'hôtel.</p>
+      <p>Claire, petite-fille d'André Puech</p>
+    </div>
     <div class="av-card">
       <h2>Les deux randonneurs</h2>
       <h3>André Puech - n°925</h3>
